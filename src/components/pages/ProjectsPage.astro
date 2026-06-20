@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
-import ProjectCard from '../ProjectCard.astro';
-import { type Lang, t } from '../../i18n/ui';
+import Figure from '../Figure.astro';
+import { type Lang, t, url } from '../../i18n/ui';
 import { projects } from '../../data/projects';
 
 interface Props {
@@ -18,21 +18,67 @@ const { lang, altUrl } = Astro.props;
     <p class="lead muted" data-reveal style="max-width:42ch;margin-top:1.5rem;">{t(lang, 'projects.intro')}</p>
   </section>
 
-  <section class="container section--tight">
-    <div class="projects-grid">
-      {projects.map((p, i) => (
-        <ProjectCard project={p} lang={lang} index={i} ratio="4 / 3" />
-      ))}
-    </div>
+  <section class="plist">
+    {projects.map((p, i) => (
+        <a class="prow" href={url(lang, 'projects', p.slug)} data-reveal>
+          <div class="prow__media" data-parallax>
+            <Figure src={p.images[0]} alt={p.title} hue={p.hue} ratio="fill" zoom={true} />
+          </div>
+          <div class="prow__scrim"></div>
+          <div class="prow__content container">
+            <span class="prow__index">{String(i + 1).padStart(2, '0')}</span>
+            <h2 class="prow__title">{p.title}</h2>
+            <p class="prow__meta">
+              <span>{p.location[lang]}</span>
+              <span class="prow__dot">·</span>
+              <span>{p.category[lang]}</span>
+              <span class="prow__dot">·</span>
+              <span>{p.year}</span>
+            </p>
+          </div>
+        </a>
+    ))}
   </section>
 </Base>
 
 <style>
-  .page-head { padding-top: clamp(7rem, 16vh, 12rem); padding-bottom: clamp(1.5rem, 4vw, 3rem); }
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: clamp(2rem, 5vw, 5rem) clamp(1.5rem, 3vw, 3rem);
+  .page-head { padding-top: clamp(7rem, 16vh, 12rem); padding-bottom: clamp(2.5rem, 6vw, 5rem); }
+  .plist { display: flex; flex-direction: column; }
+  .prow {
+    position: relative; display: flex; align-items: flex-end;
+    height: clamp(420px, 78vh, 820px); overflow: hidden; color: #fff;
   }
-  @media (max-width: 720px) { .projects-grid { grid-template-columns: 1fr; } }
+  .prow__media { position: absolute; inset: -10% 0; }
+  .prow__scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(15,11,8,0.72) 0%, rgba(15,11,8,0.08) 50%, rgba(15,11,8,0.2) 100%);
+  }
+  .prow__content { position: relative; width: 100%; padding-bottom: clamp(2.5rem, 6vh, 5rem); }
+  .prow__index { font-size: 0.8rem; letter-spacing: 0.18em; color: rgba(255,255,255,0.7); }
+  .prow__title {
+    color: #fff; font-weight: 340; margin: 0.6rem 0 0.6rem;
+    font-size: clamp(2rem, 1rem + 5vw, 6rem); line-height: 0.98; letter-spacing: -0.025em;
+    text-shadow: 0 4px 50px rgba(0,0,0,0.35);
+  }
+  .prow__meta { display: flex; flex-wrap: wrap; gap: 0.55rem; color: rgba(255,255,255,0.88); font-size: clamp(0.92rem, 0.9rem + 0.2vw, 1.1rem); }
+  .prow__dot { opacity: 0.5; }
 </style>
+
+<script>
+  const layers = Array.from(document.querySelectorAll('[data-parallax]')) as HTMLElement[];
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let ticking = false;
+  function update() {
+    const vh = window.innerHeight;
+    for (const el of layers) {
+      const parent = el.parentElement as HTMLElement;
+      const rect = parent.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > vh) continue;
+      const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+      el.style.transform = `translate3d(0, ${progress * 10}%, 0)`;
+    }
+    ticking = false;
+  }
+  function onScroll() { if (!ticking && !reduce) { ticking = true; requestAnimationFrame(update); } }
+  if (!reduce) { update(); window.addEventListener('scroll', onScroll, { passive: true }); window.addEventListener('resize', onScroll, { passive: true }); }
+</script>

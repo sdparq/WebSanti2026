@@ -1,9 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Figure from '../Figure.astro';
-import ProjectCard from '../ProjectCard.astro';
 import { type Lang, t, url } from '../../i18n/ui';
-import { intro, services } from '../../data/site';
+import { intro } from '../../data/site';
 import { featuredProjects } from '../../data/projects';
 
 interface Props {
@@ -12,145 +11,171 @@ interface Props {
 }
 const { lang, altUrl } = Astro.props;
 const hero = featuredProjects[0];
-const rest = featuredProjects.slice(1);
+const sequence = featuredProjects;
 ---
 
-<Base
-  lang={lang}
-  altUrl={altUrl}
-  dark={true}
-  title=""
-  description={intro.lead[lang]}
->
-  <!-- HERO ------------------------------------------------------------------ -->
+<Base lang={lang} altUrl={altUrl} dark={true} title="" description={intro.lead[lang]}>
+  <!-- HERO a pantalla completa --------------------------------------------- -->
   <section class="hero">
-    <div class="hero__media">
+    <div class="hero__media" data-parallax>
       <Figure
         src={hero?.images[0]}
         alt={hero?.title ?? ''}
-        label={hero?.images[0] ? undefined : hero?.title}
         hue={hero?.hue ?? 28}
-        ratio="16 / 9"
+        ratio="fill"
         loading="eager"
-        class="hero__fig"
       />
-      <div class="hero__scrim"></div>
     </div>
+    <div class="hero__scrim"></div>
     <div class="hero__content container">
       <p class="hero__eyebrow">Santiago de Pablo · Arquitectura</p>
       <h1 class="hero__title">{intro.hero[lang]}</h1>
     </div>
-    <a class="hero__featured" href={hero ? url(lang, 'projects', hero.slug) : '#'}>
-      <span class="muted-light">{t(lang, 'home.featured')}</span>
-      <strong>{hero?.title}</strong>
+    <div class="hero__scroll" aria-hidden="true"><span></span></div>
+  </section>
+
+  <!-- Manifiesto breve ------------------------------------------------------ -->
+  <section class="manifesto">
+    <div class="container">
+      <p class="manifesto__text" data-reveal>{intro.lead[lang]}</p>
+    </div>
+  </section>
+
+  <!-- SECUENCIA inmersiva de proyectos -------------------------------------- -->
+  {sequence.map((p, i) => (
+    <a class="feat" href={url(lang, 'projects', p.slug)}>
+      <div class="feat__media" data-parallax>
+        <Figure src={p.images[0]} alt={p.title} hue={p.hue} ratio="fill" />
+      </div>
+      <div class="feat__scrim"></div>
+      <div class="feat__content container">
+        <span class="feat__index">{String(i + 1).padStart(2, '0')} — {String(sequence.length).padStart(2, '0')}</span>
+        <h2 class="feat__title">{p.title}</h2>
+        <p class="feat__meta">
+          <span>{p.location[lang]}</span>
+          <span class="feat__dot">·</span>
+          <span>{p.category[lang]}</span>
+          <span class="feat__dot">·</span>
+          <span>{p.year}</span>
+        </p>
+        <span class="feat__cta">{t(lang, 'home.viewProject')} <span class="arrow">→</span></span>
+      </div>
     </a>
-  </section>
+  ))}
 
-  <!-- INTRO ----------------------------------------------------------------- -->
-  <section class="section container">
-    <p class="lead intro-lead" data-reveal>{intro.lead[lang]}</p>
-  </section>
-
-  <!-- PROYECTOS DESTACADOS -------------------------------------------------- -->
-  <section class="section--tight container">
-    <div class="row-head" data-reveal>
-      <h2 class="h-lg">{t(lang, 'home.featured')}</h2>
-      <a class="link-underline" href={url(lang, 'projects')}>
+  <!-- CTA a todos los proyectos --------------------------------------------- -->
+  <section class="all-cta">
+    <div class="container">
+      <a class="all-cta__link" href={url(lang, 'projects')} data-reveal>
         {t(lang, 'home.allProjects')} <span class="arrow">→</span>
       </a>
-    </div>
-
-    <div class="featured-grid">
-      {rest.map((p, i) => (
-        <ProjectCard project={p} lang={lang} index={i} ratio={i === 0 ? '3 / 4' : '4 / 5'} />
-      ))}
-    </div>
-  </section>
-
-  <!-- SERVICIOS ------------------------------------------------------------- -->
-  <section class="section">
-    <div class="container">
-      <h2 class="eyebrow" data-reveal>{services.title[lang]}</h2>
-      <div class="services">
-        {services.items.map((s, i) => (
-          <div class="service" data-reveal data-reveal-delay={(i % 3)}>
-            <span class="service__num">{String(i + 1).padStart(2, '0')}</span>
-            <h3 class="service__title h-md">{s.title[lang]}</h3>
-            <p class="muted">{s.text[lang]}</p>
-          </div>
-        ))}
-      </div>
     </div>
   </section>
 </Base>
 
 <style>
-  /* Hero a pantalla completa */
-  .hero { position: relative; height: 100svh; min-height: 560px; display: flex; }
-  .hero__media { position: absolute; inset: 0; }
-  .hero__fig { width: 100%; height: 100%; }
-  .hero :global(.hero__fig) { aspect-ratio: auto !important; height: 100%; }
+  /* HERO */
+  .hero { position: relative; height: 100svh; min-height: 580px; display: flex; overflow: hidden; }
+  .hero__media { position: absolute; inset: -12% 0; }
   .hero__scrim {
     position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(20,16,12,0.55) 0%, rgba(20,16,12,0.1) 35%, rgba(20,16,12,0.15) 100%);
+    background: linear-gradient(to top, rgba(15,11,8,0.7) 0%, rgba(15,11,8,0.15) 40%, rgba(15,11,8,0.35) 100%);
   }
-  .hero__content {
-    position: relative;
-    align-self: flex-end;
-    padding-bottom: clamp(5rem, 12vh, 9rem);
-    color: #fff;
-    width: 100%;
-  }
+  .hero__content { position: relative; align-self: flex-end; padding-bottom: clamp(5rem, 14vh, 10rem); color: #fff; width: 100%; }
   .hero__eyebrow {
-    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
-    color: rgba(255,255,255,0.85); margin-bottom: 1rem;
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase;
+    color: rgba(255,255,255,0.82); margin-bottom: 1.2rem;
   }
   .hero__title {
-    color: #fff;
-    font-weight: 350;
-    font-size: clamp(2.4rem, 1.2rem + 5.5vw, 6.5rem);
-    line-height: 1;
-    max-width: 16ch;
-    text-shadow: 0 2px 40px rgba(0,0,0,0.25);
+    color: #fff; font-weight: 340;
+    font-size: clamp(2.6rem, 1rem + 7vw, 8rem); line-height: 0.96;
+    letter-spacing: -0.025em; max-width: 18ch;
+    text-shadow: 0 4px 60px rgba(0,0,0,0.3);
   }
-  .hero__featured {
-    position: absolute;
-    right: var(--gutter); bottom: clamp(5rem, 12vh, 9rem);
-    display: none;
-    flex-direction: column;
-    text-align: right;
-    color: #fff;
+  .hero__scroll {
+    position: absolute; left: 50%; bottom: 2rem; transform: translateX(-50%);
+    width: 1px; height: 56px; background: rgba(255,255,255,0.3); overflow: hidden;
   }
-  .hero__featured .muted-light { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.8; }
-  .hero__featured strong { font-family: var(--font-serif); font-weight: 360; font-size: 1.3rem; }
-  @media (min-width: 1024px) { .hero__featured { display: flex; } }
-
-  .intro-lead { max-width: 30ch; font-size: clamp(1.6rem, 1.1rem + 2.2vw, 3rem); line-height: 1.25; font-family: var(--font-serif); font-weight: 360; letter-spacing: -0.015em; }
-
-  .row-head {
-    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
-    flex-wrap: wrap; margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  .hero__scroll span {
+    position: absolute; inset: 0; display: block; background: #fff;
+    animation: scrolldown 2.2s var(--ease) infinite;
+  }
+  @keyframes scrolldown {
+    0% { transform: translateY(-100%); }
+    50% { transform: translateY(0); }
+    100% { transform: translateY(100%); }
   }
 
-  .featured-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: clamp(1.5rem, 4vw, 4rem) clamp(1.5rem, 3vw, 3rem);
-  }
-  .featured-grid > :global(.card:first-child) { margin-top: clamp(2rem, 6vw, 6rem); }
-  @media (max-width: 720px) {
-    .featured-grid { grid-template-columns: 1fr; }
-    .featured-grid > :global(.card:first-child) { margin-top: 0; }
+  /* Manifiesto */
+  .manifesto { padding-block: clamp(5rem, 14vw, 12rem); }
+  .manifesto__text {
+    font-family: var(--font-serif); font-weight: 340;
+    font-size: clamp(1.8rem, 1rem + 3.4vw, 4.2rem); line-height: 1.18;
+    letter-spacing: -0.02em; max-width: 24ch;
   }
 
-  .services {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: clamp(1.5rem, 3vw, 2.5rem);
-    margin-top: clamp(1.5rem, 4vw, 3rem);
+  /* Proyecto destacado a pantalla completa */
+  .feat {
+    position: relative; display: flex; align-items: flex-end;
+    height: 100svh; min-height: 560px; overflow: hidden; color: #fff;
   }
-  .service { border-top: 1px solid var(--line); padding-top: 1.2rem; }
-  .service__num { font-size: 0.8rem; color: var(--clay-deep); letter-spacing: 0.1em; }
-  .service__title { margin: 0.6rem 0 0.6rem; }
-  @media (max-width: 900px) { .services { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 520px) { .services { grid-template-columns: 1fr; } }
+  .feat__media { position: absolute; inset: -12% 0; }
+  .feat__scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(15,11,8,0.78) 0%, rgba(15,11,8,0.1) 45%, rgba(15,11,8,0.25) 100%);
+    transition: background 0.6s var(--ease);
+  }
+  .feat:hover .feat__scrim { background: linear-gradient(to top, rgba(15,11,8,0.82) 0%, rgba(15,11,8,0.18) 55%, rgba(15,11,8,0.3) 100%); }
+  .feat:hover :global(.figure__img) { transform: scale(1.04); }
+  .feat__content { position: relative; padding-bottom: clamp(4rem, 11vh, 8rem); width: 100%; }
+  .feat__index { font-size: 0.8rem; letter-spacing: 0.18em; color: rgba(255,255,255,0.75); }
+  .feat__title {
+    color: #fff; font-weight: 340; margin: 0.8rem 0 0.8rem;
+    font-size: clamp(2.4rem, 1rem + 6.5vw, 7.5rem); line-height: 0.96; letter-spacing: -0.025em;
+    text-shadow: 0 4px 50px rgba(0,0,0,0.35);
+  }
+  .feat__meta { display: flex; flex-wrap: wrap; gap: 0.6rem; color: rgba(255,255,255,0.88); font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.15rem); }
+  .feat__dot { opacity: 0.5; }
+  .feat__cta {
+    display: inline-flex; align-items: center; gap: 0.5em; margin-top: 1.6rem;
+    font-size: 0.98rem; letter-spacing: 0.02em;
+    border-bottom: 1px solid rgba(255,255,255,0.5); padding-bottom: 0.25rem;
+  }
+
+  /* CTA final */
+  .all-cta { padding-block: clamp(5rem, 12vw, 10rem); text-align: center; }
+  .all-cta__link {
+    font-family: var(--font-serif); font-weight: 340;
+    font-size: clamp(2rem, 1.2rem + 4vw, 5rem); line-height: 1;
+    display: inline-flex; align-items: baseline; gap: 0.3em;
+  }
+  .all-cta__link .arrow { font-size: 0.6em; }
 </style>
+
+<script>
+  // Parállax sencillo: la imagen de fondo se mueve más lento que el scroll.
+  const layers = Array.from(document.querySelectorAll('[data-parallax]')) as HTMLElement[];
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let ticking = false;
+
+  function update() {
+    const vh = window.innerHeight;
+    for (const el of layers) {
+      const parent = el.parentElement as HTMLElement;
+      const rect = parent.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > vh) continue;
+      // -1..1 según la posición del bloque en la pantalla
+      const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+      el.style.transform = `translate3d(0, ${progress * 12}%, 0)`;
+    }
+    ticking = false;
+  }
+  function onScroll() {
+    if (!ticking && !reduce) { ticking = true; requestAnimationFrame(update); }
+  }
+  if (!reduce) {
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+  }
+</script>

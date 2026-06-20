@@ -1,16 +1,16 @@
 ---
-// Muestra una imagen real si existe; si no, un placeholder cálido generado
-// por código (degradado en tonos tierra + nombre del proyecto). Así la web
-// se ve completa aunque todavía no haya fotos.
+// Muestra una imagen real si existe; si no, genera una ESCENA atmosférica por
+// código (paisaje al atardecer con un volumen arquitectónico, grano y viñeta).
+// Así la web tiene fuerza "tipo precht" aunque todavía no haya fotografías.
 interface Props {
   src?: string;
   alt: string;
-  label?: string;     // texto que se muestra sobre el placeholder
-  hue?: number;       // 0–360, varía el tono del placeholder
-  ratio?: string;     // p.ej. "4 / 3", "16 / 9", "3 / 4"
+  label?: string;     // texto sobre el placeholder
+  hue?: number;       // 0–360, varía la paleta de la escena
+  ratio?: string;     // p.ej. "16 / 9", "3 / 4"; "fill" para ocupar el contenedor
   loading?: 'lazy' | 'eager';
   class?: string;
-  zoom?: boolean;     // efecto de acercamiento al hacer hover
+  zoom?: boolean;     // acercamiento al hacer hover
 }
 const {
   src,
@@ -23,28 +23,77 @@ const {
   zoom = false,
 } = Astro.props;
 
-// Dos tonos tierra derivados del hue para el degradado del placeholder
-const c1 = `hsl(${hue} 22% 62%)`;
-const c2 = `hsl(${(hue + 14) % 360} 26% 44%)`;
+const uid = Math.random().toString(36).slice(2, 8);
+const fill = ratio === 'fill';
+
+// Paleta atmosférica derivada del tono
+const skyTop = `hsl(${hue} 28% 9%)`;
+const skyMid = `hsl(${(hue + 8) % 360} 34% 18%)`;
+const glow = `hsl(${(hue + 22) % 360} 70% 58%)`;
+const hill1 = `hsl(${hue} 26% 22%)`;
+const hill2 = `hsl(${hue} 28% 15%)`;
+const hill3 = `hsl(${hue} 30% 10%)`;
+const building = `hsl(${hue} 18% 6%)`;
+const win = `hsl(${(hue + 25) % 360} 80% 65%)`;
 ---
 
-<figure class:list={['figure', { 'figure--zoom': zoom }, className]} style={`--ratio:${ratio}`}>
+<figure
+  class:list={['figure', { 'figure--zoom': zoom, 'figure--fill': fill }, className]}
+  style={fill ? undefined : `--ratio:${ratio}`}
+>
   {src ? (
     <img class="figure__img" src={src} alt={alt} loading={loading} decoding="async" />
   ) : (
-    <div
-      class="figure__ph"
-      role="img"
-      aria-label={alt}
-      style={`background:linear-gradient(135deg, ${c1}, ${c2});`}
-    >
-      <svg class="figure__grain" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <div class="figure__ph" role="img" aria-label={alt}>
+      <svg class="figure__scene" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
         <defs>
-          <pattern id={`ln-${hue}`} width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
-            <line x1="0" y1="0" x2="0" y2="14" stroke="#fff" stroke-opacity="0.05" stroke-width="1" />
-          </pattern>
+          <linearGradient id={`sky-${uid}`} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color={skyTop} />
+            <stop offset="62%" stop-color={skyMid} />
+            <stop offset="100%" stop-color={glow} stop-opacity="0.55" />
+          </linearGradient>
+          <radialGradient id={`sun-${uid}`} cx="68%" cy="74%" r="42%">
+            <stop offset="0%" stop-color={glow} stop-opacity="0.9" />
+            <stop offset="55%" stop-color={glow} stop-opacity="0.18" />
+            <stop offset="100%" stop-color={glow} stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id={`vig-${uid}`} cx="50%" cy="46%" r="75%">
+            <stop offset="55%" stop-color="#000" stop-opacity="0" />
+            <stop offset="100%" stop-color="#000" stop-opacity="0.55" />
+          </radialGradient>
+          <filter id={`grain-${uid}`}>
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+            <feColorMatrix type="saturate" values="0" />
+            <feComponentTransfer><feFuncA type="linear" slope="0.06" /></feComponentTransfer>
+            <feComposite operator="over" in2="SourceGraphic" />
+          </filter>
         </defs>
-        <rect width="100" height="100" fill={`url(#ln-${hue})`} />
+
+        <!-- cielo + sol -->
+        <rect width="1200" height="800" fill={`url(#sky-${uid})`} />
+        <rect width="1200" height="800" fill={`url(#sun-${uid})`} />
+
+        <!-- colinas en capas -->
+        <path d="M0 560 C220 500 360 540 560 520 C780 498 980 548 1200 512 L1200 800 L0 800 Z" fill={hill1} />
+        <path d="M0 620 C260 588 430 612 640 596 C880 578 1040 616 1200 590 L1200 800 L0 800 Z" fill={hill2} />
+        <path d="M0 690 C300 668 520 690 760 678 C960 668 1080 692 1200 680 L1200 800 L0 800 Z" fill={hill3} />
+
+        <!-- árboles finos -->
+        {[180, 215, 250, 980, 1010, 1042].map((x, i) => (
+          <line x1={x} y1={612 - (i % 3) * 8} x2={x} y2={648} stroke={hill3} stroke-width="3" stroke-opacity="0.8" />
+        ))}
+
+        <!-- volumen arquitectónico -->
+        <g>
+          <rect x="520" y="470" width="170" height="92" fill={building} />
+          <rect x="520" y="452" width="170" height="20" fill={hill3} />
+          <rect x="540" y="500" width="26" height="40" fill={win} fill-opacity="0.85" />
+          <rect x="584" y="500" width="26" height="40" fill={win} fill-opacity="0.6" />
+        </g>
+
+        <!-- grano + viñeta -->
+        <rect width="1200" height="800" filter={`url(#grain-${uid})`} opacity="0.5" />
+        <rect width="1200" height="800" fill={`url(#vig-${uid})`} />
       </svg>
       {label && <span class="figure__label">{label}</span>}
     </div>
@@ -56,43 +105,25 @@ const c2 = `hsl(${(hue + 14) % 360} 26% 44%)`;
     position: relative;
     overflow: hidden;
     aspect-ratio: var(--ratio);
-    background: var(--sand);
+    background: #14110d;
   }
+  .figure--fill { position: absolute; inset: 0; aspect-ratio: auto; height: 100%; width: 100%; }
   .figure__img,
-  .figure__ph {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-  .figure__img {
-    object-fit: cover;
-    transition: transform 1.2s var(--ease);
-  }
-  .figure__ph {
-    display: grid;
-    place-items: center;
-    padding: 1.5rem;
-  }
-  .figure__grain {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
+  .figure__ph { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .figure__img { object-fit: cover; transition: transform 1.2s var(--ease); }
+  .figure__ph { display: grid; place-items: center; }
+  .figure__scene { position: absolute; inset: 0; width: 100%; height: 100%; }
   .figure__label {
     position: relative;
     font-family: var(--font-serif);
     font-weight: 360;
-    font-size: clamp(1.1rem, 0.8rem + 1.4vw, 2rem);
+    font-size: clamp(1.1rem, 0.8rem + 1.4vw, 2.2rem);
     letter-spacing: -0.01em;
-    color: rgba(255, 255, 255, 0.92);
+    color: rgba(255, 255, 255, 0.94);
     text-align: center;
-    line-height: 1.1;
-    text-shadow: 0 1px 20px rgba(0, 0, 0, 0.18);
-    mix-blend-mode: luminosity;
+    line-height: 1.08;
+    padding: 1.5rem;
+    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
   }
-  .figure--zoom:hover .figure__img {
-    transform: scale(1.05);
-  }
+  .figure--zoom:hover .figure__img { transform: scale(1.05); }
 </style>

@@ -26,7 +26,7 @@ const info: { label: string; value?: string }[] = [
 const gallery = p.images.length > 0 ? p.images : [undefined, undefined, undefined, undefined];
 ---
 
-<Base lang={lang} altUrl={altUrl} title={p.title} description={p.summary[lang]}>
+<Base lang={lang} altUrl={altUrl} dark={true} title={p.title} description={p.summary[lang]}>
   <article class="project">
     <!-- Portada -->
     <header class="project__hero">

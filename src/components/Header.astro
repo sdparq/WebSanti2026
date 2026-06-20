@@ -63,6 +63,13 @@ const nav = [
     backdrop-filter: blur(10px);
     box-shadow: 0 1px 0 var(--line);
   }
+
+  /* En páginas con hero oscuro, la cabecera va en blanco hasta hacer scroll */
+  :global(html.is-dark-hero) .site-header:not(.is-scrolled) { color: #fff; }
+  :global(html.is-dark-hero) .site-header:not(.is-scrolled) .brand__suffix { color: rgba(255,255,255,0.75); }
+  :global(html.is-dark-hero) .site-header:not(.is-scrolled) .nav__lang { border-color: rgba(255,255,255,0.45); }
+  :global(html.is-dark-hero) .site-header:not(.is-scrolled) .nav__lang:hover { background: #fff; color: var(--ink); border-color: #fff; }
+  :global(html.is-dark-hero) .site-header:not(.is-scrolled) .nav-toggle__bars i { background: #fff; }
   .site-header__inner {
     display: flex;
     align-items: center;
