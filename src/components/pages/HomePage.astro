@@ -99,6 +99,7 @@ const dragHint = lang === 'es' ? 'Desliza' : 'Drag';
   .slider::-webkit-scrollbar { display: none; }
   .slider.is-dragging { cursor: grabbing; scroll-snap-type: none; }
   .slider.is-dragging .slide__content { pointer-events: none; }
+  .slider.is-wheeling { scroll-snap-type: none; }
 
   .slide {
     position: relative;
@@ -231,6 +232,29 @@ const dragHint = lang === 'es' ? 'Desliza' : 'Drag';
       if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
     });
+
+    // Rueda / scroll vertical → mueve el slider en horizontal.
+    // Al llegar al principio/final se "libera" y la página vuelve a su scroll normal.
+    const showcase = document.querySelector<HTMLElement>('.showcase');
+    let wheelTimer = 0;
+    showcase?.addEventListener('wheel', (e) => {
+      const dom = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      if (dom === 0) return;
+      const atStart = slider.scrollLeft <= 1;
+      const atEnd = slider.scrollLeft >= slider.scrollWidth - slider.clientWidth - 1;
+      const forward = dom > 0;
+      // Solo capturamos si aún podemos avanzar en esa dirección
+      if ((forward && !atEnd) || (!forward && !atStart)) {
+        e.preventDefault();
+        slider.classList.add('is-wheeling');
+        slider.scrollLeft += dom;
+        clearTimeout(wheelTimer);
+        wheelTimer = window.setTimeout(() => {
+          slider.classList.remove('is-wheeling');
+          slider.scrollTo({ left: indexFromScroll() * slider.clientWidth, behavior: 'smooth' });
+        }, 150);
+      }
+    }, { passive: false });
 
     // Arrastrar con ratón / dedo
     let down = false, startX = 0, startLeft = 0, moved = 0;
