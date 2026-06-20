@@ -3,65 +3,73 @@ import Base from '../../layouts/Base.astro';
 import Figure from '../Figure.astro';
 import { type Lang, t, url } from '../../i18n/ui';
 import { intro } from '../../data/site';
-import { featuredProjects } from '../../data/projects';
+import { projects } from '../../data/projects';
 
 interface Props {
   lang: Lang;
   altUrl: string;
 }
 const { lang, altUrl } = Astro.props;
-const hero = featuredProjects[0];
-const sequence = featuredProjects;
+const total = projects.length;
+const dragHint = lang === 'es' ? 'Desliza' : 'Drag';
 ---
 
 <Base lang={lang} altUrl={altUrl} dark={true} title="" description={intro.lead[lang]}>
-  <!-- HERO a pantalla completa --------------------------------------------- -->
-  <section class="hero">
-    <div class="hero__media" data-parallax>
-      <Figure
-        src={hero?.images[0]}
-        alt={hero?.title ?? ''}
-        hue={hero?.hue ?? 28}
-        ratio="fill"
-        loading="eager"
-      />
+  <!-- SHOWCASE: slider horizontal a pantalla completa ---------------------- -->
+  <section class="showcase" aria-roledescription="carrusel" aria-label={t(lang, 'home.featured')}>
+    <div class="slider" data-slider tabindex="0">
+      {projects.map((p, i) => (
+        <article class="slide" aria-roledescription="diapositiva" aria-label={`${i + 1} / ${total}`}>
+          <div class="slide__media" data-slide-media>
+            <Figure src={p.images[0]} alt={p.title} hue={p.hue} ratio="fill" loading={i === 0 ? 'eager' : 'lazy'} />
+          </div>
+          <div class="slide__scrim"></div>
+          <a class="slide__content container" href={url(lang, 'projects', p.slug)} data-slide-link>
+            <span class="slide__index">{String(i + 1).padStart(2, '0')} — {String(total).padStart(2, '0')}</span>
+            <h2 class="slide__title">{p.title}</h2>
+            <p class="slide__meta">
+              <span>{p.location[lang]}</span>
+              <span class="slide__dot">·</span>
+              <span>{p.category[lang]}</span>
+              <span class="slide__dot">·</span>
+              <span>{p.year}</span>
+            </p>
+            <span class="slide__cta">{t(lang, 'home.viewProject')} <span class="arrow">→</span></span>
+          </a>
+        </article>
+      ))}
     </div>
-    <div class="hero__scrim"></div>
-    <div class="hero__content container">
-      <p class="hero__eyebrow">Santiago de Pablo · Arquitectura</p>
-      <h1 class="hero__title">{intro.hero[lang]}</h1>
+
+    <!-- Identidad superpuesta -->
+    <div class="showcase__brand container">
+      <p class="showcase__tagline">{intro.hero[lang]}</p>
     </div>
-    <div class="hero__scroll" aria-hidden="true"><span></span></div>
+
+    <!-- Controles -->
+    <div class="showcase__ui container">
+      <div class="counter">
+        <span data-current>01</span><span class="counter__sep">/</span><span>{String(total).padStart(2, '0')}</span>
+      </div>
+      <div class="arrows">
+        <button class="arrow-btn" data-prev aria-label="Anterior">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+        <button class="arrow-btn" data-next aria-label="Siguiente">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="showcase__progress"><span data-progress></span></div>
+    <p class="showcase__hint" aria-hidden="true">{dragHint} <span>→</span></p>
   </section>
 
-  <!-- Manifiesto breve ------------------------------------------------------ -->
+  <!-- Manifiesto ------------------------------------------------------------ -->
   <section class="manifesto">
     <div class="container">
       <p class="manifesto__text" data-reveal>{intro.lead[lang]}</p>
     </div>
   </section>
-
-  <!-- SECUENCIA inmersiva de proyectos -------------------------------------- -->
-  {sequence.map((p, i) => (
-    <a class="feat" href={url(lang, 'projects', p.slug)}>
-      <div class="feat__media" data-parallax>
-        <Figure src={p.images[0]} alt={p.title} hue={p.hue} ratio="fill" />
-      </div>
-      <div class="feat__scrim"></div>
-      <div class="feat__content container">
-        <span class="feat__index">{String(i + 1).padStart(2, '0')} — {String(sequence.length).padStart(2, '0')}</span>
-        <h2 class="feat__title">{p.title}</h2>
-        <p class="feat__meta">
-          <span>{p.location[lang]}</span>
-          <span class="feat__dot">·</span>
-          <span>{p.category[lang]}</span>
-          <span class="feat__dot">·</span>
-          <span>{p.year}</span>
-        </p>
-        <span class="feat__cta">{t(lang, 'home.viewProject')} <span class="arrow">→</span></span>
-      </div>
-    </a>
-  ))}
 
   <!-- CTA a todos los proyectos --------------------------------------------- -->
   <section class="all-cta">
@@ -74,76 +82,108 @@ const sequence = featuredProjects;
 </Base>
 
 <style>
-  /* HERO */
-  .hero { position: relative; height: 100svh; min-height: 580px; display: flex; overflow: hidden; }
-  .hero__media { position: absolute; inset: -12% 0; }
-  .hero__scrim {
+  .showcase { position: relative; height: 100svh; min-height: 580px; overflow: hidden; background: #14110d; }
+
+  /* Pista del slider */
+  .slider {
+    display: flex;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+    outline: none;
+  }
+  .slider::-webkit-scrollbar { display: none; }
+  .slider.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+  .slider.is-dragging .slide__content { pointer-events: none; }
+
+  .slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: start;
+    overflow: hidden;
+    color: #fff;
+  }
+  .slide__media { position: absolute; inset: 0; }
+  .slide__media :global(.figure) { height: 100%; }
+  .slide__scrim {
     position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(15,11,8,0.7) 0%, rgba(15,11,8,0.15) 40%, rgba(15,11,8,0.35) 100%);
+    background: linear-gradient(to top, rgba(15,11,8,0.75) 0%, rgba(15,11,8,0.12) 45%, rgba(15,11,8,0.35) 100%);
   }
-  .hero__content { position: relative; align-self: flex-end; padding-bottom: clamp(5rem, 14vh, 10rem); color: #fff; width: 100%; }
-  .hero__eyebrow {
-    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase;
-    color: rgba(255,255,255,0.82); margin-bottom: 1.2rem;
+  .slide__content {
+    position: absolute; inset: auto 0 0 0;
+    display: flex; flex-direction: column;
+    padding-bottom: clamp(7rem, 18vh, 11rem);
+    color: #fff;
   }
-  .hero__title {
-    color: #fff; font-weight: 340;
-    font-size: clamp(2.6rem, 1rem + 7vw, 8rem); line-height: 0.96;
-    letter-spacing: -0.025em; max-width: 18ch;
-    text-shadow: 0 4px 60px rgba(0,0,0,0.3);
+  .slide__index { font-size: 0.8rem; letter-spacing: 0.18em; color: rgba(255,255,255,0.78); }
+  .slide__title {
+    color: #fff; font-weight: 340; margin: 0.7rem 0 0.7rem;
+    font-size: clamp(2.6rem, 1rem + 7vw, 8rem); line-height: 0.95; letter-spacing: -0.025em;
+    text-shadow: 0 4px 60px rgba(0,0,0,0.4);
   }
-  .hero__scroll {
-    position: absolute; left: 50%; bottom: 2rem; transform: translateX(-50%);
-    width: 1px; height: 56px; background: rgba(255,255,255,0.3); overflow: hidden;
-  }
-  .hero__scroll span {
-    position: absolute; inset: 0; display: block; background: #fff;
-    animation: scrolldown 2.2s var(--ease) infinite;
-  }
-  @keyframes scrolldown {
-    0% { transform: translateY(-100%); }
-    50% { transform: translateY(0); }
-    100% { transform: translateY(100%); }
+  .slide__meta { display: flex; flex-wrap: wrap; gap: 0.55rem; color: rgba(255,255,255,0.9); font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.15rem); }
+  .slide__dot { opacity: 0.5; }
+  .slide__cta {
+    display: inline-flex; align-items: center; gap: 0.5em; margin-top: 1.4rem;
+    font-size: 0.98rem; letter-spacing: 0.02em;
+    border-bottom: 1px solid rgba(255,255,255,0.5); padding-bottom: 0.25rem; align-self: flex-start;
   }
 
-  /* Manifiesto */
+  /* Identidad */
+  .showcase__brand { position: absolute; top: clamp(6rem, 16vh, 9rem); left: 0; right: 0; pointer-events: none; }
+  .showcase__tagline {
+    color: #fff; font-family: var(--font-serif); font-weight: 340;
+    font-size: clamp(1.3rem, 0.9rem + 1.6vw, 2.4rem); line-height: 1.05;
+    max-width: 16ch; letter-spacing: -0.02em; text-shadow: 0 2px 40px rgba(0,0,0,0.4);
+  }
+
+  /* Controles */
+  .showcase__ui {
+    position: absolute; left: 0; right: 0; bottom: clamp(2rem, 5vh, 3.2rem);
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    color: #fff;
+  }
+  .counter { font-size: 0.9rem; letter-spacing: 0.1em; font-variant-numeric: tabular-nums; }
+  .counter__sep { margin: 0 0.5em; opacity: 0.5; }
+  .arrows { display: flex; gap: 0.6rem; }
+  .arrow-btn {
+    width: 52px; height: 52px; border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.4); color: #fff;
+    display: grid; place-items: center;
+    transition: background 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease), opacity 0.3s;
+  }
+  .arrow-btn:hover { background: #fff; color: var(--ink); border-color: #fff; }
+  .arrow-btn[disabled] { opacity: 0.3; pointer-events: none; }
+
+  /* Barra de progreso */
+  .showcase__progress { position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: rgba(255,255,255,0.18); }
+  .showcase__progress span { display: block; height: 100%; width: 0; background: #fff; transition: width 0.5s var(--ease); }
+
+  /* Pista de "desliza" */
+  .showcase__hint {
+    position: absolute; right: var(--gutter); top: 50%; transform: translateY(-50%);
+    color: rgba(255,255,255,0.7); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 0.5em; pointer-events: none;
+    animation: hintpulse 2.4s var(--ease) infinite;
+  }
+  .showcase__hint span { display: inline-block; }
+  @keyframes hintpulse { 0%,100% { opacity: 0.5; transform: translate(0,-50%); } 50% { opacity: 1; transform: translate(6px,-50%); } }
+  @media (max-width: 720px) { .showcase__hint { display: none; } }
+
+  /* Manifiesto + CTA */
   .manifesto { padding-block: clamp(5rem, 14vw, 12rem); }
   .manifesto__text {
     font-family: var(--font-serif); font-weight: 340;
     font-size: clamp(1.8rem, 1rem + 3.4vw, 4.2rem); line-height: 1.18;
     letter-spacing: -0.02em; max-width: 24ch;
   }
-
-  /* Proyecto destacado a pantalla completa */
-  .feat {
-    position: relative; display: flex; align-items: flex-end;
-    height: 100svh; min-height: 560px; overflow: hidden; color: #fff;
-  }
-  .feat__media { position: absolute; inset: -12% 0; }
-  .feat__scrim {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(15,11,8,0.78) 0%, rgba(15,11,8,0.1) 45%, rgba(15,11,8,0.25) 100%);
-    transition: background 0.6s var(--ease);
-  }
-  .feat:hover .feat__scrim { background: linear-gradient(to top, rgba(15,11,8,0.82) 0%, rgba(15,11,8,0.18) 55%, rgba(15,11,8,0.3) 100%); }
-  .feat:hover :global(.figure__img) { transform: scale(1.04); }
-  .feat__content { position: relative; padding-bottom: clamp(4rem, 11vh, 8rem); width: 100%; }
-  .feat__index { font-size: 0.8rem; letter-spacing: 0.18em; color: rgba(255,255,255,0.75); }
-  .feat__title {
-    color: #fff; font-weight: 340; margin: 0.8rem 0 0.8rem;
-    font-size: clamp(2.4rem, 1rem + 6.5vw, 7.5rem); line-height: 0.96; letter-spacing: -0.025em;
-    text-shadow: 0 4px 50px rgba(0,0,0,0.35);
-  }
-  .feat__meta { display: flex; flex-wrap: wrap; gap: 0.6rem; color: rgba(255,255,255,0.88); font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.15rem); }
-  .feat__dot { opacity: 0.5; }
-  .feat__cta {
-    display: inline-flex; align-items: center; gap: 0.5em; margin-top: 1.6rem;
-    font-size: 0.98rem; letter-spacing: 0.02em;
-    border-bottom: 1px solid rgba(255,255,255,0.5); padding-bottom: 0.25rem;
-  }
-
-  /* CTA final */
-  .all-cta { padding-block: clamp(5rem, 12vw, 10rem); text-align: center; }
+  .all-cta { padding-block: clamp(4rem, 10vw, 9rem); text-align: center; }
   .all-cta__link {
     font-family: var(--font-serif); font-weight: 340;
     font-size: clamp(2rem, 1.2rem + 4vw, 5rem); line-height: 1;
@@ -153,29 +193,77 @@ const sequence = featuredProjects;
 </style>
 
 <script>
-  // Parállax sencillo: la imagen de fondo se mueve más lento que el scroll.
-  const layers = Array.from(document.querySelectorAll('[data-parallax]')) as HTMLElement[];
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let ticking = false;
+  const slider = document.querySelector<HTMLElement>('[data-slider]');
+  if (slider) {
+    const slides = Array.from(slider.querySelectorAll<HTMLElement>('.slide'));
+    const total = slides.length;
+    const current = document.querySelector<HTMLElement>('[data-current]');
+    const progress = document.querySelector<HTMLElement>('[data-progress]');
+    const prevBtn = document.querySelector<HTMLButtonElement>('[data-prev]');
+    const nextBtn = document.querySelector<HTMLButtonElement>('[data-next]');
+    const pad = (n: number) => String(n).padStart(2, '0');
 
-  function update() {
-    const vh = window.innerHeight;
-    for (const el of layers) {
-      const parent = el.parentElement as HTMLElement;
-      const rect = parent.getBoundingClientRect();
-      if (rect.bottom < 0 || rect.top > vh) continue;
-      // -1..1 según la posición del bloque en la pantalla
-      const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
-      el.style.transform = `translate3d(0, ${progress * 12}%, 0)`;
+    const indexFromScroll = () => Math.round(slider.scrollLeft / slider.clientWidth);
+
+    function refresh() {
+      const i = Math.min(total - 1, Math.max(0, indexFromScroll()));
+      if (current) current.textContent = pad(i + 1);
+      if (progress) progress.style.width = `${((i + 1) / total) * 100}%`;
+      if (prevBtn) prevBtn.disabled = i <= 0;
+      if (nextBtn) nextBtn.disabled = i >= total - 1;
     }
-    ticking = false;
-  }
-  function onScroll() {
-    if (!ticking && !reduce) { ticking = true; requestAnimationFrame(update); }
-  }
-  if (!reduce) {
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
+
+    const go = (dir: number) => slider.scrollBy({ left: dir * slider.clientWidth, behavior: 'smooth' });
+    prevBtn?.addEventListener('click', () => go(-1));
+    nextBtn?.addEventListener('click', () => go(1));
+
+    let raf = 0;
+    slider.addEventListener('scroll', () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => { refresh(); raf = 0; });
+    }, { passive: true });
+
+    // Teclado cuando el showcase está a la vista
+    window.addEventListener('keydown', (e) => {
+      const rect = slider.getBoundingClientRect();
+      const visible = rect.bottom > 80 && rect.top < window.innerHeight * 0.5;
+      if (!visible) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+    });
+
+    // Arrastrar con ratón / dedo
+    let down = false, startX = 0, startLeft = 0, moved = 0;
+    slider.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      down = true; moved = 0;
+      startX = e.clientX; startLeft = slider.scrollLeft;
+      slider.classList.add('is-dragging');
+      slider.setPointerCapture(e.pointerId);
+    });
+    slider.addEventListener('pointermove', (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(dx));
+      slider.scrollLeft = startLeft - dx;
+    });
+    const release = (e: PointerEvent) => {
+      if (!down) return;
+      down = false;
+      slider.classList.remove('is-dragging');
+      try { slider.releasePointerCapture(e.pointerId); } catch {}
+      // snap al más cercano
+      slider.scrollTo({ left: indexFromScroll() * slider.clientWidth, behavior: 'smooth' });
+    };
+    slider.addEventListener('pointerup', release);
+    slider.addEventListener('pointercancel', release);
+
+    // Evitar que un arrastre dispare la navegación del enlace
+    slider.querySelectorAll<HTMLElement>('[data-slide-link]').forEach((link) => {
+      link.addEventListener('click', (e) => { if (moved > 8) e.preventDefault(); });
+    });
+
+    refresh();
+    window.addEventListener('resize', refresh);
   }
 </script>
