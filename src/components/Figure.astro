@@ -1,0 +1,98 @@
+---
+// Muestra una imagen real si existe; si no, un placeholder cálido generado
+// por código (degradado en tonos tierra + nombre del proyecto). Así la web
+// se ve completa aunque todavía no haya fotos.
+interface Props {
+  src?: string;
+  alt: string;
+  label?: string;     // texto que se muestra sobre el placeholder
+  hue?: number;       // 0–360, varía el tono del placeholder
+  ratio?: string;     // p.ej. "4 / 3", "16 / 9", "3 / 4"
+  loading?: 'lazy' | 'eager';
+  class?: string;
+  zoom?: boolean;     // efecto de acercamiento al hacer hover
+}
+const {
+  src,
+  alt,
+  label,
+  hue = 30,
+  ratio = '4 / 3',
+  loading = 'lazy',
+  class: className = '',
+  zoom = false,
+} = Astro.props;
+
+// Dos tonos tierra derivados del hue para el degradado del placeholder
+const c1 = `hsl(${hue} 22% 62%)`;
+const c2 = `hsl(${(hue + 14) % 360} 26% 44%)`;
+---
+
+<figure class:list={['figure', { 'figure--zoom': zoom }, className]} style={`--ratio:${ratio}`}>
+  {src ? (
+    <img class="figure__img" src={src} alt={alt} loading={loading} decoding="async" />
+  ) : (
+    <div
+      class="figure__ph"
+      role="img"
+      aria-label={alt}
+      style={`background:linear-gradient(135deg, ${c1}, ${c2});`}
+    >
+      <svg class="figure__grain" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <defs>
+          <pattern id={`ln-${hue}`} width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+            <line x1="0" y1="0" x2="0" y2="14" stroke="#fff" stroke-opacity="0.05" stroke-width="1" />
+          </pattern>
+        </defs>
+        <rect width="100" height="100" fill={`url(#ln-${hue})`} />
+      </svg>
+      {label && <span class="figure__label">{label}</span>}
+    </div>
+  )}
+</figure>
+
+<style>
+  .figure {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: var(--ratio);
+    background: var(--sand);
+  }
+  .figure__img,
+  .figure__ph {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .figure__img {
+    object-fit: cover;
+    transition: transform 1.2s var(--ease);
+  }
+  .figure__ph {
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+  }
+  .figure__grain {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .figure__label {
+    position: relative;
+    font-family: var(--font-serif);
+    font-weight: 360;
+    font-size: clamp(1.1rem, 0.8rem + 1.4vw, 2rem);
+    letter-spacing: -0.01em;
+    color: rgba(255, 255, 255, 0.92);
+    text-align: center;
+    line-height: 1.1;
+    text-shadow: 0 1px 20px rgba(0, 0, 0, 0.18);
+    mix-blend-mode: luminosity;
+  }
+  .figure--zoom:hover .figure__img {
+    transform: scale(1.05);
+  }
+</style>

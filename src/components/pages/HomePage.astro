@@ -1,0 +1,156 @@
+---
+import Base from '../../layouts/Base.astro';
+import Figure from '../Figure.astro';
+import ProjectCard from '../ProjectCard.astro';
+import { type Lang, t, url } from '../../i18n/ui';
+import { intro, services } from '../../data/site';
+import { featuredProjects } from '../../data/projects';
+
+interface Props {
+  lang: Lang;
+  altUrl: string;
+}
+const { lang, altUrl } = Astro.props;
+const hero = featuredProjects[0];
+const rest = featuredProjects.slice(1);
+---
+
+<Base
+  lang={lang}
+  altUrl={altUrl}
+  dark={true}
+  title=""
+  description={intro.lead[lang]}
+>
+  <!-- HERO ------------------------------------------------------------------ -->
+  <section class="hero">
+    <div class="hero__media">
+      <Figure
+        src={hero?.images[0]}
+        alt={hero?.title ?? ''}
+        label={hero?.images[0] ? undefined : hero?.title}
+        hue={hero?.hue ?? 28}
+        ratio="16 / 9"
+        loading="eager"
+        class="hero__fig"
+      />
+      <div class="hero__scrim"></div>
+    </div>
+    <div class="hero__content container">
+      <p class="hero__eyebrow">Santiago de Pablo · Arquitectura</p>
+      <h1 class="hero__title">{intro.hero[lang]}</h1>
+    </div>
+    <a class="hero__featured" href={hero ? url(lang, 'projects', hero.slug) : '#'}>
+      <span class="muted-light">{t(lang, 'home.featured')}</span>
+      <strong>{hero?.title}</strong>
+    </a>
+  </section>
+
+  <!-- INTRO ----------------------------------------------------------------- -->
+  <section class="section container">
+    <p class="lead intro-lead" data-reveal>{intro.lead[lang]}</p>
+  </section>
+
+  <!-- PROYECTOS DESTACADOS -------------------------------------------------- -->
+  <section class="section--tight container">
+    <div class="row-head" data-reveal>
+      <h2 class="h-lg">{t(lang, 'home.featured')}</h2>
+      <a class="link-underline" href={url(lang, 'projects')}>
+        {t(lang, 'home.allProjects')} <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <div class="featured-grid">
+      {rest.map((p, i) => (
+        <ProjectCard project={p} lang={lang} index={i} ratio={i === 0 ? '3 / 4' : '4 / 5'} />
+      ))}
+    </div>
+  </section>
+
+  <!-- SERVICIOS ------------------------------------------------------------- -->
+  <section class="section">
+    <div class="container">
+      <h2 class="eyebrow" data-reveal>{services.title[lang]}</h2>
+      <div class="services">
+        {services.items.map((s, i) => (
+          <div class="service" data-reveal data-reveal-delay={(i % 3)}>
+            <span class="service__num">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="service__title h-md">{s.title[lang]}</h3>
+            <p class="muted">{s.text[lang]}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Hero a pantalla completa */
+  .hero { position: relative; height: 100svh; min-height: 560px; display: flex; }
+  .hero__media { position: absolute; inset: 0; }
+  .hero__fig { width: 100%; height: 100%; }
+  .hero :global(.hero__fig) { aspect-ratio: auto !important; height: 100%; }
+  .hero__scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(20,16,12,0.55) 0%, rgba(20,16,12,0.1) 35%, rgba(20,16,12,0.15) 100%);
+  }
+  .hero__content {
+    position: relative;
+    align-self: flex-end;
+    padding-bottom: clamp(5rem, 12vh, 9rem);
+    color: #fff;
+    width: 100%;
+  }
+  .hero__eyebrow {
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.85); margin-bottom: 1rem;
+  }
+  .hero__title {
+    color: #fff;
+    font-weight: 350;
+    font-size: clamp(2.4rem, 1.2rem + 5.5vw, 6.5rem);
+    line-height: 1;
+    max-width: 16ch;
+    text-shadow: 0 2px 40px rgba(0,0,0,0.25);
+  }
+  .hero__featured {
+    position: absolute;
+    right: var(--gutter); bottom: clamp(5rem, 12vh, 9rem);
+    display: none;
+    flex-direction: column;
+    text-align: right;
+    color: #fff;
+  }
+  .hero__featured .muted-light { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.8; }
+  .hero__featured strong { font-family: var(--font-serif); font-weight: 360; font-size: 1.3rem; }
+  @media (min-width: 1024px) { .hero__featured { display: flex; } }
+
+  .intro-lead { max-width: 30ch; font-size: clamp(1.6rem, 1.1rem + 2.2vw, 3rem); line-height: 1.25; font-family: var(--font-serif); font-weight: 360; letter-spacing: -0.015em; }
+
+  .row-head {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+    flex-wrap: wrap; margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1.5rem, 4vw, 4rem) clamp(1.5rem, 3vw, 3rem);
+  }
+  .featured-grid > :global(.card:first-child) { margin-top: clamp(2rem, 6vw, 6rem); }
+  @media (max-width: 720px) {
+    .featured-grid { grid-template-columns: 1fr; }
+    .featured-grid > :global(.card:first-child) { margin-top: 0; }
+  }
+
+  .services {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    margin-top: clamp(1.5rem, 4vw, 3rem);
+  }
+  .service { border-top: 1px solid var(--line); padding-top: 1.2rem; }
+  .service__num { font-size: 0.8rem; color: var(--clay-deep); letter-spacing: 0.1em; }
+  .service__title { margin: 0.6rem 0 0.6rem; }
+  @media (max-width: 900px) { .services { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .services { grid-template-columns: 1fr; } }
+</style>

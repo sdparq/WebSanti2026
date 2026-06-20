@@ -1,0 +1,75 @@
+---
+import { type Lang, t, url } from '../i18n/ui';
+import { site } from '../data/site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__cta" data-reveal>
+      <a class="site-footer__big" href={url(lang, 'contact')}>
+        {t(lang, 'cta.contact')}
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="site-footer__grid">
+      <div>
+        <p class="brand__name" style="font-family:var(--font-serif);font-size:1.2rem;">Santiago de Pablo Arquitectura</p>
+        <p class="muted" style="margin-top:.4rem;">{t(lang, 'footer.madeWith')} · {site.address[lang]}</p>
+      </div>
+
+      <div class="site-footer__col">
+        <a class="link-underline" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+
+      <div class="site-footer__col">
+        {site.social.map((s) => (
+          <a class="link-underline" href={s.href} target="_blank" rel="noopener">{s.label}</a>
+        ))}
+      </div>
+    </div>
+
+    <p class="site-footer__legal muted">
+      © {year} Santiago de Pablo Arquitectura. {t(lang, 'footer.rights')}
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--bone-soft);
+    padding-block: clamp(3rem, 6vw, 6rem) 2.5rem;
+    margin-top: clamp(3rem, 8vw, 8rem);
+  }
+  .site-footer__cta { padding-block: clamp(1.5rem, 5vw, 4rem); }
+  .site-footer__big {
+    font-family: var(--font-serif);
+    font-weight: 350;
+    font-size: clamp(2.6rem, 1.4rem + 6vw, 7rem);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.2em;
+  }
+  .site-footer__big .arrow { font-size: 0.6em; }
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 2rem;
+    padding-block: 2.5rem;
+  }
+  .site-footer__col { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+  .site-footer__legal { font-size: 0.85rem; }
+  @media (max-width: 720px) {
+    .site-footer__grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+</style>

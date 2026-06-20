@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+import { type Lang, t } from '../../i18n/ui';
+import { site } from '../../data/site';
+
+interface Props {
+  lang: Lang;
+  altUrl: string;
+}
+const { lang, altUrl } = Astro.props;
+---
+
+<Base lang={lang} altUrl={altUrl} title={t(lang, 'contact.title')} description={t(lang, 'contact.lead')}>
+  <section class="page-head container">
+    <p class="eyebrow" data-reveal>{t(lang, 'contact.title')}</p>
+    <h1 class="display" data-reveal>{t(lang, 'contact.lead')}</h1>
+  </section>
+
+  <section class="container contact-grid">
+    <div class="contact-block" data-reveal>
+      <h2 class="eyebrow">{t(lang, 'contact.email')}</h2>
+      <a class="contact-big link-underline" href={`mailto:${site.email}`}>{site.email}</a>
+    </div>
+
+    <div class="contact-block" data-reveal data-reveal-delay="1">
+      <h2 class="eyebrow">{t(lang, 'contact.follow')}</h2>
+      <ul class="contact-social">
+        {site.social.map((s) => (
+          <li><a class="link-underline" href={s.href} target="_blank" rel="noopener">{s.label} ↗</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head { padding-top: clamp(7rem, 16vh, 12rem); padding-bottom: clamp(2rem, 5vw, 4rem); }
+  .page-head .display { max-width: 18ch; }
+  .contact-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    padding-bottom: clamp(3rem, 8vw, 7rem);
+  }
+  .contact-block { border-top: 1px solid var(--line); padding-top: 1.2rem; }
+  .contact-big {
+    font-family: var(--font-serif); font-weight: 350;
+    font-size: clamp(1.4rem, 1rem + 2.2vw, 2.8rem);
+    display: inline-block; margin-top: 0.6rem; word-break: break-word;
+  }
+  .contact-social { list-style: none; display: grid; gap: 0.8rem; margin-top: 0.8rem; font-size: 1.2rem; }
+  @media (max-width: 720px) { .contact-grid { grid-template-columns: 1fr; } }
+</style>
