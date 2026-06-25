@@ -31,8 +31,10 @@ const dragHint = lang === 'es' ? 'Desliza' : 'Drag';
               <span>{p.location[lang]}</span>
               <span class="slide__dot">·</span>
               <span>{p.category[lang]}</span>
-              <span class="slide__dot">·</span>
-              <span>{p.year}</span>
+              {p.award && <span class="slide__dot">·</span>}
+              {p.award && <span class="slide__award">{p.award[lang]}</span>}
+              {p.year && <span class="slide__dot">·</span>}
+              {p.year && <span>{p.year}</span>}
             </p>
             <span class="slide__cta">{t(lang, 'home.viewProject')} <span class="arrow">→</span></span>
           </a>
@@ -130,6 +132,7 @@ const dragHint = lang === 'es' ? 'Desliza' : 'Drag';
   }
   .slide__meta { display: flex; flex-wrap: wrap; gap: 0.55rem; color: rgba(255,255,255,0.9); font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.15rem); }
   .slide__dot { opacity: 0.5; }
+  .slide__award { color: #e9c89a; letter-spacing: 0.02em; }
   .slide__cta {
     display: inline-flex; align-items: center; gap: 0.5em; margin-top: 1.4rem;
     font-size: 0.98rem; letter-spacing: 0.02em;
