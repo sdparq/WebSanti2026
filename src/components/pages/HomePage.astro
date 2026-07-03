@@ -170,11 +170,11 @@ const instagram = site.social.find((s) => s.label === 'Instagram');
   .strip {
     display: flex;
     align-items: center;
-    gap: clamp(4rem, 9vw, 10rem);
+    gap: clamp(2.5rem, 6vw, 7rem);
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    padding-inline: clamp(11rem, 22vw, 24rem) clamp(4rem, 10vw, 12rem);
+    padding-inline: clamp(10rem, 20vw, 22rem) clamp(3rem, 8vw, 9rem);
     scrollbar-width: none;
     cursor: grab;
     outline: none;
@@ -186,8 +186,8 @@ const instagram = site.social.find((s) => s.label === 'Instagram');
   .card {
     position: relative;
     flex: 0 0 auto;
-    height: min(62%, 520px);
-    aspect-ratio: 0.92;
+    height: min(78%, 660px);
+    aspect-ratio: 0.95;
     overflow: hidden;
     background: var(--sand);
   }
@@ -232,7 +232,7 @@ const instagram = site.social.find((s) => s.label === 'Instagram');
     .cover__navlink--center { display: none; }
     .stage__scroll { display: none; }
     .strip { padding-inline: var(--gutter); gap: 2rem; }
-    .card { height: 56%; }
+    .card { height: 68%; }
   }
 </style>
 

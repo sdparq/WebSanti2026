@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Figure from '../Figure.astro';
 import { type Lang, t, url } from '../../i18n/ui';
+import { site } from '../../data/site';
 import { projects, type Project } from '../../data/projects';
 
 interface Props {
@@ -13,146 +14,281 @@ const { lang, altUrl, project: p } = Astro.props;
 
 const idx = projects.findIndex((x) => x.slug === p.slug);
 const next = projects[(idx + 1) % projects.length];
+const total = String(projects.length).padStart(2, '0');
+const year = new Date().getFullYear();
+const instagram = site.social.find((s) => s.label === 'Instagram');
 
-const info: { label: string; value?: string }[] = [
-  { label: t(lang, 'project.location'), value: p.location[lang] },
-  { label: t(lang, 'project.year'), value: p.year },
-  { label: t(lang, 'project.category'), value: p.category[lang] },
-  { label: t(lang, 'project.award'), value: p.award?.[lang] },
-  { label: t(lang, 'project.status'), value: p.status?.[lang] },
-  { label: t(lang, 'project.area'), value: p.area },
-];
-
-// Si no hay imágenes reales, generamos varios placeholders para componer la galería.
-const gallery = p.images.length > 0 ? p.images : [undefined, undefined, undefined, undefined];
+const meta: string[] = [
+  p.location[lang],
+  p.category[lang],
+  p.award?.[lang],
+  p.status?.[lang],
+  p.area,
+  p.year,
+].filter(Boolean) as string[];
 ---
 
-<Base lang={lang} altUrl={altUrl} dark={true} title={p.title} description={p.summary[lang]}>
-  <article class="project">
-    <!-- Portada -->
-    <header class="project__hero">
-      <Figure
-        src={p.images[0]}
-        alt={p.title}
-        label={p.images[0] ? undefined : p.title}
-        hue={p.hue}
-        ratio="16 / 9"
-        loading="eager"
-        class="project__cover"
-      />
-    </header>
+<Base lang={lang} altUrl={altUrl} chrome={false} title={p.title} description={p.summary[lang]}>
+  <div class="cover">
+    <!-- NAV superior -------------------------------------------------------- -->
+    <nav class="cover__nav" aria-label="Principal">
+      <a class="cover__navlink" href={url(lang, 'projects')}>{t(lang, 'nav.projects')} {String(idx + 1).padStart(2, '0')}–{total}</a>
+      <a class="cover__navlink cover__navlink--center" href={url(lang, 'studio')}>{t(lang, 'nav.studio')}</a>
+      <span class="cover__navright">
+        <a class="cover__navlink" href={url(lang, 'contact')}>{t(lang, 'nav.contact')}</a>
+        <a class="cover__lang" href={altUrl}>{t(lang, 'lang.switch')}</a>
+      </span>
+    </nav>
 
-    <!-- Cabecera de texto -->
-    <section class="container project__intro">
-      <div class="project__intro-main">
-        <a class="link-underline back" href={url(lang, 'projects')}>← {t(lang, 'project.back')}</a>
-        <h1 class="display" data-reveal>{p.title}</h1>
-        <p class="lead" data-reveal style="max-width:36ch;margin-top:1.5rem;">{p.summary[lang]}</p>
+    <!-- BANDA de título ------------------------------------------------------ -->
+    <div class="titleband">
+      <h1 class="titleband__title">{p.title}</h1>
+    </div>
+
+    <!-- TIRA horizontal: texto + imágenes ------------------------------------ -->
+    <div class="stage">
+      <div class="strip" data-strip tabindex="0">
+        <div class="panel panel--text">
+          {p.description[lang].map((par) => <p class="panel__par">{par}</p>)}
+          <p class="panel__meta">{meta.join(' · ')}</p>
+        </div>
+
+        <span class="strip__hint" aria-hidden="true">
+          Scroll
+          <svg width="44" height="10" viewBox="0 0 44 10" fill="none" aria-hidden="true">
+            <path d="M0 5h41M36 1l6 4-6 4" stroke="currentColor" stroke-width="1.2" />
+          </svg>
+        </span>
+
+        {p.images.length > 0
+          ? p.images.map((src, i) => (
+              <figure class="panel panel--img">
+                <img src={src} alt={`${p.title} — ${i + 1}`} loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
+              </figure>
+            ))
+          : [0, 1].map((i) => (
+              <figure class="panel panel--img panel--ph">
+                <Figure src={undefined} alt={p.title} hue={(p.hue + i * 14) % 360} ratio="fill" />
+              </figure>
+            ))}
+
+        <a class="panel panel--next" href={url(lang, 'projects', next.slug)}>
+          <span class="panel__nextlabel">{t(lang, 'project.next')}</span>
+          <strong class="panel__nexttitle">{next.title}</strong>
+          <svg width="54" height="12" viewBox="0 0 54 12" fill="none" aria-hidden="true">
+            <path d="M0 6h50M44 1l7 5-7 5" stroke="currentColor" stroke-width="1.4" />
+          </svg>
+        </a>
       </div>
-      <aside class="project__info" data-reveal>
-        <h2 class="eyebrow">{t(lang, 'project.info')}</h2>
-        <dl>
-          {info.filter((i) => i.value).map((i) => (
-            <div class="info-row">
-              <dt class="muted">{i.label}</dt>
-              <dd>{i.value}</dd>
-            </div>
-          ))}
-        </dl>
-      </aside>
-    </section>
+    </div>
 
-    <!-- Cuerpo de texto + galería intercalada -->
-    <section class="container project__body">
-      <div class="project__text">
-        {p.description[lang].map((para) => (
-          <p data-reveal>{para}</p>
-        ))}
-      </div>
-    </section>
-
-    <section class="container project__gallery">
-      {gallery.map((src, i) => (
-        <Figure
-          src={src}
-          alt={`${p.title} — ${i + 1}`}
-          label={src ? undefined : p.title}
-          hue={(p.hue + i * 12) % 360}
-          ratio={i % 3 === 0 ? '16 / 9' : '4 / 3'}
-          class={i % 3 === 0 ? 'gal-wide' : 'gal-item'}
-        />
-      ))}
-    </section>
-
-    <!-- Siguiente proyecto -->
-    <a class="project__next" href={url(lang, 'projects', next.slug)}>
-      <div class="container project__next-inner">
-        <span class="eyebrow">{t(lang, 'project.next')}</span>
-        <span class="project__next-title">{next.title} <span class="arrow">→</span></span>
-      </div>
-    </a>
-  </article>
+    <!-- BARRA inferior ------------------------------------------------------- -->
+    <footer class="cover__foot">
+      <a class="cover__navlink" href={`mailto:${site.email}`}>Email</a>
+      {instagram && (
+        <a class="cover__navlink cover__navlink--center" href={instagram.href} target="_blank" rel="noopener">
+          Instagram
+        </a>
+      )}
+      <span class="cover__copy">© {year}. Santiago de Pablo.</span>
+    </footer>
+  </div>
 </Base>
 
 <style>
-  .project__hero { padding-top: 0; }
-  .project :global(.project__cover) { aspect-ratio: 16 / 9; }
-  @media (min-width: 1024px) { .project :global(.project__cover) { aspect-ratio: 21 / 9; } }
+  .cover {
+    height: 100svh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    background: var(--bone);
+    color: var(--ink);
+    overflow: hidden;
+  }
 
-  .project__intro {
+  .cover__nav,
+  .cover__foot {
     display: grid;
-    grid-template-columns: 1.6fr 1fr;
-    gap: clamp(2rem, 5vw, 5rem);
-    padding-top: clamp(3rem, 7vw, 6rem);
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: clamp(1.1rem, 2.4vh, 1.8rem) var(--gutter);
   }
-  .back { display: inline-block; margin-bottom: 1.5rem; font-size: 0.95rem; }
-  .project__info dl { margin-top: 1rem; }
-  .info-row {
-    display: flex; justify-content: space-between; gap: 1rem;
-    padding: 0.8rem 0; border-top: 1px solid var(--line);
+  .cover__navright { justify-self: end; display: inline-flex; align-items: center; gap: 1.2rem; }
+  .cover__copy { justify-self: end; font-weight: 700; text-transform: uppercase; font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.15rem); }
+  .cover__navlink {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.15rem);
+    letter-spacing: 0.01em;
+    transition: opacity 0.3s var(--ease);
   }
-  .info-row dd { text-align: right; }
+  .cover__navlink:hover { opacity: 0.5; }
+  .cover__navlink--center { justify-self: center; }
+  .cover__lang {
+    font-weight: 700; font-size: 0.8rem; letter-spacing: 0.06em;
+    border: 1.5px solid var(--ink); border-radius: 100px; padding: 0.3em 0.75em;
+    transition: background 0.3s var(--ease), color 0.3s var(--ease);
+  }
+  .cover__lang:hover { background: var(--ink); color: #fff; }
+  .cover__foot { border-top: 2px solid var(--ink); }
 
-  .project__body { padding-top: clamp(3rem, 7vw, 6rem); }
-  .project__text {
-    max-width: 62ch;
-    margin-inline: auto;
-    display: grid; gap: 1.4rem;
-    font-size: clamp(1.05rem, 1rem + 0.4vw, 1.3rem);
-    line-height: 1.65;
+  /* Banda de título */
+  .titleband {
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding: 0.05em var(--gutter);
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .titleband__title {
+    font-weight: 780;
+    text-transform: uppercase;
+    font-size: clamp(2.4rem, 1rem + 5.5vw, 6.2rem);
+    line-height: 1.14;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
   }
 
-  .project__gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: clamp(1rem, 2.5vw, 2rem);
-    padding-top: clamp(3rem, 7vw, 6rem);
+  /* Tira horizontal */
+  .stage { flex: 1; min-height: 0; display: flex; }
+  .strip {
+    display: flex;
+    align-items: center;
+    gap: clamp(3rem, 7vw, 8rem);
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-inline: var(--gutter) clamp(3rem, 8vw, 9rem);
+    scrollbar-width: none;
+    cursor: grab;
+    outline: none;
   }
-  .project__gallery :global(.gal-wide) { grid-column: 1 / -1; }
-  @media (max-width: 640px) {
-    .project__gallery { grid-template-columns: 1fr; }
-    .project__gallery :global(.gal-wide) { grid-column: auto; }
+  .strip::-webkit-scrollbar { display: none; }
+  .strip.is-dragging { cursor: grabbing; }
+  .strip.is-dragging a { pointer-events: none; }
+
+  .panel { flex: 0 0 auto; }
+
+  /* Panel de texto (primer elemento) */
+  .panel--text {
+    width: min(58ch, 72vw);
+    padding-left: clamp(0rem, 4vw, 5rem);
+  }
+  .panel__par {
+    font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.45rem);
+    line-height: 1.5;
+    margin-bottom: 1em;
+  }
+  .panel__par:first-child { text-indent: 3ch; }
+  .panel__meta {
+    margin-top: 1.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
   }
 
-  .project__intro { } /* placeholder */
-  @media (max-width: 820px) {
-    .project__intro { grid-template-columns: 1fr; }
-    .info-row dd { text-align: right; }
+  .strip__hint {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1.05rem);
   }
 
-  .project__next {
+  /* Paneles de imagen: grandes, respetando su proporción */
+  .panel--img {
+    height: min(86%, 720px);
+    background: var(--sand);
+  }
+  .panel--img img {
+    height: 100%;
+    width: auto;
+    max-width: none;
     display: block;
-    margin-top: clamp(4rem, 9vw, 8rem);
-    background: var(--ink);
-    color: var(--bone);
-    padding-block: clamp(3rem, 8vw, 7rem);
-    transition: background 0.5s var(--ease);
   }
-  .project__next:hover { background: #1c1813; }
-  .project__next-inner { display: flex; flex-direction: column; gap: 0.8rem; }
-  .project__next .eyebrow { color: var(--sand); }
-  .project__next-title {
-    font-weight: 760; text-transform: uppercase;
-    font-size: clamp(2rem, 1.2rem + 4vw, 5rem); line-height: 1;
+  .panel--ph { position: relative; aspect-ratio: 4 / 3; }
+
+  /* Panel final: siguiente proyecto */
+  .panel--next {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding-right: clamp(2rem, 6vw, 6rem);
+  }
+  .panel__nextlabel {
+    font-weight: 700; text-transform: uppercase;
+    font-size: 0.82rem; letter-spacing: 0.08em; color: var(--ink-soft);
+  }
+  .panel__nexttitle {
+    font-weight: 780; text-transform: uppercase;
+    font-size: clamp(1.8rem, 1rem + 2.6vw, 3.6rem);
+    line-height: 1; letter-spacing: -0.01em;
+    max-width: 14ch;
+  }
+  .panel--next svg { transition: transform 0.4s var(--ease); }
+  .panel--next:hover svg { transform: translateX(8px); }
+
+  @media (max-width: 720px) {
+    .cover__nav, .cover__foot { grid-template-columns: auto auto; justify-content: space-between; }
+    .cover__navlink--center { display: none; }
+    .titleband__title { white-space: normal; font-size: clamp(2rem, 1rem + 6vw, 3.4rem); }
+    .panel--text { width: 82vw; padding-left: 0; }
+    .panel--img { height: 62%; }
   }
 </style>
+
+<script>
+  const strip = document.querySelector<HTMLElement>('[data-strip]');
+  if (strip) {
+    // Rueda vertical → desplazamiento horizontal
+    strip.closest('.stage')?.addEventListener(
+      'wheel',
+      (e) => {
+        const ev = e as WheelEvent;
+        const d = Math.abs(ev.deltaY) >= Math.abs(ev.deltaX) ? ev.deltaY : ev.deltaX;
+        if (!d) return;
+        e.preventDefault();
+        strip.scrollLeft += d;
+      },
+      { passive: false }
+    );
+
+    // Arrastre
+    let down = false, startX = 0, startLeft = 0, moved = 0;
+    strip.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      down = true; moved = 0;
+      startX = e.clientX; startLeft = strip.scrollLeft;
+      strip.classList.add('is-dragging');
+      strip.setPointerCapture(e.pointerId);
+    });
+    strip.addEventListener('pointermove', (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(dx));
+      strip.scrollLeft = startLeft - dx;
+    });
+    const release = (e: PointerEvent) => {
+      if (!down) return;
+      down = false;
+      strip.classList.remove('is-dragging');
+      try { strip.releasePointerCapture(e.pointerId); } catch {}
+    };
+    strip.addEventListener('pointerup', release);
+    strip.addEventListener('pointercancel', release);
+    strip.querySelectorAll<HTMLElement>('a').forEach((link) => {
+      link.addEventListener('click', (e) => { if (moved > 8) e.preventDefault(); });
+    });
+
+    // Teclado
+    strip.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); strip.scrollBy({ left: 420, behavior: 'smooth' }); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); strip.scrollBy({ left: -420, behavior: 'smooth' }); }
+    });
+  }
+</script>
