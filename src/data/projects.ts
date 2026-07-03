@@ -197,6 +197,176 @@ export const projects: Project[] = [
       '/proyectos/housing-new-york/interior.jpg',
     ],
   },
+  {
+    slug: 'polideportivo-lasarte',
+    title: 'Polideportivo Lasarte',
+    featured: true,
+    hue: 150,
+    location: { es: 'Lasarte, Gipuzkoa', en: 'Lasarte, Gipuzkoa' },
+    category: { es: 'Equipamiento deportivo', en: 'Sports facility' },
+    summary: {
+      es: 'Un polideportivo organizado por una calle interior, con el graderío integrado como gran puerta que mira al campo de fútbol.',
+      en: 'A sports centre organised along an interior street, with the stands integrated as a great gate facing the football pitch.',
+    },
+    description: {
+      es: [
+        'La calle interior actúa como colector de los accesos a la mayoría de las instalaciones. Se propone integrar el graderío en el nuevo edificio mediante un vaciado de la parte inferior de su volumen prismático, a modo de gran puerta que mira al campo de fútbol, con accesos al frontón y al nuevo polideportivo en sus extremos.',
+        'El espacio ganado entre el campo y el graderío permite reubicar varias de las calles de atletismo eliminadas con el nuevo vial rodado junto al río.',
+      ],
+      en: [
+        'The interior street collects the accesses to most of the facilities. The stands are integrated into the new building by hollowing out the lower part of its prismatic volume, like a great gate facing the football pitch, with entrances to the fronton court and the new sports hall at its ends.',
+        'The space gained between the pitch and the stands allows several of the athletics lanes removed by the new riverside road to be relocated.',
+      ],
+    },
+    images: [
+      '/proyectos/polideportivo-lasarte/exterior.jpg',
+      '/proyectos/polideportivo-lasarte/piscina.jpg',
+      '/proyectos/polideportivo-lasarte/futbito.jpg',
+      '/proyectos/polideportivo-lasarte/futbito-lado.jpg',
+    ],
+  },
+  {
+    slug: 'mercado-biblioteca-ponteareas',
+    title: 'Mercado-Biblioteca Ponteareas',
+    featured: true,
+    hue: 60,
+    location: { es: 'Ponteareas, Pontevedra', en: 'Ponteareas, Pontevedra' },
+    category: { es: 'Rehabilitación', en: 'Renovation' },
+    summary: {
+      es: 'La transformación del mercado existente en un catalizador social y cultural, nexo entre los espacios públicos que lo rodean.',
+      en: 'The transformation of the existing market into a social and cultural catalyst, a link between the public spaces around it.',
+    },
+    description: {
+      es: [
+        'La propuesta plantea, desde el máximo aprovechamiento de la edificación existente, un edificio que actúe como catalizador de múltiples actividades sociales y culturales y como nexo entre los distintos espacios públicos que lo rodean. Conservando la estructura, el programa se articula alrededor de la crujía longitudinal central, que separa los espacios que requieren silencio de los que tienen vocación de relación e intercambio.',
+        'Ese espacio central, abierto y continuo, se entiende como una prolongación de los espacios públicos exteriores. Las fachadas, con una piel exterior permeable proyectada desde criterios bioclimáticos, difuminan el límite entre exterior e interior creando espacios semiabiertos y de transición que multiplican las posibilidades de uso.',
+      ],
+      en: [
+        'Starting from the fullest use of the existing building, the proposal creates a catalyst for multiple social and cultural activities and a link between the surrounding public spaces. Preserving the structure, the programme is arranged around the central longitudinal bay, separating spaces that require silence from those meant for meeting and exchange.',
+        'That central space, open and continuous, is understood as an extension of the outdoor public realm. The façades, with a permeable outer skin designed on bioclimatic criteria, blur the boundary between outside and inside, creating semi-open transition spaces that multiply the ways the building can be used.',
+      ],
+    },
+    images: [
+      '/proyectos/mercado-biblioteca-ponteareas/exterior.jpg',
+      '/proyectos/mercado-biblioteca-ponteareas/acceso.jpg',
+      '/proyectos/mercado-biblioteca-ponteareas/interior.jpg',
+    ],
+  },
+  {
+    slug: 'mercado-de-abastos-de-vera',
+    title: 'Mercado de Abastos de Vera',
+    featured: true,
+    hue: 40,
+    location: { es: 'Vera, Almería', en: 'Vera, Almería' },
+    category: { es: 'Equipamiento público', en: 'Public building' },
+    award: { es: '4.º premio', en: '4th prize' },
+    summary: {
+      es: 'Un mercado que se teje con la ciudad: accesos en los lugares naturales de tránsito y una plaza sin cotas altas, abierta al entorno.',
+      en: 'A market woven into the town: entrances at the natural pedestrian crossings and a plaza without high levels, open to its surroundings.',
+    },
+    description: {
+      es: [
+        'El proyecto propone una conexión real y de gran interés entre el espacio público y el mercado. Para ello, los accesos se sitúan en lugares naturales de tránsito peatonal, y se evitan cotas altas en la plaza, favoreciendo la conexión con la ciudad y el entorno inmediato.',
+        'Se potencia la relación con el entorno, especialmente con la calle Jacinto Anglada, minimizando el impacto visual, integrando todos los elementos en el conjunto y resolviendo el acuerdo con los desniveles perimetrales, favoreciendo los encuentros con la plaza.',
+      ],
+      en: [
+        'The project proposes a real and meaningful connection between public space and the market. Entrances are placed at the natural points of pedestrian movement, and high levels are avoided in the plaza, favouring the connection with the town and its immediate surroundings.',
+        'The relationship with the context is reinforced, especially with Jacinto Anglada street, minimising visual impact, integrating every element into the whole and resolving the perimeter level changes to encourage encounters with the plaza.',
+      ],
+    },
+    // Pendiente de imágenes: mientras tanto se muestra una escena generada
+    images: [],
+  },
+  {
+    slug: 'reforma-estadio-el-sadar',
+    title: 'Reforma Estadio El Sadar',
+    featured: true,
+    hue: 350,
+    location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
+    category: { es: 'Equipamiento deportivo', en: 'Sports facility' },
+    award: { es: '3.er premio', en: '3rd prize' },
+    summary: {
+      es: 'Una nueva envolvente para El Sadar: un diamante tallándose, con las señas de identidad de Osasuna y su afición.',
+      en: 'A new envelope for El Sadar: a diamond being cut, carrying the identity of Osasuna and its supporters.',
+    },
+    description: {
+      es: [
+        'El Sadar es considerado uno de los estadios más difíciles de España, gracias al empuje de los aficionados y la cercanía al campo. El estadio representa la pluralidad de la ciudad, la lealtad y el compromiso de su afición.',
+        'La envolvente busca la personalización respecto a otros estadios, representando las señas de identidad del C.A. Osasuna. Un equipo rocoso: un diamante que se está tallando hasta convertirse en una joya.',
+      ],
+      en: [
+        'El Sadar is considered one of the most intimidating grounds in Spain, thanks to the drive of its supporters and their closeness to the pitch. The stadium represents the plurality of the city, and the loyalty and commitment of its fans.',
+        'The envelope seeks to set it apart from other stadiums, carrying the identity of C.A. Osasuna. A rock-solid team: a diamond being cut until it becomes a jewel.',
+      ],
+    },
+    images: [
+      '/proyectos/reforma-estadio-el-sadar/aerea.jpg',
+      '/proyectos/reforma-estadio-el-sadar/exterior-lateral.jpg',
+      '/proyectos/reforma-estadio-el-sadar/detalle-fachada.jpg',
+      '/proyectos/reforma-estadio-el-sadar/interior-frontal.jpg',
+      '/proyectos/reforma-estadio-el-sadar/graderio-sur.jpg',
+      '/proyectos/reforma-estadio-el-sadar/interior-lateral.jpg',
+      '/proyectos/reforma-estadio-el-sadar/zona-vip.jpg',
+    ],
+  },
+  {
+    slug: 'sede-nordex',
+    title: 'Sede Nordex',
+    featured: true,
+    hue: 110,
+    location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
+    category: { es: 'Oficinas', en: 'Offices' },
+    award: { es: '2.º premio', en: '2nd prize' },
+    summary: {
+      es: 'Una oficina soterrada en torno a tres grandes patios verdes, sin renunciar a la luz natural ni a la calidad ambiental.',
+      en: 'An office sunk into the ground around three large green courtyards, without giving up natural light or environmental quality.',
+    },
+    description: {
+      es: [
+        'La propuesta rompe con la idea convencional de oficina y busca dotar a los trabajadores de un espacio de concentración soterrado sin sacrificar la luz natural ni la calidad ambiental exterior.',
+        'Los usos se distribuyen en torno a tres grandes patios verdes que sirven como pulmones del proyecto y permiten disfrutar de un espacio exterior para reuniones informales y descansos.',
+      ],
+      en: [
+        'The proposal breaks with the conventional idea of the office, giving workers a sunken space for concentration without sacrificing natural light or outdoor environmental quality.',
+        'The programme is arranged around three large green courtyards that act as the lungs of the project and provide outdoor space for informal meetings and breaks.',
+      ],
+    },
+    images: [
+      '/proyectos/sede-nordex/exterior.jpg',
+      '/proyectos/sede-nordex/patio.jpg',
+      '/proyectos/sede-nordex/zona-trabajo.jpg',
+      '/proyectos/sede-nordex/comedor.jpg',
+    ],
+  },
+  {
+    slug: 'the-factory',
+    title: 'The Factory',
+    featured: true,
+    hue: 25,
+    location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
+    category: { es: 'Rehabilitación', en: 'Renovation' },
+    summary: {
+      es: 'Un antiguo molino de harina devuelto a la vida como espacio de trabajo y reunión, conservando el alma del edificio.',
+      en: 'An old flour mill brought back to life as a space for work and gathering, preserving the soul of the building.',
+    },
+    description: {
+      es: [
+        'The Factory devuelve a la vida un antiguo molino de harina convertido en un espacio de trabajo y reunión. Mantener la esencia del lugar es tan ambicioso como interesante: los viejos túneles de harina son ahora parte del alma de los nuevos usos, que conservan la identidad de un edificio tan característico.',
+        'La propuesta se organiza en torno a un cobertizo central dedicado a los usos más públicos y de reunión, del que surgen tanto las oficinas como los talleres. El acceso desde la calle y la conexión entre cobertizos se realiza mediante pequeños volúmenes transparentes que favorecen un ejercicio espacial de compresión y descompresión que potencia la secuencialidad del edificio.',
+      ],
+      en: [
+        'The Factory brings an old flour mill back to life as a space for work and gathering. Keeping the essence of the place is as ambitious as it is compelling: the old flour tunnels are now part of the soul of the new uses, preserving the identity of such a distinctive building.',
+        'The proposal is organised around a central shed for the most public, gathering uses, from which both offices and workshops emerge. Access from the street and the connection between sheds happen through small transparent volumes that create a spatial play of compression and decompression, heightening the sequence of the building.',
+      ],
+    },
+    images: [
+      '/proyectos/the-factory/exterior.jpg',
+      '/proyectos/the-factory/hall.jpg',
+      '/proyectos/the-factory/set.jpg',
+      '/proyectos/the-factory/trabajo.jpg',
+      '/proyectos/the-factory/cafeteria.jpg',
+    ],
+  },
 ];
 
 export const featuredProjects = projects.filter((p) => p.featured);
