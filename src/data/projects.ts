@@ -367,6 +367,182 @@ export const projects: Project[] = [
       '/proyectos/the-factory/cafeteria.jpg',
     ],
   },
+  {
+    slug: 'torre-observatorio-zagreb',
+    title: 'Torre Observatorio Zagreb',
+    featured: true,
+    hue: 230,
+    location: { es: 'Zagreb, Croacia', en: 'Zagreb, Croatia' },
+    category: { es: 'Torre mirador', en: 'Observation tower' },
+    award: { es: 'Finalista', en: 'Finalist' },
+    summary: {
+      es: 'Una torre observatorio que plantea un recorrido vertical: descubrir la ciudad participando de ella desde dentro.',
+      en: 'An observation tower conceived as a vertical journey: discovering the city while taking part in it from within.',
+    },
+    description: {
+      es: [
+        'La torre observatorio de Zagreb es un concepto desarrollado para una promotora de Emiratos Árabes que plasma la necesidad de alzar la vista y encarar la ciudad desde el descubrimiento de todos sus puntos.',
+        'El recorrido que se plantea es vertical: el espectador es partícipe, desde el interior, de todo lo que sucede en la ciudad.',
+      ],
+      en: [
+        'The Zagreb observation tower is a concept developed for a UAE developer, expressing the need to raise one’s gaze and face the city by discovering it from every vantage point.',
+        'The proposed journey is vertical: from within, the visitor takes part in everything happening in the city.',
+      ],
+    },
+    images: [
+      '/proyectos/torre-observatorio-zagreb/exterior-amanecer.jpg',
+      '/proyectos/torre-observatorio-zagreb/exterior-noche.jpg',
+      '/proyectos/torre-observatorio-zagreb/acceso.jpg',
+      '/proyectos/torre-observatorio-zagreb/jardin-vertical.jpg',
+      '/proyectos/torre-observatorio-zagreb/gradas.jpg',
+      '/proyectos/torre-observatorio-zagreb/red.jpg',
+      '/proyectos/torre-observatorio-zagreb/mirador.jpg',
+    ],
+  },
+  {
+    slug: 'monumento-a-los-caidos',
+    title: 'Transformación del Monumento a los Caídos',
+    featured: true,
+    hue: 15,
+    location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
+    category: { es: 'Espacio público', en: 'Public space' },
+    award: { es: 'Finalista', en: 'Finalist' },
+    summary: {
+      es: 'El monumento deja de ser una barrera para convertirse en la nueva Puerta del Sur de Pamplona.',
+      en: 'The monument ceases to be a barrier and becomes the new South Gate of Pamplona.',
+    },
+    description: {
+      es: [
+        'La Plaza del Castillo y la Plaza de la Libertad son los dos polos del gran salón urbano que constituye la avenida de Carlos III tras su peatonalización. Sin embargo, la Plaza de la Libertad nunca ha tenido gran actividad urbana, debido a su condición periférica y a un diseño más atento a resaltar su monumentalidad que a facilitar los usos ciudadanos.',
+        'La nueva condición central que el desarrollo de Lezkairu otorga a la plaza abre nuevas oportunidades: el Monumento a los Caídos debe dejar de ser una barrera para convertirse en la nueva Puerta del Sur de la ciudad.',
+      ],
+      en: [
+        'Plaza del Castillo and Plaza de la Libertad are the two poles of the great urban hall that Carlos III avenue became after its pedestrianisation. Yet Plaza de la Libertad has never seen much urban life, due to its peripheral condition and a design more concerned with monumentality than with everyday civic use.',
+        'The new centrality that the Lezkairu development brings to the square opens fresh opportunities: the Monument must stop being a barrier and become the city’s new South Gate.',
+      ],
+    },
+    images: [
+      '/proyectos/monumento-a-los-caidos/vista-central.jpg',
+      '/proyectos/monumento-a-los-caidos/oculo.jpg',
+      '/proyectos/monumento-a-los-caidos/lateral.jpg',
+      '/proyectos/monumento-a-los-caidos/plataforma.jpg',
+      '/proyectos/monumento-a-los-caidos/aerea.jpg',
+    ],
+  },
+  {
+    slug: 'viviendas-colaborativas-avila',
+    title: 'Viviendas Colaborativas Ávila',
+    featured: true,
+    hue: 45,
+    location: { es: 'Ávila', en: 'Ávila' },
+    category: { es: 'Vivienda colaborativa', en: 'Co-housing' },
+    summary: {
+      es: 'Una edificación compacta hacia fuera y abierta hacia dentro: la vida gira en torno a un patio ajardinado.',
+      en: 'Compact on its perimeter and open within: life revolves around a landscaped courtyard.',
+    },
+    description: {
+      es: [
+        'Se propone una edificación compacta en su perímetro —atendiendo a criterios de funcionalidad y eficiencia energética— y abierta en su interior en torno a un patio. Ese espacio central es el corazón del proyecto: distribuidor único del programa y generador de espacios de relación asociados a las viviendas.',
+        'Una galería alrededor del patio ajardinado da acceso, en una única planta, a las viviendas. Entre ellas se intercalan los espacios comunes: estancias de relación en la propia galería, coworking, sala social y gimnasio. El diseño destaca así el carácter social de la edificación, núcleo desde el que se organiza el resto del programa.',
+      ],
+      en: [
+        'The building is compact on its perimeter — following criteria of functional layout and energy efficiency — and open at its core around a courtyard. That central space is the heart of the project: the sole distributor of the programme and the generator of shared spaces linked to the homes.',
+        'A gallery around the landscaped courtyard gives access to the dwellings on a single level. Interspersed among them are the common spaces: sitting areas along the gallery itself, coworking, a social room and a gym. The design thus emphasises the social character of the building, the nucleus around which the rest of the programme is organised.',
+      ],
+    },
+    images: [
+      '/proyectos/viviendas-colaborativas-avila/exterior.jpg',
+      '/proyectos/viviendas-colaborativas-avila/interior.jpg',
+    ],
+  },
+  {
+    slug: 'viviendas-colaborativas-valladolid',
+    title: 'Viviendas Colaborativas Valladolid',
+    featured: true,
+    hue: 75,
+    location: { es: 'Valladolid', en: 'Valladolid' },
+    category: { es: 'Vivienda colaborativa', en: 'Co-housing' },
+    award: { es: '3.er premio', en: '3rd prize' },
+    summary: {
+      es: '107 viviendas en 14 portales, con doble orientación y una planta baja concebida como nexo y punto de encuentro.',
+      en: '107 dwellings across 14 entrances, all dual-aspect, with a ground floor conceived as a link and meeting point.',
+    },
+    description: {
+      es: [
+        'Para optimizar la solución y satisfacer el número de unidades propuesto, se plantean tres viviendas por núcleo y planta, todas con doble orientación —zonas vivideras a sur— y ventilación cruzada. En diálogo con las edificaciones de la zona, el proyecto se divide horizontalmente en dos bloques separados por un portal común y fragmenta verticalmente sus fachadas con cuerpos rítmicamente volados; los petos de cubierta, inclinados alternativamente, hacen del conjunto una suma de unidades que se relacionan en planta baja.',
+        'Las 107 viviendas se organizan en 14 portales, a razón de 8 por portal, con un único acceso al conjunto. Una urbanización interior conecta todos los bloques y reparte los usos comunes en una planta baja concebida como nexo y punto de encuentro: aparcamiento de bicicletas, salas sociales, gimnasio y espacios flexibles con posible acceso directo desde la calle. La génesis modular permite además dividir la construcción en hasta 14 fases independientes.',
+      ],
+      en: [
+        'To optimise the solution and meet the required number of units, three dwellings are arranged per core and floor, all dual-aspect — living areas facing south — with cross ventilation. In dialogue with the neighbouring buildings, the project splits horizontally into two blocks separated by a shared entrance, while its façades fragment vertically into rhythmically cantilevered bodies; the alternately tilted roof parapets turn the whole into a sum of dwelling units that relate to one another at ground level.',
+        'The 107 homes are organised into 14 entrances of 8 dwellings each, with a single access to the complex. An interior landscaped ground connects all the blocks and distributes the shared uses across a ground floor conceived as a link and meeting point: bicycle parking, social rooms, a gym and flexible spaces with possible direct street access. The modular genesis also allows construction in up to 14 independent phases.',
+      ],
+    },
+    // Pendiente de imágenes: mientras tanto se muestra una escena generada
+    images: [],
+  },
+  {
+    slug: 'viviendas-unifamiliares-gorraiz',
+    title: 'Viviendas Unifamiliares en Gorraiz',
+    featured: true,
+    hue: 95,
+    location: { es: 'Gorraiz, Navarra', en: 'Gorraiz, Navarra' },
+    category: { es: 'Vivienda unifamiliar', en: 'Single-family housing' },
+    award: { es: '3.er premio', en: '3rd prize' },
+    summary: {
+      es: 'Tres volúmenes de madera surgen del terreno; el salón y la barbacoa, transparentes, se abren al valle.',
+      en: 'Three timber volumes rise from the ground; the living room and barbecue area, fully transparent, open to the valley.',
+    },
+    description: {
+      es: [
+        'Resaltando el contraste entre las áreas públicas y privadas, tres volúmenes de madera surgen del terreno para encerrar las habitaciones, los baños, el spa, el gimnasio, la bodega y la cocina.',
+        'La sala de estar y el área de barbacoa, en cambio, son completamente transparentes, con una vista única del valle.',
+      ],
+      en: [
+        'Heightening the contrast between public and private areas, three timber volumes rise from the ground to enclose the bedrooms, bathrooms, spa, gym, wine cellar and kitchen.',
+        'The living room and the barbecue area, by contrast, are completely transparent, with a unique view over the valley.',
+      ],
+    },
+    images: [
+      '/proyectos/viviendas-unifamiliares-gorraiz/entrada.jpg',
+      '/proyectos/viviendas-unifamiliares-gorraiz/frontal.jpg',
+      '/proyectos/viviendas-unifamiliares-gorraiz/exterior-2.jpg',
+      '/proyectos/viviendas-unifamiliares-gorraiz/piscina.jpg',
+      '/proyectos/viviendas-unifamiliares-gorraiz/nocturna.jpg',
+      '/proyectos/viviendas-unifamiliares-gorraiz/salon.jpg',
+      '/proyectos/viviendas-unifamiliares-gorraiz/interior-2.jpg',
+      '/proyectos/viviendas-unifamiliares-gorraiz/barbacoa.jpg',
+    ],
+  },
+  {
+    slug: 'yacimiento-san-esteban',
+    title: 'Yacimiento Arqueológico San Esteban',
+    featured: true,
+    hue: 55,
+    location: { es: 'Murcia', en: 'Murcia' },
+    category: { es: 'Espacio público', en: 'Public space' },
+    award: { es: 'Finalista', en: 'Finalist' },
+    summary: {
+      es: 'Un elemento urbano que resuelve los recorridos del yacimiento y regala a Murcia un pulmón verde sobre su memoria.',
+      en: 'An urban element that resolves the site’s routes and gives Murcia a green lung above its buried memory.',
+    },
+    description: {
+      es: [
+        'La propuesta resuelve, por medio de un elemento urbano trascendental, tanto los recorridos del yacimiento como las conexiones entre los puntos fundamentales que desembocan de las calles.',
+        'La plaza que se genera es un pulmón verde de la ciudad que esconde los entresijos de la Murcia antigua y permite a los viandantes disfrutar de una zona verde y de espacios infantiles.',
+      ],
+      en: [
+        'By means of a decisive urban element, the proposal resolves both the routes through the archaeological site and the connections between the key points where the streets converge.',
+        'The resulting plaza is a green lung for the city, concealing the inner workings of ancient Murcia while offering passers-by a green space and children’s play areas.',
+      ],
+    },
+    images: [
+      '/proyectos/yacimiento-san-esteban/aerea-noreste.jpg',
+      '/proyectos/yacimiento-san-esteban/aerea-noroeste.jpg',
+      '/proyectos/yacimiento-san-esteban/aerea-sureste.jpg',
+      '/proyectos/yacimiento-san-esteban/interior-longitudinal.jpg',
+      '/proyectos/yacimiento-san-esteban/interior-transversal.jpg',
+    ],
+  },
 ];
 
 export const featuredProjects = projects.filter((p) => p.featured);
