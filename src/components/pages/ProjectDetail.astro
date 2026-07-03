@@ -258,32 +258,37 @@ const meta: string[] = [
       { passive: false }
     );
 
-    // Arrastre
-    let down = false, startX = 0, startLeft = 0, moved = 0;
+    // Arrastre con ratón. El puntero solo se captura al superar un umbral,
+    // para que un clic limpio llegue al enlace. (En táctil, scroll nativo.)
+    let down = false, dragging = false, startX = 0, startLeft = 0, moved = 0, pid = 0;
     strip.addEventListener('pointerdown', (e) => {
-      if (e.pointerType === 'mouse' && e.button !== 0) return;
-      down = true; moved = 0;
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true; dragging = false; moved = 0; pid = e.pointerId;
       startX = e.clientX; startLeft = strip.scrollLeft;
-      strip.classList.add('is-dragging');
-      strip.setPointerCapture(e.pointerId);
     });
     strip.addEventListener('pointermove', (e) => {
       if (!down) return;
       const dx = e.clientX - startX;
       moved = Math.max(moved, Math.abs(dx));
-      strip.scrollLeft = startLeft - dx;
+      if (!dragging && Math.abs(dx) > 6) {
+        dragging = true;
+        strip.classList.add('is-dragging');
+        try { strip.setPointerCapture(pid); } catch {}
+      }
+      if (dragging) strip.scrollLeft = startLeft - dx;
     });
-    const release = (e: PointerEvent) => {
+    const release = () => {
       if (!down) return;
-      down = false;
+      down = false; dragging = false;
       strip.classList.remove('is-dragging');
-      try { strip.releasePointerCapture(e.pointerId); } catch {}
+      try { strip.releasePointerCapture(pid); } catch {}
     };
     strip.addEventListener('pointerup', release);
     strip.addEventListener('pointercancel', release);
-    strip.querySelectorAll<HTMLElement>('a').forEach((link) => {
-      link.addEventListener('click', (e) => { if (moved > 8) e.preventDefault(); });
-    });
+    strip.addEventListener('click', (e) => {
+      if (moved > 8) { e.preventDefault(); e.stopPropagation(); }
+      moved = 0;
+    }, true);
 
     // Teclado
     strip.addEventListener('keydown', (e) => {
