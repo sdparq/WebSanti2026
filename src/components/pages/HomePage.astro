@@ -24,8 +24,7 @@ const dragHint = lang === 'es' ? 'Desliza' : 'Drag';
             <Figure src={p.images[0]} alt={p.title} hue={p.hue} ratio="fill" loading={i === 0 ? 'eager' : 'lazy'} />
           </div>
           <div class="slide__scrim"></div>
-          <a class="slide__content container" href={url(lang, 'projects', p.slug)} data-slide-link>
-            <span class="slide__index">{String(i + 1).padStart(2, '0')} — {String(total).padStart(2, '0')}</span>
+          <a class="slide__content" href={url(lang, 'projects', p.slug)} data-slide-link>
             <h2 class="slide__title">{p.title}</h2>
             <p class="slide__meta">
               <span>{p.location[lang]}</span>
@@ -33,18 +32,10 @@ const dragHint = lang === 'es' ? 'Desliza' : 'Drag';
               <span>{p.category[lang]}</span>
               {p.award && <span class="slide__dot">·</span>}
               {p.award && <span class="slide__award">{p.award[lang]}</span>}
-              {p.year && <span class="slide__dot">·</span>}
-              {p.year && <span>{p.year}</span>}
             </p>
-            <span class="slide__cta">{t(lang, 'home.viewProject')} <span class="arrow">→</span></span>
           </a>
         </article>
       ))}
-    </div>
-
-    <!-- Identidad superpuesta -->
-    <div class="showcase__brand container">
-      <p class="showcase__tagline">{intro.hero[lang]}</p>
     </div>
 
     <!-- Controles -->
@@ -66,21 +57,6 @@ const dragHint = lang === 'es' ? 'Desliza' : 'Drag';
     <p class="showcase__hint" aria-hidden="true">{dragHint} <span>→</span></p>
   </section>
 
-  <!-- Manifiesto ------------------------------------------------------------ -->
-  <section class="manifesto">
-    <div class="container">
-      <p class="manifesto__text" data-reveal>{intro.lead[lang]}</p>
-    </div>
-  </section>
-
-  <!-- CTA a todos los proyectos --------------------------------------------- -->
-  <section class="all-cta">
-    <div class="container">
-      <a class="all-cta__link" href={url(lang, 'projects')} data-reveal>
-        {t(lang, 'home.allProjects')} <span class="arrow">→</span>
-      </a>
-    </div>
-  </section>
 </Base>
 
 <style>
@@ -118,34 +94,31 @@ const dragHint = lang === 'es' ? 'Desliza' : 'Drag';
     position: absolute; inset: 0;
     background: linear-gradient(to top, rgba(15,11,8,0.75) 0%, rgba(15,11,8,0.12) 45%, rgba(15,11,8,0.35) 100%);
   }
+  /* Título centrado en mitad de la pantalla */
   .slide__content {
-    position: absolute; inset: auto 0 0 0;
+    position: absolute; inset: 0;
     display: flex; flex-direction: column;
-    padding-bottom: clamp(7rem, 18vh, 11rem);
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding-inline: var(--gutter);
     color: #fff;
   }
-  .slide__index { font-size: 0.8rem; letter-spacing: 0.18em; color: rgba(255,255,255,0.78); }
   .slide__title {
-    color: #fff; font-weight: 340; margin: 0.7rem 0 0.7rem;
-    font-size: clamp(2.6rem, 1rem + 7vw, 8rem); line-height: 0.95; letter-spacing: -0.025em;
-    text-shadow: 0 4px 60px rgba(0,0,0,0.4);
+    color: #fff; font-weight: 340; margin: 0 0 1rem;
+    font-size: clamp(2.6rem, 1rem + 7vw, 8.5rem); line-height: 0.98; letter-spacing: -0.02em;
+    max-width: 14ch;
+    text-shadow: 0 4px 70px rgba(0,0,0,0.45);
+    transition: opacity 0.5s var(--ease);
   }
-  .slide__meta { display: flex; flex-wrap: wrap; gap: 0.55rem; color: rgba(255,255,255,0.9); font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.15rem); }
+  .slide__content:hover .slide__title { opacity: 0.85; }
+  .slide__meta {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0.55rem;
+    color: rgba(255,255,255,0.88);
+    font-size: clamp(0.85rem, 0.8rem + 0.25vw, 1rem);
+    letter-spacing: 0.14em; text-transform: uppercase;
+  }
   .slide__dot { opacity: 0.5; }
-  .slide__award { color: #e9c89a; letter-spacing: 0.02em; }
-  .slide__cta {
-    display: inline-flex; align-items: center; gap: 0.5em; margin-top: 1.4rem;
-    font-size: 0.98rem; letter-spacing: 0.02em;
-    border-bottom: 1px solid rgba(255,255,255,0.5); padding-bottom: 0.25rem; align-self: flex-start;
-  }
-
-  /* Identidad */
-  .showcase__brand { position: absolute; top: clamp(6rem, 16vh, 9rem); left: 0; right: 0; pointer-events: none; }
-  .showcase__tagline {
-    color: #fff; font-family: var(--font-serif); font-weight: 340;
-    font-size: clamp(1.3rem, 0.9rem + 1.6vw, 2.4rem); line-height: 1.05;
-    max-width: 16ch; letter-spacing: -0.02em; text-shadow: 0 2px 40px rgba(0,0,0,0.4);
-  }
+  .slide__award { color: #e9c89a; }
 
   /* Controles */
   .showcase__ui {
@@ -179,21 +152,6 @@ const dragHint = lang === 'es' ? 'Desliza' : 'Drag';
   .showcase__hint span { display: inline-block; }
   @keyframes hintpulse { 0%,100% { opacity: 0.5; transform: translate(0,-50%); } 50% { opacity: 1; transform: translate(6px,-50%); } }
   @media (max-width: 720px) { .showcase__hint { display: none; } }
-
-  /* Manifiesto + CTA */
-  .manifesto { padding-block: clamp(5rem, 14vw, 12rem); }
-  .manifesto__text {
-    font-family: var(--font-serif); font-weight: 340;
-    font-size: clamp(1.8rem, 1rem + 3.4vw, 4.2rem); line-height: 1.18;
-    letter-spacing: -0.02em; max-width: 24ch;
-  }
-  .all-cta { padding-block: clamp(4rem, 10vw, 9rem); text-align: center; }
-  .all-cta__link {
-    font-family: var(--font-serif); font-weight: 340;
-    font-size: clamp(2rem, 1.2rem + 4vw, 5rem); line-height: 1;
-    display: inline-flex; align-items: baseline; gap: 0.3em;
-  }
-  .all-cta__link .arrow { font-size: 0.6em; }
 </style>
 
 <script>
