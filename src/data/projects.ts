@@ -113,6 +113,90 @@ export const projects: Project[] = [
       '/proyectos/32-vpo-entremutilvas/galeria.jpg',
     ],
   },
+  {
+    slug: 'facultad-medicina-upna',
+    title: 'Facultad de Medicina UPNA',
+    featured: true,
+    hue: 210,
+    location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
+    category: { es: 'Equipamiento docente', en: 'Educational building' },
+    summary: {
+      es: 'Un volumen ligero de lamas blancas para la nueva Facultad de Medicina, en diálogo con la edificación histórica del campus.',
+      en: 'A light volume of white slats for the new Faculty of Medicine, in dialogue with the historic campus buildings.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'El proyecto propone un volumen sereno y ligero, envuelto en una piel de lamas verticales que tamiza la luz y unifica el conjunto. La planta baja se abre en vidrio hacia la plaza, tejiendo la vida universitaria con el espacio público.',
+        'La nueva pieza dialoga con la edificación histórica de ladrillo del campus desde el contraste respetuoso: escala ajustada, materialidad clara y una presencia silenciosa que ordena el frente urbano.',
+      ],
+      en: [
+        'The project proposes a serene, light volume wrapped in a skin of vertical slats that filters daylight and unifies the whole. The ground floor opens in glass towards the plaza, weaving university life into the public space.',
+        'The new piece converses with the historic brick buildings of the campus through respectful contrast: adjusted scale, light materiality and a quiet presence that orders the urban front.',
+      ],
+    },
+    images: [
+      '/proyectos/facultad-medicina-upna/frontal.jpg',
+      '/proyectos/facultad-medicina-upna/atrio.jpg',
+      '/proyectos/facultad-medicina-upna/interior-superior.jpg',
+      '/proyectos/facultad-medicina-upna/pasillo.jpg',
+      '/proyectos/facultad-medicina-upna/trasera.jpg',
+      '/proyectos/facultad-medicina-upna/junta.jpg',
+    ],
+  },
+  {
+    slug: 'espacio-escenico-huarte',
+    title: 'Espacio Escénico Huarte',
+    featured: true,
+    hue: 20,
+    location: { es: 'Huarte, Navarra', en: 'Huarte, Navarra' },
+    category: { es: 'Equipamiento cultural', en: 'Cultural building' },
+    summary: {
+      es: 'Un espacio escénico de ladrillo que se cierra con rotundidad a la calle y se abre, a través de una celosía cerámica, a la luz.',
+      en: 'A brick performance venue that closes firmly to the street and opens to the light through a ceramic lattice.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'El edificio se plantea como un volumen rotundo de ladrillo, coherente con la tradición constructiva del entorno. La masa cerámica protege la caja escénica y garantiza el aislamiento que exige el programa.',
+        'En su coronación, el aparejo se abre en celosía: una banda permeable que ilumina los espacios servidores y aligera el volumen, cambiando de expresión con la luz del día.',
+      ],
+      en: [
+        'The building is conceived as a bold brick volume, consistent with the construction tradition of its surroundings. The ceramic mass protects the stage box and provides the acoustic isolation the programme demands.',
+        'At its crown the bond opens into a lattice: a permeable band that lights the serving spaces and lightens the volume, changing its expression with the daylight.',
+      ],
+    },
+    images: [
+      '/proyectos/espacio-escenico-huarte/exterior.jpg',
+      '/proyectos/espacio-escenico-huarte/interior.jpg',
+    ],
+  },
+  {
+    slug: 'housing-new-york',
+    title: 'Housing New York',
+    featured: true,
+    hue: 250,
+    location: { es: 'Nueva York, EEUU', en: 'New York, USA' },
+    category: { es: 'Vivienda colectiva', en: 'Collective housing' },
+    summary: {
+      es: 'Vivienda asequible de relleno urbano en pequeñas parcelas en desuso, construida a partir de cuatro elementos esenciales.',
+      en: 'Affordable infill housing on small disused plots, built from four essential elements.',
+    },
+    description: {
+      es: [
+        'Pequeñas parcelas en desuso en la ciudad de Nueva York ofrecen oportunidades para dar una solución precisa a un objetivo específico: ¿cuáles son las partes más importantes y absolutamente necesarias de una vivienda?',
+        'La propuesta ofrece viviendas asequibles de relleno urbano a pequeña escala que constan de cuatro elementos esenciales: un núcleo inteligente, un balcón, un espacio habitable y una fachada operable. Al ubicar cada elemento siguiendo la regla sugerida en la propuesta, pueden utilizarse y desarrollarse diversas tipologías de vivienda.',
+      ],
+      en: [
+        'Small disused plots across New York City offer opportunities for a precise answer to a specific question: what are the most important, absolutely necessary parts of a home?',
+        'The proposal delivers small-scale affordable infill housing made of four essential elements: a smart core, a balcony, a living space and an operable façade. By placing each element according to the rule suggested in the proposal, a wide range of housing typologies can be developed.',
+      ],
+    },
+    images: [
+      '/proyectos/housing-new-york/exterior.jpg',
+      '/proyectos/housing-new-york/interior.jpg',
+    ],
+  },
 ];
 
 export const featuredProjects = projects.filter((p) => p.featured);
