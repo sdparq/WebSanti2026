@@ -51,11 +51,10 @@ export const projects: Project[] = [
         'To address this, we fragmented the project, breaking up its long side and adjusting it to the urban scale of its surroundings.',
       ],
     },
+    // Solo renders en la galería (los planos quedan fuera a propósito)
     images: [
       '/proyectos/85-vpo-bilbao/exterior.jpg',
       '/proyectos/85-vpo-bilbao/interior.jpg',
-      '/proyectos/85-vpo-bilbao/planta.jpg',
-      '/proyectos/85-vpo-bilbao/esquemas.jpg',
     ],
   },
   {
@@ -80,12 +79,12 @@ export const projects: Project[] = [
         'It adapts to the existing buildings with minimal impact, while creating a light, evocative and functional structure.',
       ],
     },
+    // Solo renders (la axonometría queda fuera a propósito)
     images: [
       '/proyectos/cubricion-pistas-valdelasfuentes/exterior-futbol.jpg',
       '/proyectos/cubricion-pistas-valdelasfuentes/basket.jpg',
       '/proyectos/cubricion-pistas-valdelasfuentes/futsal.jpg',
       '/proyectos/cubricion-pistas-valdelasfuentes/pasillo.jpg',
-      '/proyectos/cubricion-pistas-valdelasfuentes/axonometria.jpg',
     ],
   },
   {

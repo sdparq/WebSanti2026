@@ -1,5 +1,4 @@
 ---
-import ProjectsPage from '../../../components/pages/ProjectsPage.astro';
-import { url } from '../../../i18n/ui';
+// The "Projects" section is the home page itself: redirect there.
+return Astro.redirect('/en/');
 ---
-<ProjectsPage lang="en" altUrl={url('es', 'projects')} />

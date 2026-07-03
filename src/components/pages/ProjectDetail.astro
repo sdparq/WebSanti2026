@@ -32,7 +32,7 @@ const meta: string[] = [
   <div class="cover">
     <!-- NAV superior -------------------------------------------------------- -->
     <nav class="cover__nav" aria-label="Principal">
-      <a class="cover__navlink" href={url(lang, 'projects')}>{t(lang, 'nav.projects')} {String(idx + 1).padStart(2, '0')}–{total}</a>
+      <a class="cover__navlink" href={url(lang)}>{t(lang, 'nav.projects')} {String(idx + 1).padStart(2, '0')}–{total}</a>
       <a class="cover__navlink cover__navlink--center" href={url(lang, 'studio')}>{t(lang, 'nav.studio')}</a>
       <span class="cover__navright">
         <a class="cover__navlink" href={url(lang, 'contact')}>{t(lang, 'nav.contact')}</a>
@@ -170,22 +170,24 @@ const meta: string[] = [
 
   .panel { flex: 0 0 auto; }
 
-  /* Panel de texto (primer elemento) */
+  /* Panel de texto (primer elemento): columna estrecha, centrada y alineada */
   .panel--text {
-    width: min(58ch, 72vw);
-    padding-left: clamp(0rem, 4vw, 5rem);
+    width: min(46ch, 60vw);
+    margin-left: clamp(2rem, 9vw, 11rem);
   }
   .panel__par {
-    font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.45rem);
-    line-height: 1.5;
+    font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.1rem);
+    line-height: 1.62;
     margin-bottom: 1em;
+    text-align: left;
+    text-wrap: pretty;
   }
   .panel__par:first-child { text-indent: 3ch; }
   .panel__meta {
-    margin-top: 1.6rem;
+    margin-top: 1.4rem;
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     letter-spacing: 0.06em;
     color: var(--ink-soft);
   }
