@@ -11,6 +11,7 @@ interface Props {
   description?: string;
   altUrl: string;       // misma página en el otro idioma (para el selector y hreflang)
   dark?: boolean;       // cabecera sobre fondo oscuro (hero)
+  chrome?: boolean;     // false = sin cabecera/pie globales (la página trae los suyos)
 }
 const {
   lang,
@@ -18,6 +19,7 @@ const {
   description = '',
   altUrl,
   dark = false,
+  chrome = true,
 } = Astro.props;
 
 const fullTitle = title ? `${title} — Santiago de Pablo Arquitectura` : 'Santiago de Pablo Arquitectura';
@@ -36,18 +38,18 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_GB'} />
-    <meta name="theme-color" content="#f3efe7" />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" hreflang={lang} href={canonical} />
     <link rel="alternate" hreflang={lang === 'es' ? 'en' : 'es'} href={altUrl} />
   </head>
   <body>
     <a class="skip-link" href="#main">Saltar al contenido</a>
-    <Header lang={lang} altUrl={altUrl} />
+    {chrome && <Header lang={lang} altUrl={altUrl} />}
     <main id="main">
       <slot />
     </main>
-    <Footer lang={lang} />
+    {chrome && <Footer lang={lang} />}
 
     <style>
       .skip-link {

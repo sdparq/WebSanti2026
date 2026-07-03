@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Figure from '../Figure.astro';
 import { type Lang, t, url } from '../../i18n/ui';
-import { intro } from '../../data/site';
+import { intro, site } from '../../data/site';
 import { projects } from '../../data/projects';
 
 interface Props {
@@ -10,245 +10,281 @@ interface Props {
   altUrl: string;
 }
 const { lang, altUrl } = Astro.props;
-const total = projects.length;
-const dragHint = lang === 'es' ? 'Desliza' : 'Drag';
+const total = String(projects.length).padStart(2, '0');
+
+// Texto del letrero en movimiento
+const marquee =
+  lang === 'es'
+    ? '¡Hola! Somos Santiago de Pablo Arquitectura'
+    : 'Hello! We are Santiago de Pablo Arquitectura';
+
+const year = new Date().getFullYear();
+const instagram = site.social.find((s) => s.label === 'Instagram');
 ---
 
-<Base lang={lang} altUrl={altUrl} dark={true} title="" description={intro.lead[lang]}>
-  <!-- SHOWCASE: slider horizontal a pantalla completa ---------------------- -->
-  <section class="showcase" aria-roledescription="carrusel" aria-label={t(lang, 'home.featured')}>
-    <div class="slider" data-slider tabindex="0">
-      {projects.map((p, i) => (
-        <article class="slide" aria-roledescription="diapositiva" aria-label={`${i + 1} / ${total}`}>
-          <div class="slide__media" data-slide-media>
-            <Figure src={p.images[0]} alt={p.title} hue={p.hue} ratio="fill" loading={i === 0 ? 'eager' : 'lazy'} />
-          </div>
-          <div class="slide__scrim"></div>
-          <a class="slide__content" href={url(lang, 'projects', p.slug)} data-slide-link>
-            <h2 class="slide__title">{p.title}</h2>
-            <p class="slide__meta">
-              <span>{p.location[lang]}</span>
-              <span class="slide__dot">·</span>
-              <span>{p.category[lang]}</span>
-              {p.award && <span class="slide__dot">·</span>}
-              {p.award && <span class="slide__award">{p.award[lang]}</span>}
-            </p>
+<Base lang={lang} altUrl={altUrl} chrome={false} title="" description={intro.lead[lang]}>
+  <div class="cover">
+    <!-- NAV superior: tres columnas ---------------------------------------- -->
+    <nav class="cover__nav" aria-label="Principal">
+      <a class="cover__navlink" href={url(lang, 'projects')}>{t(lang, 'nav.projects')} 01–{total}</a>
+      <a class="cover__navlink cover__navlink--center" href={url(lang, 'studio')}>{t(lang, 'nav.studio')}</a>
+      <span class="cover__navright">
+        <a class="cover__navlink" href={url(lang, 'contact')}>{t(lang, 'nav.contact')}</a>
+        <a class="cover__lang" href={altUrl}>{t(lang, 'lang.switch')}</a>
+      </span>
+    </nav>
+
+    <!-- LETRERO en movimiento ---------------------------------------------- -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        {[0, 1].map(() => (
+          <span class="marquee__half">
+            {[0, 1, 2].map(() => <span class="marquee__item">{marquee}&nbsp;—&nbsp;</span>)}
+          </span>
+        ))}
+      </div>
+    </div>
+    <h1 class="sr-only">{site.nameFull}</h1>
+
+    <!-- TIRA horizontal de proyectos ---------------------------------------- -->
+    <div class="stage">
+      <span class="stage__scroll" aria-hidden="true">
+        Scroll
+        <svg width="44" height="10" viewBox="0 0 44 10" fill="none" aria-hidden="true">
+          <path d="M0 5h41M36 1l6 4-6 4" stroke="currentColor" stroke-width="1.2" />
+        </svg>
+      </span>
+      <div class="strip" data-strip tabindex="0" aria-label={t(lang, 'projects.title')}>
+        {projects.map((p) => (
+          <a class="card" href={url(lang, 'projects', p.slug)} aria-label={p.title} data-strip-link>
+            <Figure src={p.images[0]} alt={p.title} hue={p.hue} ratio="fill" loading="eager" class="card__fig" />
+            <span class="card__plus" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <path d="M13 2v22M2 13h22" stroke="#fff" stroke-width="1.3" />
+              </svg>
+            </span>
+            <span class="card__name">{p.title}</span>
           </a>
-        </article>
-      ))}
-    </div>
-
-    <!-- Controles -->
-    <div class="showcase__ui container">
-      <div class="counter">
-        <span data-current>01</span><span class="counter__sep">/</span><span>{String(total).padStart(2, '0')}</span>
-      </div>
-      <div class="arrows">
-        <button class="arrow-btn" data-prev aria-label="Anterior">
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-        </button>
-        <button class="arrow-btn" data-next aria-label="Siguiente">
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-        </button>
+        ))}
       </div>
     </div>
 
-    <div class="showcase__progress"><span data-progress></span></div>
-    <p class="showcase__hint" aria-hidden="true">{dragHint} <span>→</span></p>
-  </section>
-
+    <!-- BARRA inferior ------------------------------------------------------ -->
+    <footer class="cover__foot">
+      <a class="cover__navlink" href={`mailto:${site.email}`}>Email</a>
+      {instagram && (
+        <a class="cover__navlink cover__navlink--center" href={instagram.href} target="_blank" rel="noopener">
+          Instagram
+        </a>
+      )}
+      <span class="cover__copy">© {year}. Santiago de Pablo.</span>
+    </footer>
+  </div>
 </Base>
 
 <style>
-  .showcase { position: relative; height: 100svh; min-height: 580px; overflow: hidden; background: #14110d; }
-
-  /* Pista del slider */
-  .slider {
+  .cover {
+    height: 100svh;
+    min-height: 600px;
     display: flex;
-    height: 100%;
+    flex-direction: column;
+    background: var(--bone);
+    color: var(--ink);
+    overflow: hidden;
+  }
+
+  /* NAV en tres columnas */
+  .cover__nav,
+  .cover__foot {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: clamp(1.1rem, 2.4vh, 1.8rem) var(--gutter);
+  }
+  .cover__navright { justify-self: end; display: inline-flex; align-items: center; gap: 1.2rem; }
+  .cover__copy { justify-self: end; font-weight: 700; text-transform: uppercase; font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.15rem); letter-spacing: 0.01em; }
+  .cover__navlink {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.15rem);
+    letter-spacing: 0.01em;
+    transition: opacity 0.3s var(--ease);
+  }
+  .cover__navlink:hover { opacity: 0.5; }
+  .cover__navlink--center { justify-self: center; }
+  .cover__lang {
+    font-weight: 700; font-size: 0.8rem; letter-spacing: 0.06em;
+    border: 1.5px solid var(--ink); border-radius: 100px; padding: 0.3em 0.75em;
+    transition: background 0.3s var(--ease), color 0.3s var(--ease);
+  }
+  .cover__lang:hover { background: var(--ink); color: #fff; }
+
+  /* LETRERO gigante en movimiento */
+  .marquee {
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    animation: marquee 28s linear infinite;
+  }
+  .marquee__half { display: flex; }
+  .marquee__item {
+    white-space: nowrap;
+    font-weight: 780;
+    text-transform: uppercase;
+    font-size: clamp(2.6rem, 1rem + 6.5vw, 7rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    padding-block: 0.04em;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__track { animation: none; }
+  }
+
+  /* ESCENARIO con tira horizontal */
+  .stage { position: relative; flex: 1; min-height: 0; display: flex; }
+  .stage__scroll {
+    position: absolute;
+    left: var(--gutter);
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1.05rem);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .strip {
+    display: flex;
+    align-items: center;
+    gap: clamp(4rem, 9vw, 10rem);
+    width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    scroll-snap-type: x mandatory;
+    padding-inline: clamp(11rem, 22vw, 24rem) clamp(4rem, 10vw, 12rem);
     scrollbar-width: none;
-    -ms-overflow-style: none;
     cursor: grab;
     outline: none;
   }
-  .slider::-webkit-scrollbar { display: none; }
-  .slider.is-dragging { cursor: grabbing; scroll-snap-type: none; }
-  .slider.is-dragging .slide__content { pointer-events: none; }
-  .slider.is-wheeling { scroll-snap-type: none; }
+  .strip::-webkit-scrollbar { display: none; }
+  .strip.is-dragging { cursor: grabbing; }
+  .strip.is-dragging .card { pointer-events: none; }
 
-  .slide {
+  .card {
     position: relative;
-    flex: 0 0 100%;
-    width: 100%;
-    height: 100%;
-    scroll-snap-align: start;
+    flex: 0 0 auto;
+    height: min(62%, 520px);
+    aspect-ratio: 0.92;
     overflow: hidden;
-    color: #fff;
+    background: var(--sand);
   }
-  .slide__media { position: absolute; inset: 0; }
-  .slide__media :global(.figure) { height: 100%; }
-  .slide__scrim {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(15,11,8,0.75) 0%, rgba(15,11,8,0.12) 45%, rgba(15,11,8,0.35) 100%);
-  }
-  /* Título centrado en mitad de la pantalla */
-  .slide__content {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    padding-inline: var(--gutter);
-    color: #fff;
-  }
-  .slide__title {
-    color: #fff; font-weight: 340; margin: 0 0 1rem;
-    font-size: clamp(2.6rem, 1rem + 7vw, 8.5rem); line-height: 0.98; letter-spacing: -0.02em;
-    max-width: 14ch;
-    text-shadow: 0 4px 70px rgba(0,0,0,0.45);
-    transition: opacity 0.5s var(--ease);
-  }
-  .slide__content:hover .slide__title { opacity: 0.85; }
-  .slide__meta {
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 0.55rem;
-    color: rgba(255,255,255,0.88);
-    font-size: clamp(0.85rem, 0.8rem + 0.25vw, 1rem);
-    letter-spacing: 0.14em; text-transform: uppercase;
-  }
-  .slide__dot { opacity: 0.5; }
-  .slide__award { color: #e9c89a; }
+  .card :global(.card__fig) { position: absolute; inset: 0; height: 100%; }
+  .card :global(.figure__img) { transition: transform 0.9s var(--ease); }
+  .card:hover :global(.figure__img) { transform: scale(1.04); }
 
-  /* Controles */
-  .showcase__ui {
-    position: absolute; left: 0; right: 0; bottom: clamp(2rem, 5vh, 3.2rem);
-    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  .card__plus {
+    position: absolute;
+    top: 50%; left: 50%;
+    translate: -50% -50%;
+    width: clamp(84px, 8vw, 110px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: rgba(10, 10, 10, 0.82);
+    display: grid;
+    place-items: center;
+    transition: transform 0.4s var(--ease), background 0.4s var(--ease);
+  }
+  .card:hover .card__plus { transform: scale(1.12); background: rgba(10, 10, 10, 0.95); }
+
+  .card__name {
+    position: absolute;
+    left: 0; bottom: 0;
+    right: 0;
+    padding: 0.7rem 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
     color: #fff;
+    background: linear-gradient(to top, rgba(0,0,0,0.45), transparent);
+    opacity: 0;
+    transition: opacity 0.4s var(--ease);
   }
-  .counter { font-size: 0.9rem; letter-spacing: 0.1em; font-variant-numeric: tabular-nums; }
-  .counter__sep { margin: 0 0.5em; opacity: 0.5; }
-  .arrows { display: flex; gap: 0.6rem; }
-  .arrow-btn {
-    width: 52px; height: 52px; border-radius: 100px;
-    border: 1px solid rgba(255,255,255,0.4); color: #fff;
-    display: grid; place-items: center;
-    transition: background 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease), opacity 0.3s;
-  }
-  .arrow-btn:hover { background: #fff; color: var(--ink); border-color: #fff; }
-  .arrow-btn[disabled] { opacity: 0.3; pointer-events: none; }
+  .card:hover .card__name { opacity: 1; }
 
-  /* Barra de progreso */
-  .showcase__progress { position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: rgba(255,255,255,0.18); }
-  .showcase__progress span { display: block; height: 100%; width: 0; background: #fff; transition: width 0.5s var(--ease); }
+  .cover__foot { border-top: 2px solid var(--ink); }
 
-  /* Pista de "desliza" */
-  .showcase__hint {
-    position: absolute; right: var(--gutter); top: 50%; transform: translateY(-50%);
-    color: rgba(255,255,255,0.7); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
-    display: flex; align-items: center; gap: 0.5em; pointer-events: none;
-    animation: hintpulse 2.4s var(--ease) infinite;
+  @media (max-width: 720px) {
+    .cover__nav, .cover__foot { grid-template-columns: auto auto; justify-content: space-between; }
+    .cover__navlink--center { display: none; }
+    .stage__scroll { display: none; }
+    .strip { padding-inline: var(--gutter); gap: 2rem; }
+    .card { height: 56%; }
   }
-  .showcase__hint span { display: inline-block; }
-  @keyframes hintpulse { 0%,100% { opacity: 0.5; transform: translate(0,-50%); } 50% { opacity: 1; transform: translate(6px,-50%); } }
-  @media (max-width: 720px) { .showcase__hint { display: none; } }
 </style>
 
 <script>
-  const slider = document.querySelector<HTMLElement>('[data-slider]');
-  if (slider) {
-    const slides = Array.from(slider.querySelectorAll<HTMLElement>('.slide'));
-    const total = slides.length;
-    const current = document.querySelector<HTMLElement>('[data-current]');
-    const progress = document.querySelector<HTMLElement>('[data-progress]');
-    const prevBtn = document.querySelector<HTMLButtonElement>('[data-prev]');
-    const nextBtn = document.querySelector<HTMLButtonElement>('[data-next]');
-    const pad = (n: number) => String(n).padStart(2, '0');
-
-    const indexFromScroll = () => Math.round(slider.scrollLeft / slider.clientWidth);
-
-    function refresh() {
-      const i = Math.min(total - 1, Math.max(0, indexFromScroll()));
-      if (current) current.textContent = pad(i + 1);
-      if (progress) progress.style.width = `${((i + 1) / total) * 100}%`;
-      if (prevBtn) prevBtn.disabled = i <= 0;
-      if (nextBtn) nextBtn.disabled = i >= total - 1;
-    }
-
-    const go = (dir: number) => slider.scrollBy({ left: dir * slider.clientWidth, behavior: 'smooth' });
-    prevBtn?.addEventListener('click', () => go(-1));
-    nextBtn?.addEventListener('click', () => go(1));
-
-    let raf = 0;
-    slider.addEventListener('scroll', () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => { refresh(); raf = 0; });
-    }, { passive: true });
-
-    // Teclado cuando el showcase está a la vista
-    window.addEventListener('keydown', (e) => {
-      const rect = slider.getBoundingClientRect();
-      const visible = rect.bottom > 80 && rect.top < window.innerHeight * 0.5;
-      if (!visible) return;
-      if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
-    });
-
-    // Rueda / scroll vertical → mueve el slider en horizontal.
-    // Al llegar al principio/final se "libera" y la página vuelve a su scroll normal.
-    const showcase = document.querySelector<HTMLElement>('.showcase');
-    let wheelTimer = 0;
-    showcase?.addEventListener('wheel', (e) => {
-      const dom = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-      if (dom === 0) return;
-      const atStart = slider.scrollLeft <= 1;
-      const atEnd = slider.scrollLeft >= slider.scrollWidth - slider.clientWidth - 1;
-      const forward = dom > 0;
-      // Solo capturamos si aún podemos avanzar en esa dirección
-      if ((forward && !atEnd) || (!forward && !atStart)) {
+  const strip = document.querySelector<HTMLElement>('[data-strip]');
+  if (strip) {
+    // Rueda vertical → desplazamiento horizontal de la tira
+    strip.closest('.stage')?.addEventListener(
+      'wheel',
+      (e) => {
+        const ev = e as WheelEvent;
+        const d = Math.abs(ev.deltaY) >= Math.abs(ev.deltaX) ? ev.deltaY : ev.deltaX;
+        if (!d) return;
         e.preventDefault();
-        slider.classList.add('is-wheeling');
-        slider.scrollLeft += dom;
-        clearTimeout(wheelTimer);
-        wheelTimer = window.setTimeout(() => {
-          slider.classList.remove('is-wheeling');
-          slider.scrollTo({ left: indexFromScroll() * slider.clientWidth, behavior: 'smooth' });
-        }, 150);
-      }
-    }, { passive: false });
+        strip.scrollLeft += d;
+      },
+      { passive: false }
+    );
 
-    // Arrastrar con ratón / dedo
+    // Arrastre con ratón / dedo
     let down = false, startX = 0, startLeft = 0, moved = 0;
-    slider.addEventListener('pointerdown', (e) => {
+    strip.addEventListener('pointerdown', (e) => {
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       down = true; moved = 0;
-      startX = e.clientX; startLeft = slider.scrollLeft;
-      slider.classList.add('is-dragging');
-      slider.setPointerCapture(e.pointerId);
+      startX = e.clientX; startLeft = strip.scrollLeft;
+      strip.classList.add('is-dragging');
+      strip.setPointerCapture(e.pointerId);
     });
-    slider.addEventListener('pointermove', (e) => {
+    strip.addEventListener('pointermove', (e) => {
       if (!down) return;
       const dx = e.clientX - startX;
       moved = Math.max(moved, Math.abs(dx));
-      slider.scrollLeft = startLeft - dx;
+      strip.scrollLeft = startLeft - dx;
     });
     const release = (e: PointerEvent) => {
       if (!down) return;
       down = false;
-      slider.classList.remove('is-dragging');
-      try { slider.releasePointerCapture(e.pointerId); } catch {}
-      // snap al más cercano
-      slider.scrollTo({ left: indexFromScroll() * slider.clientWidth, behavior: 'smooth' });
+      strip.classList.remove('is-dragging');
+      try { strip.releasePointerCapture(e.pointerId); } catch {}
     };
-    slider.addEventListener('pointerup', release);
-    slider.addEventListener('pointercancel', release);
+    strip.addEventListener('pointerup', release);
+    strip.addEventListener('pointercancel', release);
 
-    // Evitar que un arrastre dispare la navegación del enlace
-    slider.querySelectorAll<HTMLElement>('[data-slide-link]').forEach((link) => {
+    // Un arrastre no debe disparar el enlace
+    strip.querySelectorAll<HTMLElement>('[data-strip-link]').forEach((link) => {
       link.addEventListener('click', (e) => { if (moved > 8) e.preventDefault(); });
     });
 
-    refresh();
-    window.addEventListener('resize', refresh);
+    // Teclado
+    strip.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); strip.scrollBy({ left: 400, behavior: 'smooth' }); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); strip.scrollBy({ left: -400, behavior: 'smooth' }); }
+    });
   }
 </script>

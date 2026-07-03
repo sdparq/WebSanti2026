@@ -81,16 +81,20 @@ const nav = [
     display: flex;
     flex-direction: column;
     line-height: 1.05;
-    font-family: var(--font-serif);
   }
-  .brand__name { font-size: clamp(1.1rem, 0.9rem + 0.6vw, 1.35rem); letter-spacing: -0.01em; }
+  .brand__name {
+    font-weight: 750;
+    text-transform: uppercase;
+    font-size: clamp(0.98rem, 0.85rem + 0.4vw, 1.2rem);
+    letter-spacing: 0.01em;
+  }
   .brand__suffix {
-    font-family: var(--font-sans);
-    font-size: 0.62rem;
+    font-size: 0.6rem;
+    font-weight: 600;
     letter-spacing: 0.32em;
     text-transform: uppercase;
     color: var(--ink-soft);
-    margin-top: 0.15em;
+    margin-top: 0.2em;
   }
 
   .nav {
@@ -98,7 +102,12 @@ const nav = [
     align-items: center;
     gap: clamp(1.5rem, 3vw, 3rem);
   }
-  .nav__link { font-size: 0.98rem; }
+  .nav__link {
+    font-size: clamp(0.88rem, 0.8rem + 0.25vw, 1.05rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
   .nav__lang {
     font-size: 0.8rem;
     font-weight: 600;
@@ -142,9 +151,10 @@ const nav = [
     text-align: center;
   }
   .mobile-nav__link {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 1.4rem + 4vw, 3.4rem);
-    font-weight: 360;
+    font-weight: 750;
+    text-transform: uppercase;
+    font-size: clamp(1.8rem, 1.2rem + 4vw, 3rem);
+    letter-spacing: -0.01em;
   }
   .mobile-nav__lang {
     margin-top: 1.5rem;
