@@ -148,33 +148,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'espacio-escenico-huarte',
-    title: 'Espacio Escénico Huarte',
-    featured: true,
-    hue: 20,
-    location: { es: 'Huarte, Navarra', en: 'Huarte, Navarra' },
-    category: { es: 'Equipamiento cultural', en: 'Cultural building' },
-    summary: {
-      es: 'Un espacio escénico de ladrillo que se cierra con rotundidad a la calle y se abre, a través de una celosía cerámica, a la luz.',
-      en: 'A brick performance venue that closes firmly to the street and opens to the light through a ceramic lattice.',
-    },
-    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
-    description: {
-      es: [
-        'El edificio se plantea como un volumen rotundo de ladrillo, coherente con la tradición constructiva del entorno. La masa cerámica protege la caja escénica y garantiza el aislamiento que exige el programa.',
-        'En su coronación, el aparejo se abre en celosía: una banda permeable que ilumina los espacios servidores y aligera el volumen, cambiando de expresión con la luz del día.',
-      ],
-      en: [
-        'The building is conceived as a bold brick volume, consistent with the construction tradition of its surroundings. The ceramic mass protects the stage box and provides the acoustic isolation the programme demands.',
-        'At its crown the bond opens into a lattice: a permeable band that lights the serving spaces and lightens the volume, changing its expression with the daylight.',
-      ],
-    },
-    images: [
-      '/proyectos/espacio-escenico-huarte/exterior.jpg',
-      '/proyectos/espacio-escenico-huarte/interior.jpg',
-    ],
-  },
-  {
     slug: 'housing-new-york',
     title: 'Housing New York',
     featured: true,
@@ -250,9 +223,9 @@ export const projects: Project[] = [
       ],
     },
     images: [
-      '/proyectos/mercado-biblioteca-ponteareas/exterior.jpg',
-      '/proyectos/mercado-biblioteca-ponteareas/acceso.jpg',
-      '/proyectos/mercado-biblioteca-ponteareas/interior.jpg',
+      '/proyectos/mercado-biblioteca-ponteareas/portada.jpg',
+      '/proyectos/mercado-biblioteca-ponteareas/01.jpg',
+      '/proyectos/mercado-biblioteca-ponteareas/02.jpg',
     ],
   },
   {
@@ -277,8 +250,12 @@ export const projects: Project[] = [
         'The relationship with the context is reinforced, especially with Jacinto Anglada street, minimising visual impact, integrating every element into the whole and resolving the perimeter level changes to encourage encounters with the plaza.',
       ],
     },
-    // Pendiente de imágenes: mientras tanto se muestra una escena generada
-    images: [],
+    images: [
+      '/proyectos/mercado-de-abastos-de-vera/portada.jpg',
+      '/proyectos/mercado-de-abastos-de-vera/01.jpg',
+      '/proyectos/mercado-de-abastos-de-vera/02.jpg',
+      '/proyectos/mercado-de-abastos-de-vera/03.jpg',
+    ],
   },
   {
     slug: 'reforma-estadio-el-sadar',
@@ -454,8 +431,9 @@ export const projects: Project[] = [
       ],
     },
     images: [
-      '/proyectos/viviendas-colaborativas-avila/exterior.jpg',
-      '/proyectos/viviendas-colaborativas-avila/interior.jpg',
+      '/proyectos/viviendas-colaborativas-avila/portada.jpg',
+      '/proyectos/viviendas-colaborativas-avila/01.jpg',
+      '/proyectos/viviendas-colaborativas-avila/02.jpg',
     ],
   },
   {
@@ -480,8 +458,11 @@ export const projects: Project[] = [
         'The 107 homes are organised into 14 entrances of 8 dwellings each, with a single access to the complex. An interior landscaped ground connects all the blocks and distributes the shared uses across a ground floor conceived as a link and meeting point: bicycle parking, social rooms, a gym and flexible spaces with possible direct street access. The modular genesis also allows construction in up to 14 independent phases.',
       ],
     },
-    // Pendiente de imágenes: mientras tanto se muestra una escena generada
-    images: [],
+    images: [
+      '/proyectos/viviendas-colaborativas-valladolid/portada.jpg',
+      '/proyectos/viviendas-colaborativas-valladolid/01.jpg',
+      '/proyectos/viviendas-colaborativas-valladolid/02.jpg',
+    ],
   },
   {
     slug: 'viviendas-unifamiliares-gorraiz',
