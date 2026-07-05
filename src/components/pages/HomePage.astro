@@ -155,14 +155,12 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
     padding-right: clamp(2.2rem, 3.4vw, 3.6rem);
   }
   .band__word {
-    font-weight: 680;
+    font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.82rem;
-    letter-spacing: 0.28em;
+    font-size: clamp(1rem, 0.9rem + 0.4vw, 1.25rem);
+    letter-spacing: 0.24em;
     white-space: nowrap;
   }
-  /* Palabras alternando negro y azul */
-  .band__half .band__word:nth-of-type(even) { color: var(--accent); }
 
   /* Pictogramas en azul, flotando con suavidad */
   .band__glyph { display: block; flex: 0 0 auto; }
@@ -213,11 +211,11 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
     /* Margen inicial amplio: reserva sitio al rótulo "Scroll →" */
     padding-inline: clamp(13rem, 15vw, 18rem) clamp(2.5rem, 5vw, 6rem);
     scrollbar-width: none;
-    cursor: grab;
+    cursor: var(--cursor), grab;
     outline: none;
   }
   .strip::-webkit-scrollbar { display: none; }
-  .strip.is-dragging { cursor: grabbing; }
+  .strip.is-dragging { cursor: var(--cursor), grabbing; }
   .strip.is-dragging .card { pointer-events: none; }
 
   .card {

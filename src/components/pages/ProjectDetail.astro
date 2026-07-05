@@ -174,11 +174,11 @@ const meta: { text: string; award?: boolean }[] = [
     overflow-y: hidden;
     padding-inline: var(--gutter) clamp(3rem, 8vw, 9rem);
     scrollbar-width: none;
-    cursor: grab;
+    cursor: var(--cursor), grab;
     outline: none;
   }
   .strip::-webkit-scrollbar { display: none; }
-  .strip.is-dragging { cursor: grabbing; }
+  .strip.is-dragging { cursor: var(--cursor), grabbing; }
   .strip.is-dragging a { pointer-events: none; }
 
   .panel { flex: 0 0 auto; }

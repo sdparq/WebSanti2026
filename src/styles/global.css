@@ -30,6 +30,9 @@
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --dur: 0.7s;
+
+  /* Cursor propio: círculo con punto negro interior */
+  --cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><circle cx='14' cy='14' r='12' fill='none' stroke='%23111111' stroke-width='1.5'/><circle cx='14' cy='14' r='3.2' fill='%23111111'/></svg>") 14 14;
 }
 
 /* ----------------------------------------------------------------- reset --- */
@@ -55,6 +58,7 @@ html {
 }
 
 body {
+  cursor: var(--cursor), auto;
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
@@ -75,6 +79,7 @@ img {
 a {
   color: inherit;
   text-decoration: none;
+  cursor: var(--cursor), pointer;
 }
 
 button {
@@ -82,7 +87,7 @@ button {
   color: inherit;
   background: none;
   border: none;
-  cursor: pointer;
+  cursor: var(--cursor), pointer;
 }
 
 /* ------------------------------------------------------------ tipografía --- */
