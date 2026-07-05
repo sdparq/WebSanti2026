@@ -174,7 +174,8 @@ const instagram = site.social.find((s) => s.label === 'Instagram');
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    padding-inline: clamp(7rem, 12vw, 13rem) clamp(2.5rem, 5vw, 6rem);
+    /* Margen inicial amplio: reserva sitio al rótulo "Scroll →" */
+    padding-inline: clamp(13rem, 15vw, 18rem) clamp(2.5rem, 5vw, 6rem);
     scrollbar-width: none;
     cursor: grab;
     outline: none;
