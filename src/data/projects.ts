@@ -33,11 +33,16 @@ export const projects: Project[] = [
   {
     slug: '85-vpo-bilbao',
     title: '85 VPO Bilbao',
+    year: '2020',
     featured: true,
     hue: 30,
     location: { es: 'Iturrigorri, Bilbao', en: 'Iturrigorri, Bilbao' },
     category: { es: 'Vivienda colectiva', en: 'Collective housing' },
     award: { es: '1.er premio', en: '1st prize' },
+    collaborators: {
+      es: 'Orbaiceta & Aldaba y Apezteguia Architects',
+      en: 'Orbaiceta & Aldaba and Apezteguia Architects',
+    },
     summary: {
       es: 'Concurso de 85 viviendas de protección oficial que fragmenta su volumen para adaptarse a un terreno en pendiente y a la escala del entorno.',
       en: 'A competition for 85 social-housing units whose volume is fragmented to adapt to a sloping site and the scale of its surroundings.',

@@ -24,7 +24,6 @@ const meta: { text: string; award?: boolean }[] = [
   ...(p.award ? [{ text: p.award[lang], award: true }] : []),
   ...(p.status ? [{ text: p.status[lang] }] : []),
   ...(p.area ? [{ text: p.area }] : []),
-  ...(p.year ? [{ text: p.year }] : []),
 ];
 ---
 
@@ -58,6 +57,7 @@ const meta: { text: string; award?: boolean }[] = [
               </>
             ))}
           </p>
+          {p.year && <p class="panel__year">{p.year}</p>}
           {p.collaborators && (
             <p class="panel__collab">
               <span class="panel__collablabel">{t(lang, 'project.collaborators')}</span>
@@ -195,7 +195,6 @@ const meta: { text: string; award?: boolean }[] = [
     text-align: justify;
     hyphens: auto;
   }
-  .panel__par:first-child { text-indent: 3ch; }
   .panel__meta {
     margin-top: 1.4rem;
     font-weight: 700;
@@ -205,6 +204,13 @@ const meta: { text: string; award?: boolean }[] = [
     color: var(--ink-soft);
   }
   .panel__award { color: var(--accent); }
+  .panel__year {
+    margin-top: 0.5rem;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+  }
   .panel__collab {
     margin-top: 0.5rem;
     font-size: 0.82rem;
