@@ -146,7 +146,7 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
   .band__track {
     display: flex;
     width: max-content;
-    animation: bandScroll 55s linear infinite;
+    animation: bandScroll 30s linear infinite;
   }
   .band__half {
     display: flex;
@@ -155,25 +155,35 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
     padding-right: clamp(2.2rem, 3.4vw, 3.6rem);
   }
   .band__word {
-    font-weight: 640;
+    font-weight: 680;
     text-transform: uppercase;
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     letter-spacing: 0.28em;
     white-space: nowrap;
   }
+  /* Palabras alternando negro y azul */
+  .band__half .band__word:nth-of-type(even) { color: var(--accent); }
+
+  /* Pictogramas en azul, flotando con suavidad */
   .band__glyph { display: block; flex: 0 0 auto; }
   .band__glyph :is(path, circle) {
-    stroke: var(--ink);
-    stroke-width: 1.3;
+    stroke: var(--accent);
+    stroke-width: 1.5;
     fill: none;
     stroke-linecap: square;
   }
-  .band__spin { animation: bandSpin 18s linear infinite; }
+  .band__glyph:not(.band__spin) { animation: bandFloat 2.6s ease-in-out infinite alternate; }
+  .band__half svg:nth-of-type(even):not(.band__spin) { animation-delay: -1.3s; }
+  .band__spin { animation: bandSpin 12s linear infinite; }
   @keyframes bandScroll { to { transform: translateX(-50%); } }
   @keyframes bandSpin { to { transform: rotate(360deg); } }
+  @keyframes bandFloat {
+    from { transform: translateY(2.5px); }
+    to { transform: translateY(-2.5px); }
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    .band__track, .band__spin { animation: none; }
+    .band__track, .band__spin, .band__glyph { animation: none !important; }
   }
 
   /* ESCENARIO con tira horizontal */
