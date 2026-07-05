@@ -197,19 +197,24 @@ const instagram = site.social.find((s) => s.label === 'Instagram');
   .card :global(.figure__img) { transition: transform 0.9s var(--ease); }
   .card:hover :global(.figure__img) { transform: scale(1.04); }
 
+  /* El "+" aparece solo al pasar el ratón, discreto */
   .card__plus {
     position: absolute;
     top: 50%; left: 50%;
     translate: -50% -50%;
-    width: clamp(84px, 8vw, 110px);
+    width: clamp(48px, 4vw, 62px);
     aspect-ratio: 1;
     border-radius: 50%;
-    background: rgba(10, 10, 10, 0.82);
+    background: rgba(10, 10, 10, 0.85);
     display: grid;
     place-items: center;
-    transition: transform 0.4s var(--ease), background 0.4s var(--ease);
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
   }
-  .card:hover .card__plus { transform: scale(1.12); background: rgba(10, 10, 10, 0.95); }
+  .card__plus svg { width: 18px; height: 18px; }
+  .card:hover .card__plus { opacity: 1; transform: scale(1); }
+  @media (hover: none) { .card__plus { display: none; } }
 
   .card__name {
     position: absolute;
