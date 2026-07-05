@@ -527,6 +527,151 @@ export const projects: Project[] = [
       '/proyectos/yacimiento-san-esteban/interior-transversal.jpg',
     ],
   },
+  {
+    slug: '96-vpo-almeria',
+    title: '96 VPO Almería',
+    featured: true,
+    hue: 35,
+    location: { es: 'Almería', en: 'Almería' },
+    category: { es: 'Vivienda colectiva', en: 'Collective housing' },
+    summary: {
+      es: 'Torres de vivienda protegida coronadas por pérgolas, con terrazas corridas vegetadas y un zócalo comercial abierto a la calle.',
+      en: 'Social-housing towers crowned by pergolas, with planted continuous terraces and a commercial plinth open to the street.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'El conjunto organiza 96 viviendas de protección oficial en volúmenes escalonados que rematan en pérgolas, con terrazas corridas que dan sombra y vegetación a cada vivienda.',
+        'La planta baja concentra locales y accesos ajardinados, tejiendo el edificio con la vida de la calle.',
+      ],
+      en: [
+        'The complex arranges 96 social-housing units in stepped volumes crowned by pergolas, with continuous terraces bringing shade and greenery to every home.',
+        'The ground floor gathers retail spaces and landscaped entrances, weaving the building into street life.',
+      ],
+    },
+    images: [
+      '/proyectos/96-vpo-almeria/portada.jpg',
+      '/proyectos/96-vpo-almeria/01.jpg',
+    ],
+  },
+  {
+    slug: 'centro-comercial-el-encinar',
+    title: 'Centro Comercial El Encinar',
+    featured: true,
+    hue: 25,
+    location: { es: 'España', en: 'Spain' },
+    category: { es: 'Comercial', en: 'Retail' },
+    summary: {
+      es: 'La renovación interior de un centro comercial: madera, lamas y luz para una atmósfera cálida y contemporánea.',
+      en: 'The interior renovation of a shopping centre: timber, slats and light for a warm, contemporary atmosphere.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'La intervención renueva los espacios comunes del centro comercial con un lenguaje cálido: vigas y planos de madera que ordenan el techo, lamas metálicas que tamizan la iluminación y una nueva escalera que protagoniza el atrio.',
+        'El resultado actualiza la experiencia del visitante y pone en valor la arquitectura existente de ladrillo.',
+      ],
+      en: [
+        'The intervention renews the common areas of the shopping centre with a warm language: timber beams and planes ordering the ceiling, metal slats filtering the lighting, and a new staircase starring in the atrium.',
+        'The result refreshes the visitor experience while giving value to the existing brick architecture.',
+      ],
+    },
+    images: [
+      '/proyectos/centro-comercial-el-encinar/portada.jpg',
+      '/proyectos/centro-comercial-el-encinar/01.jpg',
+      '/proyectos/centro-comercial-el-encinar/02.jpg',
+    ],
+  },
+  {
+    slug: 'centro-comercial-saler',
+    title: 'Centro Comercial Saler',
+    featured: true,
+    hue: 45,
+    location: { es: 'Valencia', en: 'Valencia' },
+    category: { es: 'Comercial', en: 'Retail' },
+    summary: {
+      es: 'La transformación del centro comercial Saler: una gran cornisa ondulante de lamas doradas que renueva su fachada y su plaza.',
+      en: 'The transformation of the Saler shopping centre: a great undulating cornice of golden slats renewing its façade and plaza.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'La renovación dota al centro comercial de una nueva imagen unitaria: una cornisa ondulante de lamas que envuelve el edificio, ilumina la plaza de acceso y convierte la llegada en un acontecimiento.',
+        'El proyecto reordena también los espacios exteriores —fuentes, pérgolas y estancias— para devolver al conjunto su vocación de lugar de encuentro.',
+      ],
+      en: [
+        'The renovation gives the shopping centre a new unified image: an undulating cornice of slats that wraps the building, lights the entrance plaza and turns arrival into an event.',
+        'The project also reorders the outdoor spaces — fountains, pergolas and resting areas — restoring the complex’s vocation as a meeting place.',
+      ],
+    },
+    images: [
+      '/proyectos/centro-comercial-saler/portada.jpg',
+      '/proyectos/centro-comercial-saler/01.jpg',
+      '/proyectos/centro-comercial-saler/02.jpg',
+      '/proyectos/centro-comercial-saler/03.jpg',
+      '/proyectos/centro-comercial-saler/04.jpg',
+      '/proyectos/centro-comercial-saler/05.jpg',
+      '/proyectos/centro-comercial-saler/06.jpg',
+      '/proyectos/centro-comercial-saler/07.jpg',
+    ],
+  },
+  {
+    slug: 'centro-de-salud-salamanca',
+    title: 'Centro de Salud Salamanca',
+    featured: true,
+    hue: 30,
+    location: { es: 'Salamanca', en: 'Salamanca' },
+    category: { es: 'Equipamiento sanitario', en: 'Healthcare' },
+    summary: {
+      es: 'Un centro de salud de volúmenes escalonados y fachada cerámica estriada que filtra la luz, con un acceso cálido de madera.',
+      en: 'A health centre of stepped volumes and a fluted ceramic façade that filters the light, with a warm timber entrance.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'El edificio se fragmenta en volúmenes escalonados que ajustan su escala al entorno y organizan el programa sanitario con claridad.',
+        'Una piel cerámica estriada unifica el conjunto y matiza la luz de las consultas, mientras el acceso se señala con un gran umbral revestido de madera.',
+      ],
+      en: [
+        'The building breaks into stepped volumes that adjust its scale to the surroundings and organise the healthcare programme with clarity.',
+        'A fluted ceramic skin unifies the whole and tempers the light of the consultation rooms, while the entrance is marked by a large timber-lined threshold.',
+      ],
+    },
+    images: [
+      '/proyectos/centro-de-salud-salamanca/portada.jpg',
+      '/proyectos/centro-de-salud-salamanca/01.jpg',
+      '/proyectos/centro-de-salud-salamanca/02.jpg',
+      '/proyectos/centro-de-salud-salamanca/03.jpg',
+    ],
+  },
+  {
+    slug: 'centro-servicios-sociales-madrid',
+    title: 'Centro de Servicios Sociales Madrid',
+    featured: true,
+    hue: 20,
+    location: { es: 'Madrid', en: 'Madrid' },
+    category: { es: 'Equipamiento público', en: 'Civic building' },
+    summary: {
+      es: 'Un edificio público de retícula de madera que se asoma a un anfiteatro hundido: la plaza cívica como corazón del proyecto.',
+      en: 'A civic building with a timber grid façade overlooking a sunken amphitheatre: the public plaza as the heart of the project.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'El centro se organiza en torno a un patio-anfiteatro hundido que prolonga la actividad del edificio al aire libre y convierte el espacio público en protagonista.',
+        'Una retícula de madera ordena la fachada y filtra la luz de los espacios de trabajo, mientras las cubiertas ajardinadas devuelven a la ciudad el suelo ocupado.',
+      ],
+      en: [
+        'The centre is organised around a sunken courtyard-amphitheatre that extends the building’s activity outdoors and makes public space the protagonist.',
+        'A timber grid orders the façade and filters light into the working spaces, while planted roofs give back to the city the ground the building occupies.',
+      ],
+    },
+    images: [
+      '/proyectos/centro-servicios-sociales-madrid/portada.jpg',
+      '/proyectos/centro-servicios-sociales-madrid/01.jpg',
+      '/proyectos/centro-servicios-sociales-madrid/02.jpg',
+    ],
+  },
 ];
 
 export const featuredProjects = projects.filter((p) => p.featured);
