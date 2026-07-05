@@ -672,6 +672,124 @@ export const projects: Project[] = [
       '/proyectos/centro-servicios-sociales-madrid/02.jpg',
     ],
   },
+  {
+    slug: 'civivox-erripagana',
+    title: 'Civivox Erripagaña',
+    featured: true,
+    hue: 40,
+    location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
+    category: { es: 'Equipamiento cultural', en: 'Cultural building' },
+    summary: {
+      es: 'Un centro cívico de volúmenes pétreos y escala doméstica que regala a Erripagaña una nueva plaza de encuentro.',
+      en: 'A civic centre of stone volumes and domestic scale that gives Erripagaña a new gathering plaza.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'El edificio se fragmenta en piezas de piedra clara que ajustan su escala al barrio y liberan ante sí una plaza arbolada, antesala de la vida del centro.',
+        'El acceso se excava en el volumen principal como un gran umbral en sombra, abierto y acogedor, que invita a entrar desde el espacio público.',
+      ],
+      en: [
+        'The building breaks into light stone pieces that tune their scale to the neighbourhood and free up a tree-lined plaza before them, the antechamber to the centre’s life.',
+        'The entrance is carved into the main volume as a large shaded threshold, open and welcoming, inviting people in from the public space.',
+      ],
+    },
+    images: [
+      '/proyectos/civivox-erripagana/portada.jpg',
+      '/proyectos/civivox-erripagana/01.jpg',
+      '/proyectos/civivox-erripagana/02.jpg',
+    ],
+  },
+  {
+    slug: 'edificio-kodak',
+    title: 'Edificio Kodak',
+    featured: true,
+    hue: 35,
+    location: { es: 'España', en: 'Spain' },
+    category: { es: 'Comercial', en: 'Retail' },
+    summary: {
+      es: 'La reconversión de un edificio comercial en torno a una secuencia de arcos y un gran techo artesonado de madera.',
+      en: 'The conversion of a commercial building around a sequence of arches and a great coffered timber ceiling.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'La propuesta reordena el edificio en torno a un atrio de doble altura, ritmado por arcos que enmarcan los usos —comercio, deporte, restauración— y los ponen en relación visual.',
+        'Un artesonado de madera unifica el conjunto y filtra la luz cenital, dando al espacio comercial una atmósfera cálida y reconocible.',
+      ],
+      en: [
+        'The proposal reorganises the building around a double-height atrium, given rhythm by arches that frame the uses — retail, sport, dining — and place them in visual dialogue.',
+        'A coffered timber ceiling unifies the whole and filters the zenithal light, lending the commercial space a warm, recognisable atmosphere.',
+      ],
+    },
+    images: [
+      '/proyectos/edificio-kodak/portada.jpg',
+      '/proyectos/edificio-kodak/01.jpg',
+      '/proyectos/edificio-kodak/02.jpg',
+      '/proyectos/edificio-kodak/03.jpg',
+      '/proyectos/edificio-kodak/04.jpg',
+    ],
+  },
+  {
+    slug: 'viviendas-fuencarral',
+    title: 'Viviendas Fuencarral',
+    featured: true,
+    hue: 28,
+    location: { es: 'Madrid', en: 'Madrid' },
+    category: { es: 'Vivienda colectiva', en: 'Collective housing' },
+    summary: {
+      es: 'Viviendas con patio comunitario, ladrillo recuperado y celosías de madera: densidad amable en el norte de Madrid.',
+      en: 'Housing around a communal courtyard, with reclaimed brick and timber lattices: friendly density in northern Madrid.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'El conjunto se organiza en torno a un patio comunitario ajardinado, corazón de la vida vecinal, al que se abren las viviendas a través de terrazas y celosías de madera.',
+        'La materialidad combina ladrillo y revocos claros, con cubiertas aterrazadas que suman espacio exterior a las viviendas superiores.',
+      ],
+      en: [
+        'The complex is arranged around a landscaped communal courtyard, the heart of neighbourly life, onto which the homes open through terraces and timber lattices.',
+        'The materials combine brick and light render, with terraced roofs adding outdoor space to the upper dwellings.',
+      ],
+    },
+    images: [
+      '/proyectos/viviendas-fuencarral/portada.jpg',
+      '/proyectos/viviendas-fuencarral/01.jpg',
+      '/proyectos/viviendas-fuencarral/02.jpg',
+      '/proyectos/viviendas-fuencarral/03.jpg',
+      '/proyectos/viviendas-fuencarral/04.jpg',
+    ],
+  },
+  {
+    slug: 'vivienda-villanua',
+    title: 'Vivienda en Villanúa',
+    featured: true,
+    hue: 140,
+    location: { es: 'Villanúa, Huesca', en: 'Villanúa, Huesca' },
+    category: { es: 'Vivienda unifamiliar', en: 'Single-family house' },
+    summary: {
+      es: 'Una casa de piedra y cubierta de pizarra que mira al Pirineo: tradición constructiva local con lenguaje contemporáneo.',
+      en: 'A stone house with a slate roof facing the Pyrenees: local building tradition in a contemporary language.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'La casa toma la piedra y la pizarra de la arquitectura pirenaica y las ordena en un volumen rotundo, de hastial limpio, que enmarca el paisaje de montaña.',
+        'El testero se vacía en un gran porche de madera en planta alta: un mirador protegido que orienta la vida de la casa hacia el valle.',
+      ],
+      en: [
+        'The house takes the stone and slate of Pyrenean architecture and orders them into a bold volume with a clean gable that frames the mountain landscape.',
+        'The end wall is hollowed into a large timber porch on the upper floor: a sheltered viewpoint that turns the life of the house towards the valley.',
+      ],
+    },
+    images: [
+      '/proyectos/vivienda-villanua/portada.jpg',
+      '/proyectos/vivienda-villanua/01.jpg',
+      '/proyectos/vivienda-villanua/02.jpg',
+      '/proyectos/vivienda-villanua/03.jpg',
+      '/proyectos/vivienda-villanua/04.jpg',
+    ],
+  },
 ];
 
 export const featuredProjects = projects.filter((p) => p.featured);
