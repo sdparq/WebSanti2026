@@ -186,8 +186,9 @@ const instagram = site.social.find((s) => s.label === 'Instagram');
   .card {
     position: relative;
     flex: 0 0 auto;
-    height: min(82%, 720px);
-    aspect-ratio: 3 / 5;
+    height: min(82%, 780px);
+    /* Ancho relativo a la pantalla: siempre entran ~4 proyectos a la vista */
+    width: clamp(250px, 21vw, 480px);
     overflow: hidden;
     background: var(--sand);
   }
@@ -232,7 +233,7 @@ const instagram = site.social.find((s) => s.label === 'Instagram');
     .cover__navlink--center { display: none; }
     .stage__scroll { display: none; }
     .strip { padding-inline: var(--gutter); gap: 2rem; }
-    .card { height: 68%; }
+    .card { height: 68%; width: 74vw; }
   }
 </style>
 
