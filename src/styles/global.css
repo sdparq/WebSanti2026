@@ -17,6 +17,7 @@
   --ink: #111111;         /* texto principal */
   --ink-soft: #6b6b6b;    /* texto secundario */
   --line: #111111;        /* líneas / separadores duros */
+  --accent: #2148ff;      /* azul de acento (premios) */
 
   --bg: var(--bone);
   --fg: var(--ink);

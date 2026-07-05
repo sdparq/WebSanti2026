@@ -21,6 +21,7 @@ export interface Project {
   location: Bilingual;
   category: Bilingual;
   award?: Bilingual;
+  collaborators?: Bilingual; // se muestran bajo la ficha técnica del proyecto
   status?: Bilingual;
   area?: string;
   summary: Bilingual;

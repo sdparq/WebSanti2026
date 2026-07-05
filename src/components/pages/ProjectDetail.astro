@@ -18,14 +18,14 @@ const total = String(projects.length).padStart(2, '0');
 const year = new Date().getFullYear();
 const instagram = site.social.find((s) => s.label === 'Instagram');
 
-const meta: string[] = [
-  p.location[lang],
-  p.category[lang],
-  p.award?.[lang],
-  p.status?.[lang],
-  p.area,
-  p.year,
-].filter(Boolean) as string[];
+const meta: { text: string; award?: boolean }[] = [
+  { text: p.location[lang] },
+  { text: p.category[lang] },
+  ...(p.award ? [{ text: p.award[lang], award: true }] : []),
+  ...(p.status ? [{ text: p.status[lang] }] : []),
+  ...(p.area ? [{ text: p.area }] : []),
+  ...(p.year ? [{ text: p.year }] : []),
+];
 ---
 
 <Base lang={lang} altUrl={altUrl} chrome={false} title={p.title} description={p.summary[lang]}>
@@ -50,7 +50,20 @@ const meta: string[] = [
       <div class="strip" data-strip tabindex="0">
         <div class="panel panel--text">
           {p.description[lang].map((par) => <p class="panel__par">{par}</p>)}
-          <p class="panel__meta">{meta.join(' · ')}</p>
+          <p class="panel__meta">
+            {meta.map((m, i) => (
+              <>
+                {i > 0 && <span class="panel__metadot"> · </span>}
+                <span class:list={{ 'panel__award': m.award }}>{m.text}</span>
+              </>
+            ))}
+          </p>
+          {p.collaborators && (
+            <p class="panel__collab">
+              <span class="panel__collablabel">{t(lang, 'project.collaborators')}</span>
+              {p.collaborators[lang]}
+            </p>
+          )}
         </div>
 
         <span class="strip__hint" aria-hidden="true">
@@ -179,8 +192,8 @@ const meta: string[] = [
     font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.1rem);
     line-height: 1.62;
     margin-bottom: 1em;
-    text-align: left;
-    text-wrap: pretty;
+    text-align: justify;
+    hyphens: auto;
   }
   .panel__par:first-child { text-indent: 3ch; }
   .panel__meta {
@@ -190,6 +203,19 @@ const meta: string[] = [
     font-size: 0.78rem;
     letter-spacing: 0.06em;
     color: var(--ink-soft);
+  }
+  .panel__award { color: var(--accent); }
+  .panel__collab {
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .panel__collablabel {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    margin-right: 0.6em;
   }
 
   .strip__hint {
