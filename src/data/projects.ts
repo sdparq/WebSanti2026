@@ -53,8 +53,11 @@ export const projects: Project[] = [
     },
     // Solo renders en la galería (los planos quedan fuera a propósito)
     images: [
-      '/proyectos/85-vpo-bilbao/exterior.jpg',
-      '/proyectos/85-vpo-bilbao/interior.jpg',
+      '/proyectos/85-vpo-bilbao/portada.jpg',
+      '/proyectos/85-vpo-bilbao/01.jpg',
+      '/proyectos/85-vpo-bilbao/02.jpg',
+      '/proyectos/85-vpo-bilbao/03.jpg',
+      '/proyectos/85-vpo-bilbao/04.jpg',
     ],
   },
   {
