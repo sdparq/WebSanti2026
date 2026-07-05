@@ -7,14 +7,24 @@ export const site = {
   shortName: 'SDP Arquitectura',
   email: 'santiagodepablo.arquitectura@gmail.com',
   phone: '',
-  // Rellena con tus perfiles reales
+  // Rellena con tu perfil real de LinkedIn
   social: [
-    { label: 'Instagram', href: 'https://instagram.com/' },
     { label: 'LinkedIn', href: 'https://linkedin.com/' },
   ],
+  // Sedes del estudio
+  offices: [
+    {
+      city: { es: 'Dubái', en: 'Dubai' },
+      address: { es: 'Peninsula Three, Business Bay', en: 'Peninsula Three, Business Bay' },
+    },
+    {
+      city: { es: 'Madrid', en: 'Madrid' },
+      address: { es: 'La Masó 2, oficina 10', en: 'La Masó 2, office 10' },
+    },
+  ],
   address: {
-    es: 'España',
-    en: 'Spain',
+    es: 'Dubái · Madrid',
+    en: 'Dubai · Madrid',
   },
 } as const;
 

@@ -23,6 +23,18 @@ const { lang, altUrl } = Astro.props;
     </div>
 
     <div class="contact-block" data-reveal data-reveal-delay="1">
+      <h2 class="eyebrow">{t(lang, 'contact.offices')}</h2>
+      <ul class="contact-offices">
+        {site.offices.map((o) => (
+          <li>
+            <strong class="office-city">{o.city[lang]}</strong>
+            <span class="office-addr">{o.address[lang]}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="contact-block" data-reveal data-reveal-delay="2">
       <h2 class="eyebrow">{t(lang, 'contact.follow')}</h2>
       <ul class="contact-social">
         {site.social.map((s) => (
@@ -37,14 +49,23 @@ const { lang, altUrl } = Astro.props;
   .page-head { padding-top: clamp(7rem, 16vh, 12rem); padding-bottom: clamp(2rem, 5vw, 4rem); }
   .page-head .display { max-width: 18ch; }
   .contact-grid {
-    display: grid; grid-template-columns: 1.4fr 1fr;
-    gap: clamp(2rem, 6vw, 5rem);
+    display: grid; grid-template-columns: 1.3fr 1fr 0.8fr;
+    gap: clamp(2rem, 5vw, 4rem);
     padding-bottom: clamp(3rem, 8vw, 7rem);
   }
+  .contact-offices { list-style: none; display: grid; gap: 1.1rem; margin-top: 0.8rem; }
+  .office-city {
+    display: block;
+    font-weight: 750;
+    text-transform: uppercase;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+  }
+  .office-addr { display: block; color: var(--ink-soft); margin-top: 0.15rem; }
   .contact-block { border-top: 1px solid var(--line); padding-top: 1.2rem; }
   .contact-big {
-    font-weight: 740; text-transform: uppercase;
-    font-size: clamp(1.4rem, 1rem + 2.2vw, 2.8rem);
+    font-weight: 740;
+    font-size: clamp(1.1rem, 0.9rem + 1vw, 1.7rem);
     display: inline-block; margin-top: 0.6rem; word-break: break-word;
   }
   .contact-social { list-style: none; display: grid; gap: 0.8rem; margin-top: 0.8rem; font-size: 1.2rem; }

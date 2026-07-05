@@ -16,7 +16,7 @@ const idx = projects.findIndex((x) => x.slug === p.slug);
 const next = projects[(idx + 1) % projects.length];
 const total = String(projects.length).padStart(2, '0');
 const year = new Date().getFullYear();
-const instagram = site.social.find((s) => s.label === 'Instagram');
+const linkedin = site.social.find((s) => s.label === 'LinkedIn');
 
 const meta: { text: string; award?: boolean }[] = [
   { text: p.location[lang] },
@@ -98,9 +98,9 @@ const meta: { text: string; award?: boolean }[] = [
     <!-- BARRA inferior ------------------------------------------------------- -->
     <footer class="cover__foot">
       <a class="cover__navlink" href={`mailto:${site.email}`}>Email</a>
-      {instagram && (
-        <a class="cover__navlink cover__navlink--center" href={instagram.href} target="_blank" rel="noopener">
-          Instagram
+      {linkedin && (
+        <a class="cover__navlink cover__navlink--center" href={linkedin.href} target="_blank" rel="noopener">
+          LinkedIn
         </a>
       )}
       <span class="cover__copy">© {year}. Santiago de Pablo.</span>

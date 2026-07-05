@@ -19,7 +19,7 @@ const marquee =
     : 'Hello! We are Santiago de Pablo Arquitectura';
 
 const year = new Date().getFullYear();
-const instagram = site.social.find((s) => s.label === 'Instagram');
+const linkedin = site.social.find((s) => s.label === 'LinkedIn');
 ---
 
 <Base lang={lang} altUrl={altUrl} chrome={false} title="" description={intro.lead[lang]}>
@@ -72,9 +72,9 @@ const instagram = site.social.find((s) => s.label === 'Instagram');
     <!-- BARRA inferior ------------------------------------------------------ -->
     <footer class="cover__foot">
       <a class="cover__navlink" href={`mailto:${site.email}`}>Email</a>
-      {instagram && (
-        <a class="cover__navlink cover__navlink--center" href={instagram.href} target="_blank" rel="noopener">
-          Instagram
+      {linkedin && (
+        <a class="cover__navlink cover__navlink--center" href={linkedin.href} target="_blank" rel="noopener">
+          LinkedIn
         </a>
       )}
       <span class="cover__copy">© {year}. Santiago de Pablo.</span>
