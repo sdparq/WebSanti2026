@@ -112,8 +112,8 @@ export const projects: Project[] = [
       ],
     },
     images: [
-      '/proyectos/32-vpo-entremutilvas/exterior.jpg',
-      '/proyectos/32-vpo-entremutilvas/galeria.jpg',
+      '/proyectos/32-vpo-entremutilvas/portada.jpg',
+      '/proyectos/32-vpo-entremutilvas/01.jpg',
     ],
   },
   {
