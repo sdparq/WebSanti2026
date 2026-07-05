@@ -790,6 +790,127 @@ export const projects: Project[] = [
       '/proyectos/vivienda-villanua/04.jpg',
     ],
   },
+  {
+    slug: 'parque-empresarial-alvento',
+    title: 'Parque Empresarial Alvento',
+    featured: true,
+    hue: 205,
+    location: { es: 'Madrid', en: 'Madrid' },
+    category: { es: 'Oficinas', en: 'Offices' },
+    summary: {
+      es: 'La renovación de los espacios exteriores de un parque empresarial: una plaza peatonal con pérgolas, vegetación y estancias.',
+      en: 'The renovation of a business park’s outdoor spaces: a pedestrian plaza with pergolas, planting and resting areas.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'La intervención transforma la explanada del parque empresarial en una plaza habitable: un tapiz de pavimento y vegetación que ordena recorridos, sombra y lugares de estancia.',
+        'Las pérgolas ligeras, de geometría reconocible, dan identidad al conjunto y acompañan al edificio existente sin competir con él.',
+      ],
+      en: [
+        'The intervention turns the business park esplanade into a livable plaza: a carpet of paving and planting that organises routes, shade and places to stay.',
+        'Light pergolas with a recognisable geometry give the ensemble its identity, accompanying the existing building without competing with it.',
+      ],
+    },
+    images: [
+      '/proyectos/parque-empresarial-alvento/portada.jpg',
+      '/proyectos/parque-empresarial-alvento/01.jpg',
+      '/proyectos/parque-empresarial-alvento/02.jpg',
+      '/proyectos/parque-empresarial-alvento/03.jpg',
+    ],
+  },
+  {
+    slug: 'oficinas-zeppelin',
+    title: 'Oficinas Zeppelin',
+    featured: true,
+    hue: 30,
+    location: { es: 'España', en: 'Spain' },
+    category: { es: 'Interiorismo', en: 'Interior design' },
+    summary: {
+      es: 'El interiorismo de unas oficinas en clave doméstica: madera, grada social, color y espacios que invitan a quedarse.',
+      en: 'Office interiors in a domestic key: timber, a social tiered seat, colour and spaces that invite you to stay.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'El proyecto reorganiza las oficinas en torno a espacios de encuentro: una grada de madera con vegetación preside la zona común y convierte la reunión informal en el centro de la vida de la empresa.',
+        'La paleta combina madera clara, celosías cerámicas y toques de color, alejando el espacio de trabajo de la imagen corporativa convencional.',
+      ],
+      en: [
+        'The project reorganises the offices around meeting places: a timber tiered seat with planting presides over the common area, making informal gathering the centre of company life.',
+        'The palette combines light timber, ceramic lattices and touches of colour, moving the workspace away from the conventional corporate image.',
+      ],
+    },
+    images: [
+      '/proyectos/oficinas-zeppelin/portada.jpg',
+      '/proyectos/oficinas-zeppelin/01.jpg',
+      '/proyectos/oficinas-zeppelin/02.jpg',
+      '/proyectos/oficinas-zeppelin/03.jpg',
+      '/proyectos/oficinas-zeppelin/04.jpg',
+      '/proyectos/oficinas-zeppelin/05.jpg',
+      '/proyectos/oficinas-zeppelin/06.jpg',
+      '/proyectos/oficinas-zeppelin/07.jpg',
+      '/proyectos/oficinas-zeppelin/08.jpg',
+      '/proyectos/oficinas-zeppelin/09.jpg',
+    ],
+  },
+  {
+    slug: 'villa-abu-dabi',
+    title: 'Villa Abu Dabi',
+    featured: true,
+    hue: 190,
+    location: { es: 'Abu Dabi, EAU', en: 'Abu Dhabi, UAE' },
+    category: { es: 'Vivienda unifamiliar', en: 'Single-family house' },
+    summary: {
+      es: 'Una villa de planos blancos y madera que flota sobre el jardín y la lámina de agua, abierta a la vida exterior.',
+      en: 'A villa of white planes and timber floating above the garden and the water, open to outdoor living.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'La villa se compone de grandes bandejas blancas que se deslizan entre sí, protegiendo del sol los espacios de vida y generando terrazas cubiertas en todas las orientaciones.',
+        'La planta baja se disuelve hacia el jardín y la piscina a través de carpinterías ocultas y porches de madera, borrando el límite entre interior y exterior.',
+      ],
+      en: [
+        'The villa is composed of large white trays sliding past one another, shading the living spaces and creating covered terraces in every orientation.',
+        'The ground floor dissolves towards the garden and pool through concealed frames and timber porches, erasing the boundary between inside and out.',
+      ],
+    },
+    images: [
+      '/proyectos/villa-abu-dabi/portada.jpg',
+      '/proyectos/villa-abu-dabi/acceso.jpg',
+      '/proyectos/villa-abu-dabi/terraza.jpg',
+      '/proyectos/villa-abu-dabi/interior.jpg',
+    ],
+  },
+  {
+    slug: 'villa-dubai',
+    title: 'Villa Dubái',
+    featured: true,
+    hue: 35,
+    location: { es: 'Dubái, EAU', en: 'Dubai, UAE' },
+    category: { es: 'Vivienda unifamiliar', en: 'Single-family house' },
+    summary: {
+      es: 'Una villa introvertida de zócalo blanco y corona de madera, organizada en torno a sus patios y a la luz tamizada.',
+      en: 'An introverted villa with a white plinth and timber crown, organised around its courtyards and filtered light.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'Hacia la calle, la villa se presenta serena: un zócalo blanco y silencioso coronado por una banda de lamas de madera que filtra la luz y protege la intimidad.',
+        'La vida se vuelca hacia dentro, a patios y umbrales en sombra que refrescan la casa y encadenan los espacios con la vegetación.',
+      ],
+      en: [
+        'Towards the street the villa is serene: a quiet white plinth crowned by a band of timber slats that filters light and guards privacy.',
+        'Life turns inward, to courtyards and shaded thresholds that cool the house and thread its spaces together with greenery.',
+      ],
+    },
+    images: [
+      '/proyectos/villa-dubai/portada.jpg',
+      '/proyectos/villa-dubai/patio.jpg',
+      '/proyectos/villa-dubai/interior-acceso.jpg',
+    ],
+  },
 ];
 
 export const featuredProjects = projects.filter((p) => p.featured);
