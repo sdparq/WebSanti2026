@@ -368,7 +368,8 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
     let PX = 3.2;    // tamaño del cubo (menor en móvil)
     let drift = 95;  // deriva horizontal px/s (más suave en móvil)
     let isMobile = false;
-    const textMask = [true, false, true, false]; // qué estados son texto
+    let stateDraws: ((c: CanvasRenderingContext2D, w: number, h: number) => void)[] = [];
+    const textMask = [true, true, false, false]; // los dos textos van seguidos
 
     const build = () => {
       const r = cv.getBoundingClientRect();
@@ -386,16 +387,17 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       const STATES = mobile
         ? [
             drawTextLines(['SANTIAGO', 'DE PABLO']),
-            drawSkyline(87),
             drawTextLines(['WE DESIGN', 'WE CREATE']),
+            drawSkyline(87),
             drawSkyline(311),
           ]
         : [
             drawTextLines([TEXT]),
-            drawSkyline(87),
             drawTextLines(['WE DESIGN · WE CREATE · WE BUILD'], 0.5),
+            drawSkyline(87),
             drawSkyline(311),
           ];
+      stateDraws = STATES;
 
       const sets = STATES.map((d) => sample(d));
       if (sets.some((s) => !s.length)) return;
@@ -431,6 +433,21 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       const offA = isMobile && textMask[k] ? 0 : xoff;
       const offB = isMobile && textMask[kb] ? 0 : xoff;
 
+      // Texto quieto: tipografía nítida (solo se pixela al descomponerse)
+      if (p === 0 && textMask[k] && stateDraws[k]) {
+        ctx.clearRect(0, 0, W, H);
+        ctx.fillStyle = '#fff';
+        const off = isMobile ? 0 : ((xoff % W) + W) % W;
+        ctx.save();
+        ctx.translate(off, 0);
+        stateDraws[k](ctx, W, H);
+        ctx.translate(-W, 0);
+        stateDraws[k](ctx, W, H); // copia envuelta por el borde
+        ctx.restore();
+        requestAnimationFrame(frame);
+        return;
+      }
+
       ctx.clearRect(0, 0, W, H);
       ctx.fillStyle = '#fff';
       for (let i = 0; i < pts.length; i++) {
@@ -462,10 +479,10 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
     const start = () => {
       build();
       if (reduce) {
-        // Sin animación: solo el nombre, quieto
+        // Sin animación: solo el nombre, quieto y nítido
         ctx.clearRect(0, 0, W, H);
         ctx.fillStyle = '#fff';
-        for (const f of frames[0] || []) ctx.fillRect(f[0] - PX / 2, f[1] - PX / 2, PX, PX);
+        if (stateDraws[0]) stateDraws[0](ctx, W, H);
         return;
       }
       requestAnimationFrame(frame);
