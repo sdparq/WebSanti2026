@@ -13,9 +13,6 @@ const { lang, altUrl } = Astro.props;
 const total = String(projects.length).padStart(2, '0');
 
 const year = new Date().getFullYear();
-
-// Celdas del friso cinético: 24 por mitad, ciclo de 6 formas
-const cells = Array.from({ length: 24 }, (_, i) => i % 6);
 const linkedin = site.social.find((s) => s.label === 'LinkedIn');
 ---
 
@@ -31,51 +28,10 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       </span>
     </nav>
 
-    <!-- FRISO cinético: coreografía de formas geométricas ------------------- -->
+    <!-- FRISO de partículas: el nombre se descompone en cuadrados negros
+         que se recomponen como geometrías, y vuelta a empezar -------------- -->
     <div class="band" aria-hidden="true">
-      <div class="band__track">
-        {[0, 1].map(() => (
-          <div class="band__half">
-            {cells.map((s, i) => (
-              <span class="kin" style={`--d:${(i * 0.22).toFixed(2)}s`}>
-                {s === 0 && (
-                  <svg class="k k--tick" width="40" height="40" viewBox="0 0 40 40">
-                    <path d="M5 20 A15 15 0 0 1 35 20 Z" fill="var(--ink)" />
-                  </svg>
-                )}
-                {s === 1 && (
-                  <svg class="k k--pulse" width="40" height="40" viewBox="0 0 40 40">
-                    <circle cx="20" cy="20" r="13.5" fill="none" stroke="var(--accent)" stroke-width="2" />
-                    <circle cx="20" cy="20" r="4" fill="var(--ink)" />
-                  </svg>
-                )}
-                {s === 2 && (
-                  <svg class="k k--flip" width="40" height="40" viewBox="0 0 40 40">
-                    <path d="M6 34 H34 V6 Z" fill="var(--accent)" />
-                  </svg>
-                )}
-                {s === 3 && (
-                  <svg class="k k--spin" width="40" height="40" viewBox="0 0 40 40">
-                    <path d="M6 34 A28 28 0 0 1 34 6" fill="none" stroke="var(--ink)" stroke-width="2" />
-                    <circle cx="6" cy="34" r="3" fill="var(--accent)" />
-                  </svg>
-                )}
-                {s === 4 && (
-                  <svg class="k k--tilt" width="40" height="40" viewBox="0 0 40 40">
-                    <rect x="10" y="10" width="20" height="20" fill="none" stroke="var(--ink)" stroke-width="2" />
-                  </svg>
-                )}
-                {s === 5 && (
-                  <svg class="k k--grow" width="40" height="40" viewBox="0 0 40 40">
-                    <rect x="9" y="6" width="7" height="28" fill="var(--accent)" />
-                    <rect x="24" y="6" width="7" height="28" fill="var(--ink)" />
-                  </svg>
-                )}
-              </span>
-            ))}
-          </div>
-        ))}
-      </div>
+      <canvas class="band__cv" data-band></canvas>
     </div>
     <h1 class="sr-only">{site.nameFull}</h1>
 
@@ -153,68 +109,15 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
   }
   .cover__lang:hover { background: var(--ink); color: #fff; }
 
-  /* FRISO fino: palabras y pictogramas desfilando con calma */
+  /* FRISO de partículas: nombre ↔ geometrías, todo en negro */
   .band {
     border-top: 1px solid var(--ink);
     border-bottom: 1px solid var(--ink);
-    padding-block: 0.8rem;
+    height: clamp(96px, 12vh, 136px);
     overflow: hidden;
     flex-shrink: 0;
   }
-  .band__track {
-    display: flex;
-    width: max-content;
-    animation: bandScroll 40s linear infinite;
-  }
-  .band__half {
-    display: flex;
-    align-items: center;
-    gap: clamp(1.6rem, 2.6vw, 2.8rem);
-    padding-right: clamp(1.6rem, 2.6vw, 2.8rem);
-  }
-  @keyframes bandScroll { to { transform: translateX(-50%); } }
-
-  /* Cada celda entra en la ola con un retardo en cascada (--d) */
-  .kin { display: block; flex: 0 0 auto; line-height: 0; }
-  .k { display: block; }
-
-  /* Semicírculo: gira a golpes de cuarto de vuelta */
-  .k--tick { animation: kTick 6s infinite; animation-delay: calc(var(--d) * -1); }
-  @keyframes kTick {
-    0%, 17% { rotate: 0deg; }
-    25%, 42% { rotate: 90deg; }
-    50%, 67% { rotate: 180deg; }
-    75%, 92% { rotate: 270deg; }
-    100% { rotate: 360deg; }
-  }
-
-  /* Diana: late como el cursor */
-  .k--pulse { animation: kPulse 1.9s ease-in-out infinite alternate; animation-delay: calc(var(--d) * -1); }
-  @keyframes kPulse { from { scale: 0.68; } to { scale: 1; } }
-
-  /* Triángulo: se voltea y vuelve */
-  .k--flip { animation: kFlip 4s ease-in-out infinite; animation-delay: calc(var(--d) * -1); }
-  @keyframes kFlip {
-    0%, 38% { transform: scaleX(1); }
-    50%, 88% { transform: scaleX(-1); }
-    100% { transform: scaleX(1); }
-  }
-
-  /* Arco con punto: rotación continua */
-  .k--spin { animation: kSpin 7s linear infinite; animation-delay: calc(var(--d) * -1); }
-  @keyframes kSpin { to { rotate: 360deg; } }
-
-  /* Cuadrado: oscila a rombo */
-  .k--tilt { animation: kTilt 2.4s ease-in-out infinite alternate; animation-delay: calc(var(--d) * -1); }
-  @keyframes kTilt { from { rotate: 0deg; } to { rotate: 45deg; } }
-
-  /* Barras: respiran desde la base */
-  .k--grow { transform-origin: 50% 100%; animation: kGrow 2.1s ease-in-out infinite alternate; animation-delay: calc(var(--d) * -1); }
-  @keyframes kGrow { from { transform: scaleY(0.45); } to { transform: scaleY(1); } }
-
-  @media (prefers-reduced-motion: reduce) {
-    .band__track, .k { animation: none !important; }
-  }
+  .band__cv { display: block; width: 100%; height: 100%; }
 
   /* ESCENARIO con tira horizontal */
   .stage { position: relative; flex: 1; min-height: 0; display: flex; }
@@ -365,5 +268,159 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       if (e.key === 'ArrowRight') { e.preventDefault(); strip.scrollBy({ left: 400, behavior: 'smooth' }); }
       if (e.key === 'ArrowLeft') { e.preventDefault(); strip.scrollBy({ left: -400, behavior: 'smooth' }); }
     });
+  }
+</script>
+
+<script>
+  // ── Friso de partículas ────────────────────────────────────────────────
+  // El nombre del estudio, compuesto por cuadraditos negros, se descompone
+  // y sus fragmentos se recolocan formando geometrías a toda altura. Bucle.
+  const cv = document.querySelector<HTMLCanvasElement>('[data-band]');
+  if (cv) {
+    const ctx = cv.getContext('2d')!;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const TEXT = 'SANTIAGO DE PABLO ARQUITECTURA';
+
+    type P = { fx: number; fy: number; tx: number; ty: number; sx: number; sy: number; dl: number };
+    let pts: P[] = [];
+    let W = 0, H = 0, t0 = 0;
+
+    const setFont = (c: CanvasRenderingContext2D, h: number, w: number) => {
+      let fs = h * 0.62;
+      c.font = `800 ${fs}px 'Inter Variable', Inter, sans-serif`;
+      const m = c.measureText(TEXT).width;
+      if (m > w * 0.94) fs = (fs * w * 0.94) / m;
+      c.font = `800 ${fs}px 'Inter Variable', Inter, sans-serif`;
+      c.textAlign = 'center';
+      c.textBaseline = 'middle';
+    };
+
+    const drawText = (c: CanvasRenderingContext2D, w: number, h: number) => {
+      setFont(c, h, w);
+      c.fillText(TEXT, w / 2, h / 2);
+    };
+
+    // Fila de geometrías a toda la altura de la franja
+    const drawShapes = (c: CanvasRenderingContext2D, w: number, h: number) => {
+      const s = h * 0.72;
+      const cy = h / 2;
+      const n = Math.max(4, Math.round(w / (s * 2.2)));
+      const gap = w / n;
+      const lw = Math.max(6, s * 0.18);
+      for (let i = 0; i < n; i++) {
+        const cx = gap * (i + 0.5);
+        const k = i % 6;
+        c.lineWidth = lw;
+        if (k === 0) {
+          c.beginPath(); c.arc(cx, cy, s / 2, 0, Math.PI * 2); c.fill();
+        } else if (k === 1) {
+          c.beginPath(); c.arc(cx, cy, s / 2 - lw / 2, 0, Math.PI * 2); c.stroke();
+        } else if (k === 2) {
+          c.beginPath(); c.moveTo(cx - s / 2, cy + s / 2); c.lineTo(cx + s / 2, cy + s / 2); c.lineTo(cx + s / 2, cy - s / 2); c.closePath(); c.fill();
+        } else if (k === 3) {
+          c.beginPath(); c.arc(cx, cy + s * 0.22, s / 2, Math.PI, 0); c.closePath(); c.fill();
+        } else if (k === 4) {
+          const q = s / Math.SQRT2;
+          c.save(); c.translate(cx, cy); c.rotate(Math.PI / 4);
+          c.strokeRect(-q / 2, -q / 2, q, q); c.restore();
+        } else {
+          const bw = s * 0.24;
+          c.fillRect(cx - bw * 1.5, cy - s / 2, bw, s);
+          c.fillRect(cx + bw * 0.5, cy - s / 2, bw, s);
+        }
+      }
+    };
+
+    // Muestrea los píxeles pintados y devuelve sus coordenadas
+    const sample = (draw: (c: CanvasRenderingContext2D, w: number, h: number) => void) => {
+      const off = document.createElement('canvas');
+      off.width = W; off.height = H;
+      const oc = off.getContext('2d')!;
+      oc.fillStyle = '#000'; oc.strokeStyle = '#000';
+      draw(oc, W, H);
+      const data = oc.getImageData(0, 0, W, H).data;
+      const collect = (s: number) => {
+        const arr: [number, number][] = [];
+        for (let y = 2; y < H; y += s)
+          for (let x = 2; x < W; x += s)
+            if (data[(y * W + x) * 4 + 3] > 128) arr.push([x, y]);
+        return arr;
+      };
+      let step = 4;
+      let out = collect(step);
+      while (out.length > 3200 && step < 9) { step++; out = collect(step); }
+      return out;
+    };
+
+    const build = () => {
+      const r = cv.getBoundingClientRect();
+      W = Math.max(1, Math.round(r.width));
+      H = Math.max(1, Math.round(r.height));
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      cv.width = W * dpr; cv.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const a = sample(drawText);
+      const b = sample(drawShapes);
+      if (!a.length || !b.length) return;
+      const n = Math.max(a.length, b.length);
+      pts = Array.from({ length: n }, (_, i) => {
+        const f = a[i % a.length];
+        const t = b[(i * 7 + 3) % b.length]; // baraja el destino: la disolución se reparte
+        const ang = Math.random() * Math.PI * 2;
+        const amp = 24 + Math.random() * 46;
+        return {
+          fx: f[0], fy: f[1], tx: t[0], ty: t[1],
+          sx: Math.cos(ang) * amp, sy: Math.sin(ang) * amp,
+          dl: Math.random() * 0.3,
+        };
+      });
+    };
+
+    const ease = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+
+    // Ciclo: nombre 3s → disolución 2.6s → geometrías 3s → recomposición 2.6s
+    const T1 = 3, T2 = 2.6, T3 = 3, T4 = 2.6, TT = T1 + T2 + T3 + T4;
+
+    const frame = (now: number) => {
+      if (!t0) t0 = now;
+      const t = ((now - t0) / 1000) % TT;
+      let p = 0;
+      if (t < T1) p = 0;
+      else if (t < T1 + T2) p = (t - T1) / T2;
+      else if (t < T1 + T2 + T3) p = 1;
+      else p = 1 - (t - T1 - T2 - T3) / T4;
+
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = '#111';
+      for (const q of pts) {
+        const e = ease(Math.min(1, Math.max(0, (p - q.dl * 0.3) / 0.7)));
+        const wob = Math.sin(Math.PI * e); // desvío en pleno vuelo
+        const x = q.fx + (q.tx - q.fx) * e + q.sx * wob;
+        const y = q.fy + (q.ty - q.fy) * e + q.sy * wob;
+        ctx.fillRect(x - 1.6, y - 1.6, 3.2, 3.2);
+      }
+      requestAnimationFrame(frame);
+    };
+
+    const start = () => {
+      build();
+      if (reduce) {
+        // Sin animación: solo el nombre, quieto
+        ctx.clearRect(0, 0, W, H);
+        ctx.fillStyle = '#111';
+        for (const q of pts) ctx.fillRect(q.fx - 1.6, q.fy - 1.6, 3.2, 3.2);
+        return;
+      }
+      requestAnimationFrame(frame);
+    };
+
+    let rto = 0;
+    window.addEventListener('resize', () => {
+      clearTimeout(rto);
+      rto = window.setTimeout(build, 200);
+    });
+
+    if (document.fonts?.ready) document.fonts.ready.then(start);
+    else start();
   }
 </script>
