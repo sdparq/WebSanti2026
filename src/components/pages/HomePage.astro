@@ -311,8 +311,10 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
         const maxB = h * 0.44; // ≈ altura de caja de las letras del nombre
         let x = 4;
         while (x < w - 20) {
-          const bw = 26 + rnd() * 64;
-          const bh = maxB * (0.4 + rnd() * 0.6);
+          // Alterna torres esbeltas con piezas bajas: más contraste vertical
+          const tall = rnd() < 0.34;
+          const bw = tall ? 18 + rnd() * 26 : 30 + rnd() * 56;
+          const bh = tall ? maxB * (0.8 + rnd() * 0.2) : maxB * (0.18 + rnd() * 0.42);
           c.fillRect(x, base - bh, bw, bh);
           const room = maxB - bh; // margen restante hasta el tope de las letras
           const type = rnd();
@@ -407,8 +409,8 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
     const ease = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
     const easeOut = (x: number) => 1 - Math.pow(1 - x, 3);
 
-    // Ritmo: 1.7s quieto + 1.9s de caída y levantamiento
-    const HOLD = 1.7, MORPH = 1.9, SEG = HOLD + MORPH;
+    // Ritmo ágil: los estados se suceden más seguidos
+    const HOLD = 1.15, MORPH = 1.35, SEG = HOLD + MORPH;
 
     const frame = (now: number) => {
       if (!t0) t0 = now;
