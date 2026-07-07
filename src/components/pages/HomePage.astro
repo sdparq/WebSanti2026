@@ -369,7 +369,7 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
     let drift = 95;  // deriva horizontal px/s (más suave en móvil)
     let isMobile = false;
     let stateDraws: ((c: CanvasRenderingContext2D, w: number, h: number) => void)[] = [];
-    const textMask = [true, true, false, false]; // los dos textos van seguidos
+    const textMask = [true, false, false]; // un único texto corrido + dos skylines
 
     const build = () => {
       const r = cv.getBoundingClientRect();
@@ -386,14 +386,12 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       drift = mobile ? 55 : 95;
       const STATES = mobile
         ? [
-            drawTextLines(['SANTIAGO', 'DE PABLO']),
-            drawTextLines(['WE DESIGN', 'WE CREATE']),
+            drawTextLines(['SANTIAGO DE PABLO', 'WE DESIGN · WE CREATE']),
             drawSkyline(87),
             drawSkyline(311),
           ]
         : [
-            drawTextLines([TEXT]),
-            drawTextLines(['WE DESIGN · WE CREATE · WE BUILD'], 0.5),
+            drawTextLines([TEXT + ' · WE DESIGN · WE CREATE · WE BUILD']),
             drawSkyline(87),
             drawSkyline(311),
           ];
