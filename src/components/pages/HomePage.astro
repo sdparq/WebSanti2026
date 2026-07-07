@@ -285,20 +285,22 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
     let pts: P[] = [];
     let W = 0, H = 0, t0 = 0;
 
-    const setFont = (c: CanvasRenderingContext2D, h: number, w: number, text: string, scale = 0.62) => {
-      let fs = h * scale;
-      c.font = `800 ${fs}px 'Inter Variable', Inter, sans-serif`;
-      const m = c.measureText(text).width;
-      if (m > w * 0.94) fs = (fs * w * 0.94) / m;
-      c.font = `800 ${fs}px 'Inter Variable', Inter, sans-serif`;
-      c.textAlign = 'center';
-      c.textBaseline = 'middle';
-    };
-
-    const drawTextState = (text: string, scale = 0.62) =>
+    // Texto en una o dos líneas, ajustado al ancho disponible
+    const drawTextLines = (lines: string[], cap?: number) =>
       (c: CanvasRenderingContext2D, w: number, h: number) => {
-        setFont(c, h, w, text, scale);
-        c.fillText(text, w / 2, h / 2);
+        const per = cap ?? (lines.length > 1 ? 0.34 : 0.62);
+        let fs = h * per;
+        for (const ln of lines) {
+          c.font = `800 ${fs}px 'Inter Variable', Inter, sans-serif`;
+          const m = c.measureText(ln).width;
+          if (m > w * 0.94) fs = (fs * w * 0.94) / m;
+        }
+        c.font = `800 ${fs}px 'Inter Variable', Inter, sans-serif`;
+        c.textAlign = 'center';
+        c.textBaseline = 'middle';
+        const gap = fs * 1.24;
+        const y0 = h / 2 - ((lines.length - 1) * gap) / 2;
+        lines.forEach((ln, i) => c.fillText(ln, w / 2, y0 + i * gap));
       };
 
     // Skyline de edificios: el más alto no supera la altura de las letras
@@ -355,21 +357,15 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
             if (data[(y * W + x) * 4 + 3] > 128) arr.push([x, y]);
         return arr;
       };
-      let step = 4;
+      let step = W < 720 ? 3 : 4;
       let out = collect(step);
       while (out.length > 3200 && step < 9) { step++; out = collect(step); }
       return out;
     };
 
-    // Secuencia de estados: nombre → skyline → mantra → otro skyline
-    const STATES = [
-      drawTextState(TEXT),
-      drawSkyline(87),
-      drawTextState('WE DESIGN · WE CREATE · WE BUILD', 0.5),
-      drawSkyline(311),
-    ];
-
     let frames: [number, number][][] = []; // posiciones por estado y partícula
+    let PX = 3.2;    // tamaño del cubo (menor en móvil)
+    let drift = 95;  // deriva horizontal px/s (más suave en móvil)
 
     const build = () => {
       const r = cv.getBoundingClientRect();
@@ -378,6 +374,25 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       const dpr = Math.min(2, window.devicePixelRatio || 1);
       cv.width = W * dpr; cv.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      // En pantallas estrechas: textos en dos líneas, cubos menores, deriva suave
+      const mobile = W < 720;
+      PX = mobile ? 2.4 : 3.2;
+      drift = mobile ? 55 : 95;
+      const STATES = mobile
+        ? [
+            drawTextLines(['SANTIAGO', 'DE PABLO']),
+            drawSkyline(87),
+            drawTextLines(['WE DESIGN', 'WE CREATE']),
+            drawSkyline(311),
+          ]
+        : [
+            drawTextLines([TEXT]),
+            drawSkyline(87),
+            drawTextLines(['WE DESIGN · WE CREATE · WE BUILD'], 0.5),
+            drawSkyline(311),
+          ];
+
       const sets = STATES.map((d) => sample(d));
       if (sets.some((s) => !s.length)) return;
       const n = Math.max(...sets.map((s) => s.length));
@@ -390,20 +405,20 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
     const ease = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
     const easeOut = (x: number) => 1 - Math.pow(1 - x, 3);
 
-    // Ritmo: 1.7s quieto + 1.9s de caída y levantamiento; deriva rápida
+    // Ritmo: 1.7s quieto + 1.9s de caída y levantamiento
     const HOLD = 1.7, MORPH = 1.9, SEG = HOLD + MORPH;
-    const DRIFT = 95; // px/s hacia la izquierda
 
     const frame = (now: number) => {
       if (!t0) t0 = now;
+      if (!frames.length) { requestAnimationFrame(frame); return; }
       const el = (now - t0) / 1000;
-      const t = el % (SEG * STATES.length);
+      const t = el % (SEG * frames.length);
       const k = Math.floor(t / SEG);
       const tt = t - k * SEG;
       const p = tt < HOLD ? 0 : (tt - HOLD) / MORPH;
       const A = frames[k];
-      const B = frames[(k + 1) % STATES.length];
-      const xoff = W - ((el * DRIFT) % W);
+      const B = frames[(k + 1) % frames.length];
+      const xoff = W - ((el * drift) % W);
       const base = H - 3;
 
       ctx.clearRect(0, 0, W, H);
@@ -426,7 +441,7 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
           x = f[0] + (g[0] - f[0]) * ease(fE);
           y = f[1] + (base - f[1]) * fE * fE; // caída acelerada
         }
-        ctx.fillRect(((x + xoff) % W) - 1.6, y - 1.6, 3.2, 3.2);
+        ctx.fillRect(((x + xoff) % W) - PX / 2, y - PX / 2, PX, PX);
       }
       requestAnimationFrame(frame);
     };
@@ -437,7 +452,7 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
         // Sin animación: solo el nombre, quieto
         ctx.clearRect(0, 0, W, H);
         ctx.fillStyle = '#111';
-        for (const f of frames[0] || []) ctx.fillRect(f[0] - 1.6, f[1] - 1.6, 3.2, 3.2);
+        for (const f of frames[0] || []) ctx.fillRect(f[0] - PX / 2, f[1] - PX / 2, PX, PX);
         return;
       }
       requestAnimationFrame(frame);
