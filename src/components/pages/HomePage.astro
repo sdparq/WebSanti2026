@@ -109,10 +109,9 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
   }
   .cover__lang:hover { background: var(--ink); color: #fff; }
 
-  /* FRISO de partículas: nombre ↔ geometrías, todo en negro */
+  /* FRISO de partículas en negativo: franja negra, cubos blancos */
   .band {
-    border-top: 1px solid var(--ink);
-    border-bottom: 1px solid var(--ink);
+    background: var(--ink);
     height: clamp(96px, 12vh, 136px);
     overflow: hidden;
     flex-shrink: 0;
@@ -366,6 +365,8 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
     let frames: [number, number][][] = []; // posiciones por estado y partícula
     let PX = 3.2;    // tamaño del cubo (menor en móvil)
     let drift = 95;  // deriva horizontal px/s (más suave en móvil)
+    let isMobile = false;
+    const textMask = [true, false, true, false]; // qué estados son texto
 
     const build = () => {
       const r = cv.getBoundingClientRect();
@@ -377,6 +378,7 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
 
       // En pantallas estrechas: textos en dos líneas, cubos menores, deriva suave
       const mobile = W < 720;
+      isMobile = mobile;
       PX = mobile ? 2.4 : 3.2;
       drift = mobile ? 55 : 95;
       const STATES = mobile
@@ -421,11 +423,20 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       const xoff = W - ((el * drift) % W);
       const base = H - 3;
 
+      // En móvil los textos no derivan (quedarían cortados por el borde);
+      // los skylines sí. En escritorio deriva todo.
+      const kb = (k + 1) % frames.length;
+      const offA = isMobile && textMask[k] ? 0 : xoff;
+      const offB = isMobile && textMask[kb] ? 0 : xoff;
+
       ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = '#111';
+      ctx.fillStyle = '#fff';
       for (let i = 0; i < pts.length; i++) {
         const q = pts[i];
         const f = A[i], g = B[i];
+        const fx = (f[0] + offA) % W;
+        const gx = (g[0] + offB) % W;
+        const dx = ((gx - fx + 1.5 * W) % W) - 0.5 * W; // camino más corto
         // 1) los cubos caen al suelo con gravedad (deslizándose hacia su sitio)
         const fallDur = 0.38 + q.dl * 0.1;
         const fE = Math.min(1, p / fallDur);
@@ -435,13 +446,13 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
         const rE = p <= rStart ? 0 : easeOut(Math.min(1, (p - rStart) / 0.2));
         let x: number, y: number;
         if (rE > 0) {
-          x = g[0];
+          x = gx;
           y = base + (g[1] - base) * rE;
         } else {
-          x = f[0] + (g[0] - f[0]) * ease(fE);
+          x = fx + dx * ease(fE);
           y = f[1] + (base - f[1]) * fE * fE; // caída acelerada
         }
-        ctx.fillRect(((x + xoff) % W) - PX / 2, y - PX / 2, PX, PX);
+        ctx.fillRect((((x % W) + W) % W) - PX / 2, y - PX / 2, PX, PX);
       }
       requestAnimationFrame(frame);
     };
@@ -451,7 +462,7 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       if (reduce) {
         // Sin animación: solo el nombre, quieto
         ctx.clearRect(0, 0, W, H);
-        ctx.fillStyle = '#111';
+        ctx.fillStyle = '#fff';
         for (const f of frames[0] || []) ctx.fillRect(f[0] - PX / 2, f[1] - PX / 2, PX, PX);
         return;
       }
