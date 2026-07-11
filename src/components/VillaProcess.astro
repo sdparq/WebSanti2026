@@ -53,7 +53,7 @@ const D = [
 
 <figure class="vp" aria-label={caption}>
   <div class="vp__sheet">
-    <svg viewBox="0 0 400 500" role="img" style={`--sketch: path('${D}')`}>
+    <svg viewBox="24 78 356 362" preserveAspectRatio="xMidYMin meet" role="img" style={`--sketch: path('${D}')`}>
       <path class="vp-ink" d={D} pathLength="100" />
       <g class="vp-pen" aria-hidden="true">
         <path class="vp-pen__shaft" d="M2 -3 L13 -14" />
@@ -70,9 +70,7 @@ const D = [
 <style>
   .vp { width: 100%; display: flex; flex-direction: column; }
   .vp__sheet {
-    border: 1px solid var(--line);
-    background: var(--bone);
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 1 / 1;
   }
   .vp__sheet svg { display: block; width: 100%; height: 100%; }
   /* En escritorio la lámina estira hasta alinear con el final del texto */
