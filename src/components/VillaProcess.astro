@@ -1,7 +1,8 @@
 ---
 // Lámina animada de la página de Estudio: un boceto arquitectónico
-// abstracto, a mano alzada, dibujado en directo por una pluma visible
-// que recorre cada trazo (y "se levanta" entre trazos). SVG + CSS.
+// abstracto, a mano alzada, dibujado EN DIRECTO por una pluma visible.
+// La tinta aparece exactamente bajo la punta: pluma y trazo comparten
+// el mismo reloj y la misma geometría (sincronizado por JS).
 import { type Lang } from '../i18n/ui';
 
 interface Props {
@@ -12,9 +13,9 @@ const { lang } = Astro.props;
 const caption =
   lang === 'es' ? 'El trazo — pensar dibujando' : 'The line — thinking by drawing';
 
-// Todos los trazos del boceto, en orden de dibujo, como un único camino.
-// La misma geometría guía la tinta (dash) y el recorrido de la pluma.
-const D = [
+// Trazos del boceto, en orden de dibujo (uno por path para poder
+// revelarlos exactamente al paso de la pluma).
+const SEGS = [
   // horizonte
   'M30 330 Q120 324 200 329 Q300 334 372 328',
   // guías de fuga sueltas
@@ -37,8 +38,13 @@ const D = [
   'M150 236 Q151 260 149 282',
   'M180 232 Q181 258 179 280',
   'M150 236 Q165 232 180 232',
-  // sombreado a rayitas en la cara derecha
-  'M300 200 L318 194 M296 216 L322 208 M294 232 L326 222 M293 248 L328 237 M293 264 L329 252 M294 280 L330 266',
+  // sombreado a rayitas, trazo a trazo
+  'M300 200 L318 194',
+  'M296 216 L322 208',
+  'M294 232 L326 222',
+  'M293 248 L328 237',
+  'M293 264 L329 252',
+  'M294 280 L330 266',
   // árbol y figura de escala
   'M348 300 Q349 286 347 274',
   'M347 274 Q336 260 348 254 Q360 260 347 274',
@@ -48,14 +54,16 @@ const D = [
   'M320 96 Q332 86 340 98 Q346 110 334 114 Q324 117 319 108 Q316 100 323 97',
   // subrayado final, casi firma
   'M60 430 Q140 423 220 428 Q300 433 344 427',
-].join(' ');
+];
 ---
 
 <figure class="vp" aria-label={caption}>
   <div class="vp__sheet">
-    <svg viewBox="24 78 356 362" preserveAspectRatio="xMidYMin meet" role="img" style={`--sketch: path('${D}')`}>
-      <path class="vp-ink" d={D} pathLength="100" />
-      <g class="vp-pen" aria-hidden="true">
+    <svg viewBox="24 78 356 362" preserveAspectRatio="xMidYMin meet" role="img" data-sketch>
+      <g class="vp-ink" data-ink>
+        {SEGS.map((d) => <path class="vp-seg" d={d} />)}
+      </g>
+      <g class="vp-pen" data-pen aria-hidden="true">
         <path class="vp-pen__shaft" d="M2 -3 L13 -14" />
         <circle class="vp-pen__nib" r="3.2" />
       </g>
@@ -80,32 +88,12 @@ const D = [
     .vp__meta { flex-shrink: 0; }
   }
 
-  /* tinta: trazo a mano alzada que se dibuja en orden */
-  .vp-ink {
+  .vp-seg {
     stroke: var(--ink);
     stroke-width: 1.3;
     fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-dasharray: 100;
-    animation: vpInk 16s linear infinite;
-  }
-  @keyframes vpInk {
-    0% { stroke-dashoffset: 100; opacity: 1; }
-    78% { stroke-dashoffset: 0; opacity: 1; }
-    90% { stroke-dashoffset: 0; opacity: 1; }
-    96%, 100% { stroke-dashoffset: 0; opacity: 0; }
-  }
-
-  /* la pluma: sigue exactamente el mismo camino que la tinta */
-  .vp-pen { display: none; }
-  @supports (offset-path: path('M0 0 L1 1')) {
-    .vp-pen {
-      display: block;
-      offset-path: var(--sketch);
-      offset-rotate: 0deg;
-      animation: vpPen 16s linear infinite;
-    }
   }
   .vp-pen__nib { fill: var(--accent); }
   .vp-pen__shaft {
@@ -114,21 +102,80 @@ const D = [
     stroke-linecap: round;
     fill: none;
   }
-  @keyframes vpPen {
-    0% { offset-distance: 0%; opacity: 1; }
-    78% { offset-distance: 100%; opacity: 1; }
-    82% { offset-distance: 100%; opacity: 0; }
-    100% { offset-distance: 100%; opacity: 0; }
-  }
 
   .vp__meta { margin-top: 0.9rem; }
   .vp__caption {
     font-size: 0.8rem;
     color: var(--ink-soft);
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    .vp-ink { animation: none !important; stroke-dashoffset: 0; }
-    .vp-pen { display: none !important; }
-  }
 </style>
+
+<script>
+  // La pluma dibuja: recorremos los trazos por longitud real y revelamos
+  // la tinta exactamente hasta el punto donde está la punta.
+  const svg = document.querySelector<SVGSVGElement>('[data-sketch]');
+  if (svg) {
+    const segs = Array.from(svg.querySelectorAll<SVGPathElement>('.vp-seg'));
+    const ink = svg.querySelector<SVGGElement>('[data-ink]')!;
+    const pen = svg.querySelector<SVGGElement>('[data-pen]')!;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const lens = segs.map((s) => s.getTotalLength());
+    const starts: number[] = [];
+    let total = 0;
+    for (const L of lens) { starts.push(total); total += L; }
+    segs.forEach((s, i) => {
+      s.style.strokeDasharray = `${lens[i]}`;
+      s.style.strokeDashoffset = `${lens[i]}`;
+    });
+
+    if (reduce) {
+      // Sin animación: boceto completo, sin pluma
+      segs.forEach((s) => (s.style.strokeDashoffset = '0'));
+      pen.style.display = 'none';
+    } else {
+      const T = 16;            // ciclo completo (s)
+      const DRAW = 0.78 * T;   // la pluma dibuja
+      const HOLD = 0.9 * T;    // lámina terminada
+      const FADE = 0.96 * T;   // se desvanece
+      let t0 = 0;
+
+      const frame = (now: number) => {
+        if (!t0) t0 = now;
+        const t = ((now - t0) / 1000) % T;
+
+        if (t < DRAW) {
+          ink.style.opacity = '1';
+          const s = (t / DRAW) * total; // longitud ya dibujada
+          let px = 0, py = 0;
+          for (let i = 0; i < segs.length; i++) {
+            if (s >= starts[i] + lens[i]) {
+              segs[i].style.strokeDashoffset = '0';
+            } else if (s <= starts[i]) {
+              segs[i].style.strokeDashoffset = `${lens[i]}`;
+            } else {
+              const local = s - starts[i];
+              segs[i].style.strokeDashoffset = `${lens[i] - local}`;
+              const pt = segs[i].getPointAtLength(local);
+              px = pt.x; py = pt.y;
+            }
+          }
+          if (px || py) {
+            pen.style.display = '';
+            pen.style.opacity = '1';
+            pen.setAttribute('transform', `translate(${px} ${py})`);
+          }
+        } else {
+          // terminada: pluma fuera, todo dibujado; luego fundido y reinicio
+          pen.style.opacity = '0';
+          segs.forEach((sg) => (sg.style.strokeDashoffset = '0'));
+          if (t < HOLD) ink.style.opacity = '1';
+          else if (t < FADE) ink.style.opacity = `${1 - (t - HOLD) / (FADE - HOLD)}`;
+          else ink.style.opacity = '0';
+        }
+        requestAnimationFrame(frame);
+      };
+      requestAnimationFrame(frame);
+    }
+  }
+</script>
