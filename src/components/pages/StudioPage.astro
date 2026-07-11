@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Figure from '../Figure.astro';
+import VillaProcess from '../VillaProcess.astro';
 import { type Lang, t, url } from '../../i18n/ui';
 import { about, services } from '../../data/site';
 
@@ -24,7 +24,7 @@ const { lang, altUrl } = Astro.props;
       ))}
     </div>
     <div class="studio-portrait" data-reveal>
-      <Figure src={undefined} alt="Santiago de Pablo" label="Retrato" hue={28} ratio="3 / 4" />
+      <VillaProcess lang={lang} />
     </div>
   </section>
 
