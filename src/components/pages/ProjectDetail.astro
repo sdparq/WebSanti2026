@@ -277,6 +277,21 @@ const meta: { text: string; award?: boolean }[] = [
 </style>
 
 <script>
+  // Ajusta el título a una línea: si desborda, reduce su tamaño
+  const title = document.querySelector<HTMLElement>('.titleband__title');
+  const fitTitle = () => {
+    if (!title) return;
+    title.style.fontSize = '';
+    const scale = title.clientWidth / title.scrollWidth;
+    if (scale < 1) {
+      const fs = parseFloat(getComputedStyle(title).fontSize);
+      title.style.fontSize = `${Math.floor(fs * scale * 0.97)}px`;
+    }
+  };
+  fitTitle();
+  if (document.fonts?.ready) document.fonts.ready.then(fitTitle);
+  window.addEventListener('resize', fitTitle);
+
   const strip = document.querySelector<HTMLElement>('[data-strip]');
   if (strip) {
     // Rueda vertical → desplazamiento horizontal
