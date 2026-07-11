@@ -271,105 +271,72 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
 </script>
 
 <script>
-  // ── Friso de partículas ────────────────────────────────────────────────
-  // El nombre del estudio, compuesto por cuadraditos negros, se descompone
-  // y sus fragmentos se recolocan formando geometrías a toda altura. Bucle.
+  // ── El plóter ──────────────────────────────────────────────────────────
+  // Una pluma recorre la franja dibujando alzados de edificios a línea
+  // fina y rotulando el nombre del estudio, como un plóter de estudio.
+  // Ciclo: alzado → nombre → otro alzado → mantra, con fundido entre láminas.
   const cv = document.querySelector<HTMLCanvasElement>('[data-band]');
   if (cv) {
     const ctx = cv.getContext('2d')!;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const TEXT = 'SANTIAGO DE PABLO ARQUITECTURA';
+    const NAME = 'SANTIAGO DE PABLO ARQUITECTURA';
 
-    type P = { sx: number; sy: number; dl: number };
-    let pts: P[] = [];
     let W = 0, H = 0, t0 = 0;
+    let items: any[] = [];
 
-    // Texto en una o dos líneas, ajustado al ancho disponible
-    const drawTextLines = (lines: string[], cap?: number) =>
-      (c: CanvasRenderingContext2D, w: number, h: number) => {
-        const per = cap ?? (lines.length > 1 ? 0.34 : 0.62);
-        let fs = h * per;
-        for (const ln of lines) {
-          c.font = `800 ${fs}px 'Inter Variable', Inter, sans-serif`;
-          const m = c.measureText(ln).width;
-          if (m > w * 0.94) fs = (fs * w * 0.94) / m;
-        }
-        c.font = `800 ${fs}px 'Inter Variable', Inter, sans-serif`;
-        c.textAlign = 'center';
-        c.textBaseline = 'middle';
-        const gap = fs * 1.24;
-        const y0 = h / 2 - ((lines.length - 1) * gap) / 2;
-        lines.forEach((ln, i) => c.fillText(ln, w / 2, y0 + i * gap));
-      };
+    const font = (fs: number) => `800 ${fs}px 'Inter Variable', Inter, sans-serif`;
 
-    // Skyline de edificios: el más alto no supera la altura de las letras
-    const drawSkyline = (seed: number) =>
-      (c: CanvasRenderingContext2D, w: number, h: number) => {
-        let s = seed;
-        const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
-        const base = h - 2;
-        const maxB = h * 0.44; // ≈ altura de caja de las letras del nombre
-        let x = 4;
-        while (x < w - 20) {
-          // Alterna torres esbeltas con piezas bajas: más contraste vertical
-          const tall = rnd() < 0.34;
-          const bw = tall ? 18 + rnd() * 26 : 30 + rnd() * 56;
-          const bh = tall ? maxB * (0.8 + rnd() * 0.2) : maxB * (0.18 + rnd() * 0.42);
-          c.fillRect(x, base - bh, bw, bh);
-          const room = maxB - bh; // margen restante hasta el tope de las letras
-          const type = rnd();
-          if (type < 0.3 && room > 5) {
-            // tejado a dos aguas
-            const rh = Math.min(14, room, bh * 0.5);
-            c.beginPath();
-            c.moveTo(x - 2, base - bh);
-            c.lineTo(x + bw / 2, base - bh - rh);
-            c.lineTo(x + bw + 2, base - bh);
-            c.closePath();
-            c.fill();
-          } else if (type < 0.5 && room > 6) {
-            // antena
-            c.fillRect(x + bw / 2 - 1.5, base - bh - Math.min(12, room), 3, Math.min(12, room));
-          } else if (type < 0.68 && room > 7) {
-            // remate escalonado
-            c.fillRect(x + bw * 0.22, base - bh - 7, bw * 0.56, 7);
-          } else if (type < 0.8 && room > 6) {
-            // cúpula
-            c.beginPath();
-            c.arc(x + bw / 2, base - bh, Math.min(bw * 0.3, room), Math.PI, 0);
-            c.fill();
+    // Alzado esquemático continuo: silueta de edificios como polilínea única
+    const makeSky = (seed: number) => {
+      let s = seed;
+      const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+      const base = H - 6;
+      const maxB = H * 0.62;
+      const pts: [number, number][] = [[0, base]];
+      let x = 10 + rnd() * 30;
+      pts.push([x, base]);
+      while (x < W - 60) {
+        const tall = rnd() < 0.35;
+        const bw = tall ? 20 + rnd() * 26 : 34 + rnd() * 60;
+        const bh = tall ? maxB * (0.75 + rnd() * 0.25) : maxB * (0.25 + rnd() * 0.45);
+        const top = base - bh;
+        pts.push([x, top]);
+        const roof = rnd();
+        if (roof < 0.3) {
+          pts.push([x + bw / 2, Math.max(4, top - Math.min(14, bh * 0.5))]); // dos aguas
+        } else if (roof < 0.45) {
+          const r = Math.min(bw * 0.5, 14); // cúpula aproximada
+          for (let a = 1; a < 6; a++) {
+            const th = Math.PI - (Math.PI * a) / 6;
+            pts.push([x + bw / 2 + Math.cos(th) * r, top - Math.sin(th) * r]);
           }
-          x += bw + 5 + rnd() * 16;
         }
-      };
-
-    // Muestrea los píxeles pintados y devuelve sus coordenadas
-    const sample = (draw: (c: CanvasRenderingContext2D, w: number, h: number) => void) => {
-      const off = document.createElement('canvas');
-      off.width = W; off.height = H;
-      const oc = off.getContext('2d')!;
-      oc.fillStyle = '#000'; oc.strokeStyle = '#000';
-      draw(oc, W, H);
-      const data = oc.getImageData(0, 0, W, H).data;
-      const collect = (s: number) => {
-        const arr: [number, number][] = [];
-        for (let y = 2; y < H; y += s)
-          for (let x = 2; x < W; x += s)
-            if (data[(y * W + x) * 4 + 3] > 128) arr.push([x, y]);
-        return arr;
-      };
-      let step = W < 720 ? 3 : 4;
-      let out = collect(step);
-      while (out.length > 3200 && step < 9) { step++; out = collect(step); }
-      return out;
+        pts.push([x + bw, top]);
+        pts.push([x + bw, base]);
+        x += bw + 8 + rnd() * 30;
+        pts.push([Math.min(x, W), base]);
+      }
+      pts.push([W, base]);
+      const lens = [0];
+      let total = 0;
+      for (let i = 1; i < pts.length; i++) {
+        total += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+        lens.push(total);
+      }
+      return { type: 'sky', pts, lens, total, drawT: 3.4 };
     };
 
-    let frames: [number, number][][] = []; // posiciones por estado y partícula
-    let PX = 3.2;    // tamaño del cubo (menor en móvil)
-    let drift = 95;  // deriva horizontal px/s (más suave en móvil)
-    let isMobile = false;
-    let stateDraws: ((c: CanvasRenderingContext2D, w: number, h: number) => void)[] = [];
-    const textMask = [true, false, false]; // un único texto corrido + dos skylines
+    const makeText = (str: string) => {
+      let fs = H * 0.5;
+      ctx.font = font(fs);
+      const m = ctx.measureText(str).width;
+      if (m > W * 0.92) fs = (fs * W * 0.92) / m;
+      ctx.font = font(fs);
+      const tw = ctx.measureText(str).width;
+      return { type: 'text', str, fs, tw, sx: (W - tw) / 2, drawT: 2.1 };
+    };
+
+    const HOLD = 1.0, FADE = 0.45;
 
     const build = () => {
       const r = cv.getBoundingClientRect();
@@ -378,109 +345,97 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       const dpr = Math.min(2, window.devicePixelRatio || 1);
       cv.width = W * dpr; cv.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      // En pantallas estrechas: textos en dos líneas, cubos menores, deriva suave
       const mobile = W < 720;
-      isMobile = mobile;
-      PX = mobile ? 2.4 : 3.2;
-      drift = mobile ? 55 : 95;
-      const STATES = mobile
-        ? [
-            drawTextLines(['SANTIAGO DE PABLO', 'WE DESIGN · WE CREATE']),
-            drawSkyline(87),
-            drawSkyline(311),
-          ]
-        : [
-            drawTextLines([TEXT + ' · WE DESIGN · WE CREATE · WE BUILD']),
-            drawSkyline(87),
-            drawSkyline(311),
-          ];
-      stateDraws = STATES;
-
-      const sets = STATES.map((d) => sample(d));
-      if (sets.some((s) => !s.length)) return;
-      const n = Math.max(...sets.map((s) => s.length));
-      frames = sets.map((set, k) =>
-        Array.from({ length: n }, (_, i) => set[(i * 7 + k * 13) % set.length])
-      );
-      pts = Array.from({ length: n }, () => ({ dl: Math.random() }));
+      items = [
+        makeSky(87),
+        makeText(mobile ? 'SANTIAGO DE PABLO' : NAME),
+        makeSky(311),
+        makeText(mobile ? 'WE DESIGN · WE CREATE' : 'WE DESIGN · WE CREATE · WE BUILD'),
+      ];
     };
 
-    const ease = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
-    const easeOut = (x: number) => 1 - Math.pow(1 - x, 3);
+    // Cabezal del plóter: carro vertical tenue + pluma azul
+    const pen = (x: number, y: number, alpha: number) => {
+      if (alpha <= 0) return;
+      ctx.globalAlpha = alpha * 0.16;
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(x - 0.5, 0, 1, H);
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = '#2148ff';
+      ctx.beginPath(); ctx.arc(x, y, 3.4, 0, Math.PI * 2); ctx.fill();
+      ctx.globalAlpha = 1;
+    };
 
-    // Ritmo ágil: los estados se suceden más seguidos
-    const HOLD = 1.15, MORPH = 1.35, SEG = HOLD + MORPH;
+    const drawSkyItem = (it: any, prog: number, alpha: number) => {
+      const L = it.total * Math.min(1, prog);
+      ctx.globalAlpha = alpha;
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 1.5;
+      ctx.lineJoin = 'round';
+      ctx.beginPath();
+      ctx.moveTo(it.pts[0][0], it.pts[0][1]);
+      let px = it.pts[0][0], py = it.pts[0][1];
+      for (let i = 1; i < it.pts.length; i++) {
+        if (it.lens[i] <= L) {
+          ctx.lineTo(it.pts[i][0], it.pts[i][1]);
+          px = it.pts[i][0]; py = it.pts[i][1];
+        } else {
+          const seg = it.lens[i] - it.lens[i - 1];
+          const f = seg > 0 ? (L - it.lens[i - 1]) / seg : 0;
+          px = it.pts[i - 1][0] + (it.pts[i][0] - it.pts[i - 1][0]) * f;
+          py = it.pts[i - 1][1] + (it.pts[i][1] - it.pts[i - 1][1]) * f;
+          ctx.lineTo(px, py);
+          break;
+        }
+      }
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+      return [px, py];
+    };
+
+    // El texto se "rotula": aparece nítido tras el paso del carro
+    const drawTextItem = (it: any, prog: number, alpha: number) => {
+      const penX = it.sx - 14 + (it.tw + 28) * Math.min(1, prog);
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.beginPath(); ctx.rect(0, 0, penX, H); ctx.clip();
+      ctx.fillStyle = '#fff';
+      ctx.font = font(it.fs);
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(it.str, it.sx, H / 2 + it.fs * 0.04);
+      ctx.restore();
+      ctx.globalAlpha = 1;
+      return [Math.min(penX, W - 2), H / 2 + it.fs * 0.42];
+    };
 
     const frame = (now: number) => {
       if (!t0) t0 = now;
-      if (!frames.length) { requestAnimationFrame(frame); return; }
-      const el = (now - t0) / 1000;
-      const t = el % (SEG * frames.length);
-      const k = Math.floor(t / SEG);
-      const tt = t - k * SEG;
-      const p = tt < HOLD ? 0 : (tt - HOLD) / MORPH;
-      const A = frames[k];
-      const B = frames[(k + 1) % frames.length];
-      const xoff = W - ((el * drift) % W);
-      const base = H - 3;
-
-      // En móvil los textos no derivan (quedarían cortados por el borde);
-      // los skylines sí. En escritorio deriva todo.
-      const kb = (k + 1) % frames.length;
-      const offA = isMobile && textMask[k] ? 0 : xoff;
-      const offB = isMobile && textMask[kb] ? 0 : xoff;
-
-      // Texto quieto: tipografía nítida (solo se pixela al descomponerse)
-      if (p === 0 && textMask[k] && stateDraws[k]) {
-        ctx.clearRect(0, 0, W, H);
-        ctx.fillStyle = '#fff';
-        const off = isMobile ? 0 : ((xoff % W) + W) % W;
-        ctx.save();
-        ctx.translate(off, 0);
-        stateDraws[k](ctx, W, H);
-        ctx.translate(-W, 0);
-        stateDraws[k](ctx, W, H); // copia envuelta por el borde
-        ctx.restore();
-        requestAnimationFrame(frame);
-        return;
-      }
+      if (!items.length) { requestAnimationFrame(frame); return; }
+      const durs = items.map((it: any) => it.drawT + HOLD + FADE);
+      const tot = durs.reduce((a: number, b: number) => a + b, 0);
+      let t = ((now - t0) / 1000) % tot;
+      let k = 0;
+      while (t > durs[k]) { t -= durs[k]; k++; }
+      const it = items[k];
+      let prog = 1, alpha = 1, penA = 0;
+      if (t < it.drawT) { prog = t / it.drawT; penA = 1; }
+      else if (t < it.drawT + HOLD) { penA = Math.max(0, 1 - (t - it.drawT) / 0.3); }
+      else { alpha = Math.max(0, 1 - (t - it.drawT - HOLD) / FADE); }
 
       ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = '#fff';
-      for (let i = 0; i < pts.length; i++) {
-        const q = pts[i];
-        const f = A[i], g = B[i];
-        const fx = (f[0] + offA) % W;
-        const gx = (g[0] + offB) % W;
-        const dx = ((gx - fx + 1.5 * W) % W) - 0.5 * W; // camino más corto
-        // 1) los cubos caen al suelo con gravedad (deslizándose hacia su sitio)
-        const fallDur = 0.38 + q.dl * 0.1;
-        const fE = Math.min(1, p / fallDur);
-        // 2) el edificio (o las letras) se levanta poco a poco, de abajo arriba
-        const hN = Math.max(0, Math.min(1, (base - g[1]) / H));
-        const rStart = 0.5 + hN * 0.25 + q.dl * 0.03;
-        const rE = p <= rStart ? 0 : easeOut(Math.min(1, (p - rStart) / 0.2));
-        let x: number, y: number;
-        if (rE > 0) {
-          x = gx;
-          y = base + (g[1] - base) * rE;
-        } else {
-          x = fx + dx * ease(fE);
-          y = f[1] + (base - f[1]) * fE * fE; // caída acelerada
-        }
-        ctx.fillRect((((x % W) + W) % W) - PX / 2, y - PX / 2, PX, PX);
-      }
+      const p = it.type === 'sky' ? drawSkyItem(it, prog, alpha) : drawTextItem(it, prog, alpha);
+      pen(p[0], p[1], penA);
       requestAnimationFrame(frame);
     };
 
     const start = () => {
       build();
       if (reduce) {
-        // Sin animación: solo el nombre, quieto y nítido
+        // Sin animación: el nombre rotulado, quieto
         ctx.clearRect(0, 0, W, H);
-        ctx.fillStyle = '#fff';
-        if (stateDraws[0]) stateDraws[0](ctx, W, H);
+        const it = items[1];
+        if (it) drawTextItem(it, 1, 1);
         return;
       }
       requestAnimationFrame(frame);
@@ -491,7 +446,6 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       clearTimeout(rto);
       rto = window.setTimeout(build, 200);
     });
-
     if (document.fonts?.ready) document.fonts.ready.then(start);
     else start();
   }
