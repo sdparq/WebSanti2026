@@ -8,8 +8,8 @@ export default defineConfig({
     format: 'directory',
   },
   i18n: {
-    defaultLocale: 'es',
-    locales: ['es', 'en'],
+    defaultLocale: 'en',
+    locales: ['en', 'es'],
     routing: {
       prefixDefaultLocale: true,
       redirectToDefaultLocale: false,

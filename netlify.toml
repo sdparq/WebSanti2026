@@ -8,6 +8,19 @@
 # Redirige la raíz al idioma por defecto (a nivel de servidor, sin página intermedia)
 [[redirects]]
   from = "/"
+  to = "/en/"
+  status = 302
+  force = true
+
+# La sección "Proyectos" es la propia portada de cada idioma
+[[redirects]]
+  from = "/en/projects/"
+  to = "/en/"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/es/proyectos/"
   to = "/es/"
   status = 302
   force = true
