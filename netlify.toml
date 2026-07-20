@@ -5,12 +5,12 @@
 [build.environment]
   NODE_VERSION = "22"
 
-# Redirige la raíz al idioma por defecto
+# Redirige la raíz al idioma por defecto (a nivel de servidor, sin página intermedia)
 [[redirects]]
   from = "/"
   to = "/es/"
   status = 302
-  force = false
+  force = true
 
 [[headers]]
   for = "/*"
