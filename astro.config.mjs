@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build
 export default defineConfig({
-  site: 'https://sdparquitectura.netlify.app',
+  site: 'https://sdparquitectura.com',
   integrations: [sitemap()],
   trailingSlash: 'ignore',
   build: {
