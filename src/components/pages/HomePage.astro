@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Figure from '../Figure.astro';
 import { type Lang, t, url } from '../../i18n/ui';
-import { intro, site } from '../../data/site';
+import { intro, seo, site } from '../../data/site';
 import { projects } from '../../data/projects';
 
 interface Props {
@@ -16,7 +16,7 @@ const year = new Date().getFullYear();
 const linkedin = site.social.find((s) => s.label === 'LinkedIn');
 ---
 
-<Base lang={lang} altUrl={altUrl} chrome={false} title="" description={intro.lead[lang]}>
+<Base lang={lang} altUrl={altUrl} chrome={false} title={seo.homeTitle[lang]} description={seo.homeDescription[lang]}>
   <div class="cover">
     <!-- NAV superior: tres columnas ---------------------------------------- -->
     <nav class="cover__nav" aria-label="Principal">

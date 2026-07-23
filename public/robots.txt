@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sdparquitectura.netlify.app/sitemap-index.xml

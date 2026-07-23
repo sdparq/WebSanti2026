@@ -28,6 +28,19 @@ export const site = {
   },
 } as const;
 
+// Textos SEO (título y descripción de la portada en buscadores;
+// no cambian el texto visible de la web)
+export const seo = {
+  homeTitle: {
+    es: 'Estudio de arquitectura en Dubái y Madrid',
+    en: 'Architecture Studio in Dubai & Madrid',
+  },
+  homeDescription: {
+    es: 'Santiago de Pablo Arquitectura: estudio de arquitectura con sedes en Dubái (Business Bay) y Madrid. Villas, vivienda, rehabilitación e interiorismo.',
+    en: 'Santiago de Pablo Arquitectura: architecture practice with offices in Dubai (Business Bay) and Madrid. Villas, housing, renovation and interior design.',
+  },
+} as const;
+
 export const intro = {
   // Frase grande que aparece en la portada (manifiesto del estudio)
   hero: {
