@@ -18,6 +18,20 @@ const total = String(projects.length).padStart(2, '0');
 const year = new Date().getFullYear();
 const linkedin = site.social.find((s) => s.label === 'LinkedIn');
 
+// Ficha estructurada del proyecto para buscadores
+const projectSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: p.title,
+  description: p.summary[lang],
+  ...(p.year ? { dateCreated: p.year } : {}),
+  locationCreated: { '@type': 'Place', name: p.location[lang] },
+  ...(p.images.length
+    ? { image: p.images.map((src) => new URL(src, Astro.site).href) }
+    : {}),
+  creator: { '@type': 'Organization', name: site.nameFull, url: Astro.site?.href },
+};
+
 const meta: { text: string; award?: boolean }[] = [
   { text: p.location[lang] },
   { text: p.category[lang] },
@@ -27,7 +41,15 @@ const meta: { text: string; award?: boolean }[] = [
 ];
 ---
 
-<Base lang={lang} altUrl={altUrl} chrome={false} title={p.title} description={p.summary[lang]}>
+<Base
+  lang={lang}
+  altUrl={altUrl}
+  chrome={false}
+  title={`${p.title} · ${p.location[lang]}`}
+  description={p.summary[lang]}
+  image={p.images[0]}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(projectSchema)} />
   <div class="cover">
     <!-- NAV superior -------------------------------------------------------- -->
     <nav class="cover__nav" aria-label="Principal">
@@ -76,7 +98,7 @@ const meta: { text: string; award?: boolean }[] = [
         {p.images.length > 0
           ? p.images.map((src, i) => (
               <figure class="panel panel--img">
-                <img src={src} alt={`${p.title} — ${i + 1}`} loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
+                <img src={src} alt={`${p.title}, ${p.category[lang]}, ${p.location[lang]} — ${i + 1}`} loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
               </figure>
             ))
           : [0, 1].map((i) => (
