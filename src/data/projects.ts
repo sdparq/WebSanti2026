@@ -31,141 +31,69 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: '85-vpo-bilbao',
-    title: { es: '85 VPO Bilbao', en: '85 Social Housing Units, Bilbao' },
-    year: '2020',
+    slug: 'villa-abu-dabi',
+    title: { es: 'Villa Abu Dabi', en: 'Villa Abu Dhabi' },
     featured: true,
-    hue: 30,
-    location: { es: 'Iturrigorri, Bilbao', en: 'Iturrigorri, Bilbao' },
-    category: { es: 'Vivienda colectiva', en: 'Collective housing' },
-    award: { es: '1.er premio', en: '1st prize' },
-    collaborators: {
-      es: 'Orbaiceta & Aldaba y Apezteguia Architects',
-      en: 'Orbaiceta & Aldaba and Apezteguia Architects',
-    },
+    hue: 190,
+    location: { es: 'Abu Dabi, EAU', en: 'Abu Dhabi, UAE' },
+    category: { es: 'Vivienda unifamiliar', en: 'Single-family house' },
     summary: {
-      es: 'Concurso de 85 viviendas de protección oficial que fragmenta su volumen para adaptarse a un terreno en pendiente y a la escala del entorno.',
-      en: 'A competition for 85 social-housing units whose volume is fragmented to adapt to a sloping site and the scale of its surroundings.',
+      es: 'Una villa de planos blancos y madera que flota sobre el jardín y la lámina de agua, abierta a la vida exterior.',
+      en: 'A villa of white planes and timber floating above the garden and the water, open to outdoor living.',
     },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
     description: {
       es: [
-        'La propuesta busca dar respuesta a un entorno urbano complejo desde su volumetría y la composición de sus planos. Por un lado encontramos el fuerte desnivel que presenta el terreno; por otro, la cercanía de los edificios más próximos.',
-        'Para dar respuesta decidimos fragmentar el proyecto, rompiendo su lado largo y ajustándolo a la escala urbana que presentan las inmediaciones.',
+        'La villa se compone de grandes bandejas blancas que se deslizan entre sí, protegiendo del sol los espacios de vida y generando terrazas cubiertas en todas las orientaciones.',
+        'La planta baja se disuelve hacia el jardín y la piscina a través de carpinterías ocultas y porches de madera, borrando el límite entre interior y exterior.',
       ],
       en: [
-        'The proposal responds to a complex urban setting through its massing and the composition of its planes. On one hand, the site has a steep slope; on the other, the neighbouring buildings sit very close.',
-        'To address this, we fragmented the project, breaking up its long side and adjusting it to the urban scale of its surroundings.',
+        'The villa is composed of large white trays sliding past one another, shading the living spaces and creating covered terraces in every orientation.',
+        'The ground floor dissolves towards the garden and pool through concealed frames and timber porches, erasing the boundary between inside and out.',
       ],
     },
-    // Solo renders en la galería (los planos quedan fuera a propósito)
     images: [
-      '/proyectos/85-vpo-bilbao/portada.jpg',
-      '/proyectos/85-vpo-bilbao/01.jpg',
-      '/proyectos/85-vpo-bilbao/02.jpg',
-      '/proyectos/85-vpo-bilbao/03.jpg',
-      '/proyectos/85-vpo-bilbao/04.jpg',
+      '/proyectos/villa-abu-dabi/portada.jpg',
+      '/proyectos/villa-abu-dabi/acceso.jpg',
+      '/proyectos/villa-abu-dabi/terraza.jpg',
+      '/proyectos/villa-abu-dabi/interior.jpg',
     ],
   },
   {
-    slug: 'cubricion-pistas-valdelasfuentes',
-    year: '2025',
-    title: { es: 'Cubrición Pistas Valdelasfuentes', en: 'Valdelasfuentes Sports Courts Canopy' },
+    slug: 'torre-observatorio-zagreb',
+    year: '2023',
+    title: { es: 'Torre Observatorio Zagreb', en: 'Zagreb Observation Tower' },
     featured: true,
-    hue: 200,
-    location: { es: 'Alcobendas, Madrid', en: 'Alcobendas, Madrid' },
-    category: { es: 'Equipamiento deportivo', en: 'Sports facility' },
-    award: { es: '1.er premio', en: '1st prize' },
+    hue: 230,
+    location: { es: 'Zagreb, Croacia', en: 'Zagreb, Croatia' },
+    category: { es: 'Torre mirador', en: 'Observation tower' },
+    award: { es: 'Finalista', en: 'Finalist' },
     collaborators: {
       es: 'PDP Arquitectos',
       en: 'PDP Arquitectos',
     },
     summary: {
-      es: 'Una cubierta ligera de madera que protege las pistas deportivas existentes con mínimo impacto, creando una estructura sugerente y funcional.',
-      en: 'A light timber roof that shelters the existing sports courts with minimal impact, creating an evocative and functional structure.',
+      es: 'Una torre observatorio que plantea un recorrido vertical: descubrir la ciudad participando de ella desde dentro.',
+      en: 'An observation tower conceived as a vertical journey: discovering the city while taking part in it from within.',
     },
     description: {
       es: [
-        'El proyecto plantea una intervención acorde a la escala y la geometría de las pistas existentes, siguiendo su lógica y la del conjunto del complejo deportivo de Valdelasfuentes.',
-        'Se adapta a la edificación existente buscando un mínimo impacto sobre ella, al tiempo que crea una estructura ligera, sugerente y funcional.',
+        'La torre observatorio de Zagreb es un concepto desarrollado para una promotora de Emiratos Árabes que plasma la necesidad de alzar la vista y encarar la ciudad desde el descubrimiento de todos sus puntos.',
+        'El recorrido que se plantea es vertical: el espectador es partícipe, desde el interior, de todo lo que sucede en la ciudad.',
       ],
       en: [
-        'The project proposes an intervention in keeping with the scale and geometry of the existing courts, following their logic and that of the wider Valdelasfuentes sports complex.',
-        'It adapts to the existing buildings with minimal impact, while creating a light, evocative and functional structure.',
-      ],
-    },
-    // Solo renders (la axonometría queda fuera a propósito)
-    images: [
-      '/proyectos/cubricion-pistas-valdelasfuentes/exterior-futbol.jpg',
-      '/proyectos/cubricion-pistas-valdelasfuentes/basket.jpg',
-      '/proyectos/cubricion-pistas-valdelasfuentes/futsal.jpg',
-      '/proyectos/cubricion-pistas-valdelasfuentes/pasillo.jpg',
-    ],
-  },
-  {
-    slug: '32-vpo-entremutilvas',
-    year: '2019',
-    title: { es: '32 VPO Entremutilvas', en: '32 Social Housing Units, Entremutilvas' },
-    featured: true,
-    hue: 90,
-    location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
-    category: { es: 'Vivienda colectiva', en: 'Collective housing' },
-    collaborators: {
-      es: 'Orbaiceta & Aldaba y Araiz Floristan',
-      en: 'Orbaiceta & Aldaba and Araiz Floristan',
-    },
-    summary: {
-      es: 'Viviendas en alquiler para mayores y jóvenes organizadas en torno a un único núcleo, en clave de “co-living” y comunidad.',
-      en: 'Rental housing for the elderly and the young, organised around a single core in a spirit of co-living and community.',
-    },
-    description: {
-      es: [
-        'El proyecto resuelve un programa de viviendas en alquiler para colectivos específicos —personas mayores de 65 y jóvenes menores de 35 años—, fomentando la colaboración vecinal, la igualdad y la corresponsabilidad en los cuidados. Nos acercamos al modelo del “co-living”, donde se valoran más las experiencias que las posesiones y se busca que las personas interactúen gracias a una mejor dotación de los espacios comunes.',
-        'Para lograrlo, resolvemos el programa con un solo núcleo de comunicación vertical. Una única escalera crea una sola comunidad de vecinos, reduce el mantenimiento, optimiza los espacios comunes y fomenta una mejor socialización, además de mejorar el rendimiento de los locales en planta baja y del aparcamiento en el sótano.',
-      ],
-      en: [
-        'The project resolves a programme of rental housing for specific groups — people over 65 and under 35 — fostering neighbourly collaboration, equality and shared responsibility in care. It moves towards a co-living model, where experiences matter more than possessions and people are encouraged to interact through better-equipped common spaces.',
-        'To achieve this, the programme is organised around a single vertical core. One staircase creates a single community of neighbours, reduces maintenance, optimises the common areas and encourages social interaction, while improving the performance of the ground-floor premises and the basement parking.',
+        'The Zagreb observation tower is a concept developed for a UAE developer, expressing the need to raise one’s gaze and face the city by discovering it from every vantage point.',
+        'The proposed journey is vertical: from within, the visitor takes part in everything happening in the city.',
       ],
     },
     images: [
-      '/proyectos/32-vpo-entremutilvas/portada.jpg',
-      '/proyectos/32-vpo-entremutilvas/01.jpg',
-    ],
-  },
-  {
-    slug: 'facultad-medicina-upna',
-    year: '2020',
-    title: { es: 'Facultad de Medicina UPNA', en: 'UPNA Faculty of Medicine' },
-    featured: true,
-    hue: 210,
-    location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
-    category: { es: 'Equipamiento docente', en: 'Educational building' },
-    collaborators: {
-      es: 'Tabuenca & Leache y Orbaiceta & Aldaba',
-      en: 'Tabuenca & Leache and Orbaiceta & Aldaba',
-    },
-    summary: {
-      es: 'Un volumen ligero de lamas blancas para la nueva Facultad de Medicina, en diálogo con la edificación histórica del campus.',
-      en: 'A light volume of white slats for the new Faculty of Medicine, in dialogue with the historic campus buildings.',
-    },
-    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
-    description: {
-      es: [
-        'El proyecto propone un volumen sereno y ligero, envuelto en una piel de lamas verticales que tamiza la luz y unifica el conjunto. La planta baja se abre en vidrio hacia la plaza, tejiendo la vida universitaria con el espacio público.',
-        'La nueva pieza dialoga con la edificación histórica de ladrillo del campus desde el contraste respetuoso: escala ajustada, materialidad clara y una presencia silenciosa que ordena el frente urbano.',
-      ],
-      en: [
-        'The project proposes a serene, light volume wrapped in a skin of vertical slats that filters daylight and unifies the whole. The ground floor opens in glass towards the plaza, weaving university life into the public space.',
-        'The new piece converses with the historic brick buildings of the campus through respectful contrast: adjusted scale, light materiality and a quiet presence that orders the urban front.',
-      ],
-    },
-    images: [
-      '/proyectos/facultad-medicina-upna/frontal.jpg',
-      '/proyectos/facultad-medicina-upna/atrio.jpg',
-      '/proyectos/facultad-medicina-upna/interior-superior.jpg',
-      '/proyectos/facultad-medicina-upna/pasillo.jpg',
-      '/proyectos/facultad-medicina-upna/trasera.jpg',
-      '/proyectos/facultad-medicina-upna/junta.jpg',
+      '/proyectos/torre-observatorio-zagreb/exterior-amanecer.jpg',
+      '/proyectos/torre-observatorio-zagreb/exterior-noche.jpg',
+      '/proyectos/torre-observatorio-zagreb/acceso.jpg',
+      '/proyectos/torre-observatorio-zagreb/jardin-vertical.jpg',
+      '/proyectos/torre-observatorio-zagreb/gradas.jpg',
+      '/proyectos/torre-observatorio-zagreb/red.jpg',
+      '/proyectos/torre-observatorio-zagreb/mirador.jpg',
     ],
   },
   {
@@ -200,102 +128,31 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'polideportivo-lasarte',
-    year: '2019',
-    title: { es: 'Polideportivo Lasarte', en: 'Lasarte Sports Centre' },
+    slug: 'villa-dubai',
+    title: { es: 'Villa Dubái', en: 'Villa Dubai' },
     featured: true,
-    hue: 150,
-    location: { es: 'Lasarte, Gipuzkoa', en: 'Lasarte, Gipuzkoa' },
-    category: { es: 'Equipamiento deportivo', en: 'Sports facility' },
-    collaborators: {
-      es: 'Tabuenca & Leache y Orbaiceta & Aldaba',
-      en: 'Tabuenca & Leache and Orbaiceta & Aldaba',
-    },
+    hue: 35,
+    location: { es: 'Dubái, EAU', en: 'Dubai, UAE' },
+    category: { es: 'Vivienda unifamiliar', en: 'Single-family house' },
     summary: {
-      es: 'Un polideportivo organizado por una calle interior, con el graderío integrado como gran puerta que mira al campo de fútbol.',
-      en: 'A sports centre organised along an interior street, with the stands integrated as a great gate facing the football pitch.',
+      es: 'Una villa introvertida de zócalo blanco y corona de madera, organizada en torno a sus patios y a la luz tamizada.',
+      en: 'An introverted villa with a white plinth and timber crown, organised around its courtyards and filtered light.',
     },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
     description: {
       es: [
-        'La calle interior actúa como colector de los accesos a la mayoría de las instalaciones. Se propone integrar el graderío en el nuevo edificio mediante un vaciado de la parte inferior de su volumen prismático, a modo de gran puerta que mira al campo de fútbol, con accesos al frontón y al nuevo polideportivo en sus extremos.',
-        'El espacio ganado entre el campo y el graderío permite reubicar varias de las calles de atletismo eliminadas con el nuevo vial rodado junto al río.',
+        'Hacia la calle, la villa se presenta serena: un zócalo blanco y silencioso coronado por una banda de lamas de madera que filtra la luz y protege la intimidad.',
+        'La vida se vuelca hacia dentro, a patios y umbrales en sombra que refrescan la casa y encadenan los espacios con la vegetación.',
       ],
       en: [
-        'The interior street collects the accesses to most of the facilities. The stands are integrated into the new building by hollowing out the lower part of its prismatic volume, like a great gate facing the football pitch, with entrances to the fronton court and the new sports hall at its ends.',
-        'The space gained between the pitch and the stands allows several of the athletics lanes removed by the new riverside road to be relocated.',
+        'Towards the street the villa is serene: a quiet white plinth crowned by a band of timber slats that filters light and guards privacy.',
+        'Life turns inward, to courtyards and shaded thresholds that cool the house and thread its spaces together with greenery.',
       ],
     },
     images: [
-      '/proyectos/polideportivo-lasarte/exterior.jpg',
-      '/proyectos/polideportivo-lasarte/piscina.jpg',
-      '/proyectos/polideportivo-lasarte/futbito.jpg',
-      '/proyectos/polideportivo-lasarte/futbito-lado.jpg',
-    ],
-  },
-  {
-    slug: 'mercado-biblioteca-ponteareas',
-    year: '2023',
-    title: { es: 'Mercado-Biblioteca Ponteareas', en: 'Ponteareas Market & Library' },
-    featured: true,
-    hue: 60,
-    location: { es: 'Ponteareas, Pontevedra', en: 'Ponteareas, Pontevedra' },
-    category: { es: 'Rehabilitación', en: 'Renovation' },
-    collaborators: {
-      es: 'PDP Arquitectos',
-      en: 'PDP Arquitectos',
-    },
-    summary: {
-      es: 'La transformación del mercado existente en un catalizador social y cultural, nexo entre los espacios públicos que lo rodean.',
-      en: 'The transformation of the existing market into a social and cultural catalyst, a link between the public spaces around it.',
-    },
-    description: {
-      es: [
-        'La propuesta plantea, desde el máximo aprovechamiento de la edificación existente, un edificio que actúe como catalizador de múltiples actividades sociales y culturales y como nexo entre los distintos espacios públicos que lo rodean. Conservando la estructura, el programa se articula alrededor de la crujía longitudinal central, que separa los espacios que requieren silencio de los que tienen vocación de relación e intercambio.',
-        'Ese espacio central, abierto y continuo, se entiende como una prolongación de los espacios públicos exteriores. Las fachadas, con una piel exterior permeable proyectada desde criterios bioclimáticos, difuminan el límite entre exterior e interior creando espacios semiabiertos y de transición que multiplican las posibilidades de uso.',
-      ],
-      en: [
-        'Starting from the fullest use of the existing building, the proposal creates a catalyst for multiple social and cultural activities and a link between the surrounding public spaces. Preserving the structure, the programme is arranged around the central longitudinal bay, separating spaces that require silence from those meant for meeting and exchange.',
-        'That central space, open and continuous, is understood as an extension of the outdoor public realm. The façades, with a permeable outer skin designed on bioclimatic criteria, blur the boundary between outside and inside, creating semi-open transition spaces that multiply the ways the building can be used.',
-      ],
-    },
-    images: [
-      '/proyectos/mercado-biblioteca-ponteareas/portada.jpg',
-      '/proyectos/mercado-biblioteca-ponteareas/01.jpg',
-      '/proyectos/mercado-biblioteca-ponteareas/02.jpg',
-    ],
-  },
-  {
-    slug: 'mercado-de-abastos-de-vera',
-    year: '2021',
-    title: { es: 'Mercado de Abastos de Vera', en: 'Vera Food Market' },
-    featured: true,
-    hue: 40,
-    location: { es: 'Vera, Almería', en: 'Vera, Almería' },
-    category: { es: 'Equipamiento público', en: 'Public building' },
-    award: { es: '4.º premio', en: '4th prize' },
-    collaborators: {
-      es: 'PDP Arquitectos',
-      en: 'PDP Arquitectos',
-    },
-    summary: {
-      es: 'Un mercado que se teje con la ciudad: accesos en los lugares naturales de tránsito y una plaza sin cotas altas, abierta al entorno.',
-      en: 'A market woven into the town: entrances at the natural pedestrian crossings and a plaza without high levels, open to its surroundings.',
-    },
-    description: {
-      es: [
-        'El proyecto propone una conexión real y de gran interés entre el espacio público y el mercado. Para ello, los accesos se sitúan en lugares naturales de tránsito peatonal, y se evitan cotas altas en la plaza, favoreciendo la conexión con la ciudad y el entorno inmediato.',
-        'Se potencia la relación con el entorno, especialmente con la calle Jacinto Anglada, minimizando el impacto visual, integrando todos los elementos en el conjunto y resolviendo el acuerdo con los desniveles perimetrales, favoreciendo los encuentros con la plaza.',
-      ],
-      en: [
-        'The project proposes a real and meaningful connection between public space and the market. Entrances are placed at the natural points of pedestrian movement, and high levels are avoided in the plaza, favouring the connection with the town and its immediate surroundings.',
-        'The relationship with the context is reinforced, especially with Jacinto Anglada street, minimising visual impact, integrating every element into the whole and resolving the perimeter level changes to encourage encounters with the plaza.',
-      ],
-    },
-    images: [
-      '/proyectos/mercado-de-abastos-de-vera/portada.jpg',
-      '/proyectos/mercado-de-abastos-de-vera/01.jpg',
-      '/proyectos/mercado-de-abastos-de-vera/02.jpg',
-      '/proyectos/mercado-de-abastos-de-vera/03.jpg',
+      '/proyectos/villa-dubai/portada.jpg',
+      '/proyectos/villa-dubai/patio.jpg',
+      '/proyectos/villa-dubai/interior-acceso.jpg',
     ],
   },
   {
@@ -333,6 +190,75 @@ export const projects: Project[] = [
       '/proyectos/reforma-estadio-el-sadar/graderio-sur.jpg',
       '/proyectos/reforma-estadio-el-sadar/interior-lateral.jpg',
       '/proyectos/reforma-estadio-el-sadar/zona-vip.jpg',
+    ],
+  },
+  {
+    slug: 'vivienda-villanua',
+    year: '2026',
+    title: { es: 'Vivienda en Villanúa', en: 'House in Villanúa' },
+    featured: true,
+    hue: 140,
+    location: { es: 'Villanúa, Huesca', en: 'Villanúa, Huesca' },
+    category: { es: 'Vivienda unifamiliar', en: 'Single-family house' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
+    summary: {
+      es: 'Una casa de piedra y cubierta de pizarra que mira al Pirineo: tradición constructiva local con lenguaje contemporáneo.',
+      en: 'A stone house with a slate roof facing the Pyrenees: local building tradition in a contemporary language.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'La casa toma la piedra y la pizarra de la arquitectura pirenaica y las ordena en un volumen rotundo, de hastial limpio, que enmarca el paisaje de montaña.',
+        'El testero se vacía en un gran porche de madera en planta alta: un mirador protegido que orienta la vida de la casa hacia el valle.',
+      ],
+      en: [
+        'The house takes the stone and slate of Pyrenean architecture and orders them into a bold volume with a clean gable that frames the mountain landscape.',
+        'The end wall is hollowed into a large timber porch on the upper floor: a sheltered viewpoint that turns the life of the house towards the valley.',
+      ],
+    },
+    images: [
+      '/proyectos/vivienda-villanua/portada.jpg',
+      '/proyectos/vivienda-villanua/01.jpg',
+      '/proyectos/vivienda-villanua/02.jpg',
+      '/proyectos/vivienda-villanua/03.jpg',
+      '/proyectos/vivienda-villanua/04.jpg',
+    ],
+  },
+  {
+    slug: 'viviendas-unifamiliares-gorraiz',
+    year: '2019',
+    title: { es: 'Viviendas Unifamiliares en Gorraiz', en: 'Single-family Houses in Gorraiz' },
+    featured: true,
+    hue: 95,
+    location: { es: 'Gorraiz, Navarra', en: 'Gorraiz, Navarra' },
+    category: { es: 'Vivienda unifamiliar', en: 'Single-family housing' },
+    award: { es: '3.er premio', en: '3rd prize' },
+    summary: {
+      es: 'Tres volúmenes de madera surgen del terreno; el salón y la barbacoa, transparentes, se abren al valle.',
+      en: 'Three timber volumes rise from the ground; the living room and barbecue area, fully transparent, open to the valley.',
+    },
+    description: {
+      es: [
+        'Resaltando el contraste entre las áreas públicas y privadas, tres volúmenes de madera surgen del terreno para encerrar las habitaciones, los baños, el spa, el gimnasio, la bodega y la cocina.',
+        'La sala de estar y el área de barbacoa, en cambio, son completamente transparentes, con una vista única del valle.',
+      ],
+      en: [
+        'Heightening the contrast between public and private areas, three timber volumes rise from the ground to enclose the bedrooms, bathrooms, spa, gym, wine cellar and kitchen.',
+        'The living room and the barbecue area, by contrast, are completely transparent, with a unique view over the valley.',
+      ],
+    },
+    images: [
+      '/proyectos/viviendas-unifamiliares-gorraiz/entrada.jpg',
+      '/proyectos/viviendas-unifamiliares-gorraiz/frontal.jpg',
+      '/proyectos/viviendas-unifamiliares-gorraiz/exterior-2.jpg',
+      '/proyectos/viviendas-unifamiliares-gorraiz/piscina.jpg',
+      '/proyectos/viviendas-unifamiliares-gorraiz/nocturna.jpg',
+      '/proyectos/viviendas-unifamiliares-gorraiz/salon.jpg',
+      '/proyectos/viviendas-unifamiliares-gorraiz/interior-2.jpg',
+      '/proyectos/viviendas-unifamiliares-gorraiz/barbacoa.jpg',
     ],
   },
   {
@@ -404,249 +330,51 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'torre-observatorio-zagreb',
-    year: '2023',
-    title: { es: 'Torre Observatorio Zagreb', en: 'Zagreb Observation Tower' },
-    featured: true,
-    hue: 230,
-    location: { es: 'Zagreb, Croacia', en: 'Zagreb, Croatia' },
-    category: { es: 'Torre mirador', en: 'Observation tower' },
-    award: { es: 'Finalista', en: 'Finalist' },
-    collaborators: {
-      es: 'PDP Arquitectos',
-      en: 'PDP Arquitectos',
-    },
-    summary: {
-      es: 'Una torre observatorio que plantea un recorrido vertical: descubrir la ciudad participando de ella desde dentro.',
-      en: 'An observation tower conceived as a vertical journey: discovering the city while taking part in it from within.',
-    },
-    description: {
-      es: [
-        'La torre observatorio de Zagreb es un concepto desarrollado para una promotora de Emiratos Árabes que plasma la necesidad de alzar la vista y encarar la ciudad desde el descubrimiento de todos sus puntos.',
-        'El recorrido que se plantea es vertical: el espectador es partícipe, desde el interior, de todo lo que sucede en la ciudad.',
-      ],
-      en: [
-        'The Zagreb observation tower is a concept developed for a UAE developer, expressing the need to raise one’s gaze and face the city by discovering it from every vantage point.',
-        'The proposed journey is vertical: from within, the visitor takes part in everything happening in the city.',
-      ],
-    },
-    images: [
-      '/proyectos/torre-observatorio-zagreb/exterior-amanecer.jpg',
-      '/proyectos/torre-observatorio-zagreb/exterior-noche.jpg',
-      '/proyectos/torre-observatorio-zagreb/acceso.jpg',
-      '/proyectos/torre-observatorio-zagreb/jardin-vertical.jpg',
-      '/proyectos/torre-observatorio-zagreb/gradas.jpg',
-      '/proyectos/torre-observatorio-zagreb/red.jpg',
-      '/proyectos/torre-observatorio-zagreb/mirador.jpg',
-    ],
-  },
-  {
-    slug: 'monumento-a-los-caidos',
-    year: '2018',
-    title: { es: 'Transformación del Monumento a los Caídos', en: 'Transformation of the Monument to the Fallen' },
-    featured: true,
-    hue: 15,
-    location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
-    category: { es: 'Espacio público', en: 'Public space' },
-    award: { es: 'Finalista', en: 'Finalist' },
-    collaborators: {
-      es: 'Tabuenca & Leache y Orbaiceta & Aldaba',
-      en: 'Tabuenca & Leache and Orbaiceta & Aldaba',
-    },
-    summary: {
-      es: 'El monumento deja de ser una barrera para convertirse en la nueva Puerta del Sur de Pamplona.',
-      en: 'The monument ceases to be a barrier and becomes the new South Gate of Pamplona.',
-    },
-    description: {
-      es: [
-        'La Plaza del Castillo y la Plaza de la Libertad son los dos polos del gran salón urbano que constituye la avenida de Carlos III tras su peatonalización. Sin embargo, la Plaza de la Libertad nunca ha tenido gran actividad urbana, debido a su condición periférica y a un diseño más atento a resaltar su monumentalidad que a facilitar los usos ciudadanos.',
-        'La nueva condición central que el desarrollo de Lezkairu otorga a la plaza abre nuevas oportunidades: el Monumento a los Caídos debe dejar de ser una barrera para convertirse en la nueva Puerta del Sur de la ciudad.',
-      ],
-      en: [
-        'Plaza del Castillo and Plaza de la Libertad are the two poles of the great urban hall that Carlos III avenue became after its pedestrianisation. Yet Plaza de la Libertad has never seen much urban life, due to its peripheral condition and a design more concerned with monumentality than with everyday civic use.',
-        'The new centrality that the Lezkairu development brings to the square opens fresh opportunities: the Monument must stop being a barrier and become the city’s new South Gate.',
-      ],
-    },
-    images: [
-      '/proyectos/monumento-a-los-caidos/vista-central.jpg',
-      '/proyectos/monumento-a-los-caidos/oculo.jpg',
-      '/proyectos/monumento-a-los-caidos/lateral.jpg',
-      '/proyectos/monumento-a-los-caidos/plataforma.jpg',
-      '/proyectos/monumento-a-los-caidos/aerea.jpg',
-    ],
-  },
-  {
-    slug: 'viviendas-colaborativas-avila',
-    year: '2024',
-    title: { es: 'Viviendas Colaborativas Ávila', en: 'Co-housing in Ávila' },
-    featured: true,
-    hue: 45,
-    location: { es: 'Ávila', en: 'Ávila' },
-    category: { es: 'Vivienda colaborativa', en: 'Co-housing' },
-    collaborators: {
-      es: 'PDP Arquitectos',
-      en: 'PDP Arquitectos',
-    },
-    summary: {
-      es: 'Una edificación compacta hacia fuera y abierta hacia dentro: la vida gira en torno a un patio ajardinado.',
-      en: 'Compact on its perimeter and open within: life revolves around a landscaped courtyard.',
-    },
-    description: {
-      es: [
-        'Se propone una edificación compacta en su perímetro —atendiendo a criterios de funcionalidad y eficiencia energética— y abierta en su interior en torno a un patio. Ese espacio central es el corazón del proyecto: distribuidor único del programa y generador de espacios de relación asociados a las viviendas.',
-        'Una galería alrededor del patio ajardinado da acceso, en una única planta, a las viviendas. Entre ellas se intercalan los espacios comunes: estancias de relación en la propia galería, coworking, sala social y gimnasio. El diseño destaca así el carácter social de la edificación, núcleo desde el que se organiza el resto del programa.',
-      ],
-      en: [
-        'The building is compact on its perimeter — following criteria of functional layout and energy efficiency — and open at its core around a courtyard. That central space is the heart of the project: the sole distributor of the programme and the generator of shared spaces linked to the homes.',
-        'A gallery around the landscaped courtyard gives access to the dwellings on a single level. Interspersed among them are the common spaces: sitting areas along the gallery itself, coworking, a social room and a gym. The design thus emphasises the social character of the building, the nucleus around which the rest of the programme is organised.',
-      ],
-    },
-    images: [
-      '/proyectos/viviendas-colaborativas-avila/portada.jpg',
-      '/proyectos/viviendas-colaborativas-avila/01.jpg',
-      '/proyectos/viviendas-colaborativas-avila/02.jpg',
-    ],
-  },
-  {
-    slug: 'viviendas-colaborativas-valladolid',
+    slug: 'oficinas-zeppelin',
     year: '2025',
-    title: { es: 'Viviendas Colaborativas Valladolid', en: 'Co-housing in Valladolid' },
+    title: { es: 'Oficinas Zeppelin', en: 'Zeppelin Offices' },
     featured: true,
-    hue: 75,
-    location: { es: 'Valladolid', en: 'Valladolid' },
-    category: { es: 'Vivienda colaborativa', en: 'Co-housing' },
-    award: { es: '3.er premio', en: '3rd prize' },
+    hue: 30,
+    location: { es: 'España', en: 'Spain' },
+    category: { es: 'Interiorismo', en: 'Interior design' },
     collaborators: {
       es: 'PDP Arquitectos',
       en: 'PDP Arquitectos',
     },
     summary: {
-      es: '107 viviendas en 14 portales, con doble orientación y una planta baja concebida como nexo y punto de encuentro.',
-      en: '107 dwellings across 14 entrances, all dual-aspect, with a ground floor conceived as a link and meeting point.',
-    },
-    description: {
-      es: [
-        'Para optimizar la solución y satisfacer el número de unidades propuesto, se plantean tres viviendas por núcleo y planta, todas con doble orientación —zonas vivideras a sur— y ventilación cruzada. En diálogo con las edificaciones de la zona, el proyecto se divide horizontalmente en dos bloques separados por un portal común y fragmenta verticalmente sus fachadas con cuerpos rítmicamente volados; los petos de cubierta, inclinados alternativamente, hacen del conjunto una suma de unidades que se relacionan en planta baja.',
-        'Las 107 viviendas se organizan en 14 portales, a razón de 8 por portal, con un único acceso al conjunto. Una urbanización interior conecta todos los bloques y reparte los usos comunes en una planta baja concebida como nexo y punto de encuentro: aparcamiento de bicicletas, salas sociales, gimnasio y espacios flexibles con posible acceso directo desde la calle. La génesis modular permite además dividir la construcción en hasta 14 fases independientes.',
-      ],
-      en: [
-        'To optimise the solution and meet the required number of units, three dwellings are arranged per core and floor, all dual-aspect — living areas facing south — with cross ventilation. In dialogue with the neighbouring buildings, the project splits horizontally into two blocks separated by a shared entrance, while its façades fragment vertically into rhythmically cantilevered bodies; the alternately tilted roof parapets turn the whole into a sum of dwelling units that relate to one another at ground level.',
-        'The 107 homes are organised into 14 entrances of 8 dwellings each, with a single access to the complex. An interior landscaped ground connects all the blocks and distributes the shared uses across a ground floor conceived as a link and meeting point: bicycle parking, social rooms, a gym and flexible spaces with possible direct street access. The modular genesis also allows construction in up to 14 independent phases.',
-      ],
-    },
-    images: [
-      '/proyectos/viviendas-colaborativas-valladolid/portada.jpg',
-      '/proyectos/viviendas-colaborativas-valladolid/01.jpg',
-      '/proyectos/viviendas-colaborativas-valladolid/02.jpg',
-    ],
-  },
-  {
-    slug: 'viviendas-unifamiliares-gorraiz',
-    year: '2019',
-    title: { es: 'Viviendas Unifamiliares en Gorraiz', en: 'Single-family Houses in Gorraiz' },
-    featured: true,
-    hue: 95,
-    location: { es: 'Gorraiz, Navarra', en: 'Gorraiz, Navarra' },
-    category: { es: 'Vivienda unifamiliar', en: 'Single-family housing' },
-    award: { es: '3.er premio', en: '3rd prize' },
-    summary: {
-      es: 'Tres volúmenes de madera surgen del terreno; el salón y la barbacoa, transparentes, se abren al valle.',
-      en: 'Three timber volumes rise from the ground; the living room and barbecue area, fully transparent, open to the valley.',
-    },
-    description: {
-      es: [
-        'Resaltando el contraste entre las áreas públicas y privadas, tres volúmenes de madera surgen del terreno para encerrar las habitaciones, los baños, el spa, el gimnasio, la bodega y la cocina.',
-        'La sala de estar y el área de barbacoa, en cambio, son completamente transparentes, con una vista única del valle.',
-      ],
-      en: [
-        'Heightening the contrast between public and private areas, three timber volumes rise from the ground to enclose the bedrooms, bathrooms, spa, gym, wine cellar and kitchen.',
-        'The living room and the barbecue area, by contrast, are completely transparent, with a unique view over the valley.',
-      ],
-    },
-    images: [
-      '/proyectos/viviendas-unifamiliares-gorraiz/entrada.jpg',
-      '/proyectos/viviendas-unifamiliares-gorraiz/frontal.jpg',
-      '/proyectos/viviendas-unifamiliares-gorraiz/exterior-2.jpg',
-      '/proyectos/viviendas-unifamiliares-gorraiz/piscina.jpg',
-      '/proyectos/viviendas-unifamiliares-gorraiz/nocturna.jpg',
-      '/proyectos/viviendas-unifamiliares-gorraiz/salon.jpg',
-      '/proyectos/viviendas-unifamiliares-gorraiz/interior-2.jpg',
-      '/proyectos/viviendas-unifamiliares-gorraiz/barbacoa.jpg',
-    ],
-  },
-  {
-    slug: 'yacimiento-san-esteban',
-    year: '2021',
-    title: { es: 'Yacimiento Arqueológico San Esteban', en: 'San Esteban Archaeological Site' },
-    featured: true,
-    hue: 55,
-    location: { es: 'Murcia', en: 'Murcia' },
-    category: { es: 'Espacio público', en: 'Public space' },
-    award: { es: 'Finalista', en: 'Finalist' },
-    collaborators: {
-      es: 'Vaillo Irigaray y Orbaiceta & Aldaba',
-      en: 'Vaillo Irigaray and Orbaiceta & Aldaba',
-    },
-    summary: {
-      es: 'Un elemento urbano que resuelve los recorridos del yacimiento y regala a Murcia un pulmón verde sobre su memoria.',
-      en: 'An urban element that resolves the site’s routes and gives Murcia a green lung above its buried memory.',
-    },
-    description: {
-      es: [
-        'La propuesta resuelve, por medio de un elemento urbano trascendental, tanto los recorridos del yacimiento como las conexiones entre los puntos fundamentales que desembocan de las calles.',
-        'La plaza que se genera es un pulmón verde de la ciudad que esconde los entresijos de la Murcia antigua y permite a los viandantes disfrutar de una zona verde y de espacios infantiles.',
-      ],
-      en: [
-        'By means of a decisive urban element, the proposal resolves both the routes through the archaeological site and the connections between the key points where the streets converge.',
-        'The resulting plaza is a green lung for the city, concealing the inner workings of ancient Murcia while offering passers-by a green space and children’s play areas.',
-      ],
-    },
-    images: [
-      '/proyectos/yacimiento-san-esteban/aerea-noreste.jpg',
-      '/proyectos/yacimiento-san-esteban/aerea-noroeste.jpg',
-      '/proyectos/yacimiento-san-esteban/aerea-sureste.jpg',
-      '/proyectos/yacimiento-san-esteban/interior-longitudinal.jpg',
-      '/proyectos/yacimiento-san-esteban/interior-transversal.jpg',
-    ],
-  },
-  {
-    slug: '96-vpo-almeria',
-    year: '2022',
-    title: { es: '96 VPO Almería', en: '96 Social Housing Units, Almería' },
-    featured: true,
-    hue: 35,
-    location: { es: 'Almería', en: 'Almería' },
-    category: { es: 'Vivienda colectiva', en: 'Collective housing' },
-    collaborators: {
-      es: 'PDP Arquitectos',
-      en: 'PDP Arquitectos',
-    },
-    summary: {
-      es: 'Torres de vivienda protegida coronadas por pérgolas, con terrazas corridas vegetadas y un zócalo comercial abierto a la calle.',
-      en: 'Social-housing towers crowned by pergolas, with planted continuous terraces and a commercial plinth open to the street.',
+      es: 'El interiorismo de unas oficinas en clave doméstica: madera, grada social, color y espacios que invitan a quedarse.',
+      en: 'Office interiors in a domestic key: timber, a social tiered seat, colour and spaces that invite you to stay.',
     },
     // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
     description: {
       es: [
-        'El conjunto organiza 96 viviendas de protección oficial en volúmenes escalonados que rematan en pérgolas, con terrazas corridas que dan sombra y vegetación a cada vivienda.',
-        'La planta baja concentra locales y accesos ajardinados, tejiendo el edificio con la vida de la calle.',
+        'El proyecto reorganiza las oficinas en torno a espacios de encuentro: una grada de madera con vegetación preside la zona común y convierte la reunión informal en el centro de la vida de la empresa.',
+        'La paleta combina madera clara, celosías cerámicas y toques de color, alejando el espacio de trabajo de la imagen corporativa convencional.',
       ],
       en: [
-        'The complex arranges 96 social-housing units in stepped volumes crowned by pergolas, with continuous terraces bringing shade and greenery to every home.',
-        'The ground floor gathers retail spaces and landscaped entrances, weaving the building into street life.',
+        'The project reorganises the offices around meeting places: a timber tiered seat with planting presides over the common area, making informal gathering the centre of company life.',
+        'The palette combines light timber, ceramic lattices and touches of colour, moving the workspace away from the conventional corporate image.',
       ],
     },
     images: [
-      '/proyectos/96-vpo-almeria/portada.jpg',
-      '/proyectos/96-vpo-almeria/01.jpg',
+      '/proyectos/oficinas-zeppelin/portada.jpg',
+      '/proyectos/oficinas-zeppelin/01.jpg',
+      '/proyectos/oficinas-zeppelin/02.jpg',
+      '/proyectos/oficinas-zeppelin/03.jpg',
+      '/proyectos/oficinas-zeppelin/04.jpg',
+      '/proyectos/oficinas-zeppelin/05.jpg',
+      '/proyectos/oficinas-zeppelin/06.jpg',
+      '/proyectos/oficinas-zeppelin/07.jpg',
+      '/proyectos/oficinas-zeppelin/08.jpg',
+      '/proyectos/oficinas-zeppelin/09.jpg',
     ],
   },
   {
-    slug: 'centro-comercial-el-encinar',
-    year: '2024',
-    title: { es: 'Centro Comercial El Encinar', en: 'El Encinar Shopping Centre' },
+    slug: 'edificio-kodak',
+    year: '2022',
+    title: { es: 'Edificio Kodak', en: 'Kodak Building' },
     featured: true,
-    hue: 25,
+    hue: 35,
     location: { es: 'España', en: 'Spain' },
     category: { es: 'Comercial', en: 'Retail' },
     collaborators: {
@@ -654,24 +382,60 @@ export const projects: Project[] = [
       en: 'PDP Arquitectos',
     },
     summary: {
-      es: 'La renovación interior de un centro comercial: madera, lamas y luz para una atmósfera cálida y contemporánea.',
-      en: 'The interior renovation of a shopping centre: timber, slats and light for a warm, contemporary atmosphere.',
+      es: 'La reconversión de un edificio comercial en torno a una secuencia de arcos y un gran techo artesonado de madera.',
+      en: 'The conversion of a commercial building around a sequence of arches and a great coffered timber ceiling.',
     },
     // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
     description: {
       es: [
-        'La intervención renueva los espacios comunes del centro comercial con un lenguaje cálido: vigas y planos de madera que ordenan el techo, lamas metálicas que tamizan la iluminación y una nueva escalera que protagoniza el atrio.',
-        'El resultado actualiza la experiencia del visitante y pone en valor la arquitectura existente de ladrillo.',
+        'La propuesta reordena el edificio en torno a un atrio de doble altura, ritmado por arcos que enmarcan los usos —comercio, deporte, restauración— y los ponen en relación visual.',
+        'Un artesonado de madera unifica el conjunto y filtra la luz cenital, dando al espacio comercial una atmósfera cálida y reconocible.',
       ],
       en: [
-        'The intervention renews the common areas of the shopping centre with a warm language: timber beams and planes ordering the ceiling, metal slats filtering the lighting, and a new staircase starring in the atrium.',
-        'The result refreshes the visitor experience while giving value to the existing brick architecture.',
+        'The proposal reorganises the building around a double-height atrium, given rhythm by arches that frame the uses — retail, sport, dining — and place them in visual dialogue.',
+        'A coffered timber ceiling unifies the whole and filters the zenithal light, lending the commercial space a warm, recognisable atmosphere.',
       ],
     },
     images: [
-      '/proyectos/centro-comercial-el-encinar/portada.jpg',
-      '/proyectos/centro-comercial-el-encinar/01.jpg',
-      '/proyectos/centro-comercial-el-encinar/02.jpg',
+      '/proyectos/edificio-kodak/portada.jpg',
+      '/proyectos/edificio-kodak/01.jpg',
+      '/proyectos/edificio-kodak/02.jpg',
+      '/proyectos/edificio-kodak/03.jpg',
+      '/proyectos/edificio-kodak/04.jpg',
+    ],
+  },
+  {
+    slug: 'parque-empresarial-alvento',
+    year: '2023',
+    title: { es: 'Parque Empresarial Alvento', en: 'Alvento Business Park' },
+    featured: true,
+    hue: 205,
+    location: { es: 'Madrid', en: 'Madrid' },
+    category: { es: 'Oficinas', en: 'Offices' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
+    summary: {
+      es: 'La renovación de los espacios exteriores de un parque empresarial: una plaza peatonal con pérgolas, vegetación y estancias.',
+      en: 'The renovation of a business park’s outdoor spaces: a pedestrian plaza with pergolas, planting and resting areas.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'La intervención transforma la explanada del parque empresarial en una plaza habitable: un tapiz de pavimento y vegetación que ordena recorridos, sombra y lugares de estancia.',
+        'Las pérgolas ligeras, de geometría reconocible, dan identidad al conjunto y acompañan al edificio existente sin competir con él.',
+      ],
+      en: [
+        'The intervention turns the business park esplanade into a livable plaza: a carpet of paving and planting that organises routes, shade and places to stay.',
+        'Light pergolas with a recognisable geometry give the ensemble its identity, accompanying the existing building without competing with it.',
+      ],
+    },
+    images: [
+      '/proyectos/parque-empresarial-alvento/portada.jpg',
+      '/proyectos/parque-empresarial-alvento/01.jpg',
+      '/proyectos/parque-empresarial-alvento/02.jpg',
+      '/proyectos/parque-empresarial-alvento/03.jpg',
     ],
   },
   {
@@ -710,6 +474,383 @@ export const projects: Project[] = [
       '/proyectos/centro-comercial-saler/05.jpg',
       '/proyectos/centro-comercial-saler/06.jpg',
       '/proyectos/centro-comercial-saler/07.jpg',
+    ],
+  },
+  {
+    slug: 'centro-comercial-el-encinar',
+    year: '2024',
+    title: { es: 'Centro Comercial El Encinar', en: 'El Encinar Shopping Centre' },
+    featured: true,
+    hue: 25,
+    location: { es: 'España', en: 'Spain' },
+    category: { es: 'Comercial', en: 'Retail' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
+    summary: {
+      es: 'La renovación interior de un centro comercial: madera, lamas y luz para una atmósfera cálida y contemporánea.',
+      en: 'The interior renovation of a shopping centre: timber, slats and light for a warm, contemporary atmosphere.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'La intervención renueva los espacios comunes del centro comercial con un lenguaje cálido: vigas y planos de madera que ordenan el techo, lamas metálicas que tamizan la iluminación y una nueva escalera que protagoniza el atrio.',
+        'El resultado actualiza la experiencia del visitante y pone en valor la arquitectura existente de ladrillo.',
+      ],
+      en: [
+        'The intervention renews the common areas of the shopping centre with a warm language: timber beams and planes ordering the ceiling, metal slats filtering the lighting, and a new staircase starring in the atrium.',
+        'The result refreshes the visitor experience while giving value to the existing brick architecture.',
+      ],
+    },
+    images: [
+      '/proyectos/centro-comercial-el-encinar/portada.jpg',
+      '/proyectos/centro-comercial-el-encinar/01.jpg',
+      '/proyectos/centro-comercial-el-encinar/02.jpg',
+    ],
+  },
+  {
+    slug: 'cubricion-pistas-valdelasfuentes',
+    year: '2025',
+    title: { es: 'Cubrición Pistas Valdelasfuentes', en: 'Valdelasfuentes Sports Courts Canopy' },
+    featured: true,
+    hue: 200,
+    location: { es: 'Alcobendas, Madrid', en: 'Alcobendas, Madrid' },
+    category: { es: 'Equipamiento deportivo', en: 'Sports facility' },
+    award: { es: '1.er premio', en: '1st prize' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
+    summary: {
+      es: 'Una cubierta ligera de madera que protege las pistas deportivas existentes con mínimo impacto, creando una estructura sugerente y funcional.',
+      en: 'A light timber roof that shelters the existing sports courts with minimal impact, creating an evocative and functional structure.',
+    },
+    description: {
+      es: [
+        'El proyecto plantea una intervención acorde a la escala y la geometría de las pistas existentes, siguiendo su lógica y la del conjunto del complejo deportivo de Valdelasfuentes.',
+        'Se adapta a la edificación existente buscando un mínimo impacto sobre ella, al tiempo que crea una estructura ligera, sugerente y funcional.',
+      ],
+      en: [
+        'The project proposes an intervention in keeping with the scale and geometry of the existing courts, following their logic and that of the wider Valdelasfuentes sports complex.',
+        'It adapts to the existing buildings with minimal impact, while creating a light, evocative and functional structure.',
+      ],
+    },
+    // Solo renders (la axonometría queda fuera a propósito)
+    images: [
+      '/proyectos/cubricion-pistas-valdelasfuentes/exterior-futbol.jpg',
+      '/proyectos/cubricion-pistas-valdelasfuentes/basket.jpg',
+      '/proyectos/cubricion-pistas-valdelasfuentes/futsal.jpg',
+      '/proyectos/cubricion-pistas-valdelasfuentes/pasillo.jpg',
+    ],
+  },
+  {
+    slug: 'polideportivo-lasarte',
+    year: '2019',
+    title: { es: 'Polideportivo Lasarte', en: 'Lasarte Sports Centre' },
+    featured: true,
+    hue: 150,
+    location: { es: 'Lasarte, Gipuzkoa', en: 'Lasarte, Gipuzkoa' },
+    category: { es: 'Equipamiento deportivo', en: 'Sports facility' },
+    collaborators: {
+      es: 'Tabuenca & Leache y Orbaiceta & Aldaba',
+      en: 'Tabuenca & Leache and Orbaiceta & Aldaba',
+    },
+    summary: {
+      es: 'Un polideportivo organizado por una calle interior, con el graderío integrado como gran puerta que mira al campo de fútbol.',
+      en: 'A sports centre organised along an interior street, with the stands integrated as a great gate facing the football pitch.',
+    },
+    description: {
+      es: [
+        'La calle interior actúa como colector de los accesos a la mayoría de las instalaciones. Se propone integrar el graderío en el nuevo edificio mediante un vaciado de la parte inferior de su volumen prismático, a modo de gran puerta que mira al campo de fútbol, con accesos al frontón y al nuevo polideportivo en sus extremos.',
+        'El espacio ganado entre el campo y el graderío permite reubicar varias de las calles de atletismo eliminadas con el nuevo vial rodado junto al río.',
+      ],
+      en: [
+        'The interior street collects the accesses to most of the facilities. The stands are integrated into the new building by hollowing out the lower part of its prismatic volume, like a great gate facing the football pitch, with entrances to the fronton court and the new sports hall at its ends.',
+        'The space gained between the pitch and the stands allows several of the athletics lanes removed by the new riverside road to be relocated.',
+      ],
+    },
+    images: [
+      '/proyectos/polideportivo-lasarte/exterior.jpg',
+      '/proyectos/polideportivo-lasarte/piscina.jpg',
+      '/proyectos/polideportivo-lasarte/futbito.jpg',
+      '/proyectos/polideportivo-lasarte/futbito-lado.jpg',
+    ],
+  },
+  {
+    slug: 'facultad-medicina-upna',
+    year: '2020',
+    title: { es: 'Facultad de Medicina UPNA', en: 'UPNA Faculty of Medicine' },
+    featured: true,
+    hue: 210,
+    location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
+    category: { es: 'Equipamiento docente', en: 'Educational building' },
+    collaborators: {
+      es: 'Tabuenca & Leache y Orbaiceta & Aldaba',
+      en: 'Tabuenca & Leache and Orbaiceta & Aldaba',
+    },
+    summary: {
+      es: 'Un volumen ligero de lamas blancas para la nueva Facultad de Medicina, en diálogo con la edificación histórica del campus.',
+      en: 'A light volume of white slats for the new Faculty of Medicine, in dialogue with the historic campus buildings.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'El proyecto propone un volumen sereno y ligero, envuelto en una piel de lamas verticales que tamiza la luz y unifica el conjunto. La planta baja se abre en vidrio hacia la plaza, tejiendo la vida universitaria con el espacio público.',
+        'La nueva pieza dialoga con la edificación histórica de ladrillo del campus desde el contraste respetuoso: escala ajustada, materialidad clara y una presencia silenciosa que ordena el frente urbano.',
+      ],
+      en: [
+        'The project proposes a serene, light volume wrapped in a skin of vertical slats that filters daylight and unifies the whole. The ground floor opens in glass towards the plaza, weaving university life into the public space.',
+        'The new piece converses with the historic brick buildings of the campus through respectful contrast: adjusted scale, light materiality and a quiet presence that orders the urban front.',
+      ],
+    },
+    images: [
+      '/proyectos/facultad-medicina-upna/frontal.jpg',
+      '/proyectos/facultad-medicina-upna/atrio.jpg',
+      '/proyectos/facultad-medicina-upna/interior-superior.jpg',
+      '/proyectos/facultad-medicina-upna/pasillo.jpg',
+      '/proyectos/facultad-medicina-upna/trasera.jpg',
+      '/proyectos/facultad-medicina-upna/junta.jpg',
+    ],
+  },
+  {
+    slug: 'mercado-biblioteca-ponteareas',
+    year: '2023',
+    title: { es: 'Mercado-Biblioteca Ponteareas', en: 'Ponteareas Market & Library' },
+    featured: true,
+    hue: 60,
+    location: { es: 'Ponteareas, Pontevedra', en: 'Ponteareas, Pontevedra' },
+    category: { es: 'Rehabilitación', en: 'Renovation' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
+    summary: {
+      es: 'La transformación del mercado existente en un catalizador social y cultural, nexo entre los espacios públicos que lo rodean.',
+      en: 'The transformation of the existing market into a social and cultural catalyst, a link between the public spaces around it.',
+    },
+    description: {
+      es: [
+        'La propuesta plantea, desde el máximo aprovechamiento de la edificación existente, un edificio que actúe como catalizador de múltiples actividades sociales y culturales y como nexo entre los distintos espacios públicos que lo rodean. Conservando la estructura, el programa se articula alrededor de la crujía longitudinal central, que separa los espacios que requieren silencio de los que tienen vocación de relación e intercambio.',
+        'Ese espacio central, abierto y continuo, se entiende como una prolongación de los espacios públicos exteriores. Las fachadas, con una piel exterior permeable proyectada desde criterios bioclimáticos, difuminan el límite entre exterior e interior creando espacios semiabiertos y de transición que multiplican las posibilidades de uso.',
+      ],
+      en: [
+        'Starting from the fullest use of the existing building, the proposal creates a catalyst for multiple social and cultural activities and a link between the surrounding public spaces. Preserving the structure, the programme is arranged around the central longitudinal bay, separating spaces that require silence from those meant for meeting and exchange.',
+        'That central space, open and continuous, is understood as an extension of the outdoor public realm. The façades, with a permeable outer skin designed on bioclimatic criteria, blur the boundary between outside and inside, creating semi-open transition spaces that multiply the ways the building can be used.',
+      ],
+    },
+    images: [
+      '/proyectos/mercado-biblioteca-ponteareas/portada.jpg',
+      '/proyectos/mercado-biblioteca-ponteareas/01.jpg',
+      '/proyectos/mercado-biblioteca-ponteareas/02.jpg',
+    ],
+  },
+  {
+    slug: 'mercado-de-abastos-de-vera',
+    year: '2021',
+    title: { es: 'Mercado de Abastos de Vera', en: 'Vera Food Market' },
+    featured: true,
+    hue: 40,
+    location: { es: 'Vera, Almería', en: 'Vera, Almería' },
+    category: { es: 'Equipamiento público', en: 'Public building' },
+    award: { es: '4.º premio', en: '4th prize' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
+    summary: {
+      es: 'Un mercado que se teje con la ciudad: accesos en los lugares naturales de tránsito y una plaza sin cotas altas, abierta al entorno.',
+      en: 'A market woven into the town: entrances at the natural pedestrian crossings and a plaza without high levels, open to its surroundings.',
+    },
+    description: {
+      es: [
+        'El proyecto propone una conexión real y de gran interés entre el espacio público y el mercado. Para ello, los accesos se sitúan en lugares naturales de tránsito peatonal, y se evitan cotas altas en la plaza, favoreciendo la conexión con la ciudad y el entorno inmediato.',
+        'Se potencia la relación con el entorno, especialmente con la calle Jacinto Anglada, minimizando el impacto visual, integrando todos los elementos en el conjunto y resolviendo el acuerdo con los desniveles perimetrales, favoreciendo los encuentros con la plaza.',
+      ],
+      en: [
+        'The project proposes a real and meaningful connection between public space and the market. Entrances are placed at the natural points of pedestrian movement, and high levels are avoided in the plaza, favouring the connection with the town and its immediate surroundings.',
+        'The relationship with the context is reinforced, especially with Jacinto Anglada street, minimising visual impact, integrating every element into the whole and resolving the perimeter level changes to encourage encounters with the plaza.',
+      ],
+    },
+    images: [
+      '/proyectos/mercado-de-abastos-de-vera/portada.jpg',
+      '/proyectos/mercado-de-abastos-de-vera/01.jpg',
+      '/proyectos/mercado-de-abastos-de-vera/02.jpg',
+      '/proyectos/mercado-de-abastos-de-vera/03.jpg',
+    ],
+  },
+  {
+    slug: 'civivox-erripagana',
+    year: '2025',
+    title: { es: 'Civivox Erripagaña', en: 'Civivox Erripagaña' },
+    featured: true,
+    hue: 40,
+    location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
+    category: { es: 'Equipamiento cultural', en: 'Cultural building' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
+    summary: {
+      es: 'Un centro cívico de volúmenes pétreos y escala doméstica que regala a Erripagaña una nueva plaza de encuentro.',
+      en: 'A civic centre of stone volumes and domestic scale that gives Erripagaña a new gathering plaza.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'El edificio se fragmenta en piezas de piedra clara que ajustan su escala al barrio y liberan ante sí una plaza arbolada, antesala de la vida del centro.',
+        'El acceso se excava en el volumen principal como un gran umbral en sombra, abierto y acogedor, que invita a entrar desde el espacio público.',
+      ],
+      en: [
+        'The building breaks into light stone pieces that tune their scale to the neighbourhood and free up a tree-lined plaza before them, the antechamber to the centre’s life.',
+        'The entrance is carved into the main volume as a large shaded threshold, open and welcoming, inviting people in from the public space.',
+      ],
+    },
+    images: [
+      '/proyectos/civivox-erripagana/portada.jpg',
+      '/proyectos/civivox-erripagana/01.jpg',
+      '/proyectos/civivox-erripagana/02.jpg',
+    ],
+  },
+  {
+    slug: 'monumento-a-los-caidos',
+    year: '2018',
+    title: { es: 'Transformación del Monumento a los Caídos', en: 'Transformation of the Monument to the Fallen' },
+    featured: true,
+    hue: 15,
+    location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
+    category: { es: 'Espacio público', en: 'Public space' },
+    award: { es: 'Finalista', en: 'Finalist' },
+    collaborators: {
+      es: 'Tabuenca & Leache y Orbaiceta & Aldaba',
+      en: 'Tabuenca & Leache and Orbaiceta & Aldaba',
+    },
+    summary: {
+      es: 'El monumento deja de ser una barrera para convertirse en la nueva Puerta del Sur de Pamplona.',
+      en: 'The monument ceases to be a barrier and becomes the new South Gate of Pamplona.',
+    },
+    description: {
+      es: [
+        'La Plaza del Castillo y la Plaza de la Libertad son los dos polos del gran salón urbano que constituye la avenida de Carlos III tras su peatonalización. Sin embargo, la Plaza de la Libertad nunca ha tenido gran actividad urbana, debido a su condición periférica y a un diseño más atento a resaltar su monumentalidad que a facilitar los usos ciudadanos.',
+        'La nueva condición central que el desarrollo de Lezkairu otorga a la plaza abre nuevas oportunidades: el Monumento a los Caídos debe dejar de ser una barrera para convertirse en la nueva Puerta del Sur de la ciudad.',
+      ],
+      en: [
+        'Plaza del Castillo and Plaza de la Libertad are the two poles of the great urban hall that Carlos III avenue became after its pedestrianisation. Yet Plaza de la Libertad has never seen much urban life, due to its peripheral condition and a design more concerned with monumentality than with everyday civic use.',
+        'The new centrality that the Lezkairu development brings to the square opens fresh opportunities: the Monument must stop being a barrier and become the city’s new South Gate.',
+      ],
+    },
+    images: [
+      '/proyectos/monumento-a-los-caidos/vista-central.jpg',
+      '/proyectos/monumento-a-los-caidos/oculo.jpg',
+      '/proyectos/monumento-a-los-caidos/lateral.jpg',
+      '/proyectos/monumento-a-los-caidos/plataforma.jpg',
+      '/proyectos/monumento-a-los-caidos/aerea.jpg',
+    ],
+  },
+  {
+    slug: 'yacimiento-san-esteban',
+    year: '2021',
+    title: { es: 'Yacimiento Arqueológico San Esteban', en: 'San Esteban Archaeological Site' },
+    featured: true,
+    hue: 55,
+    location: { es: 'Murcia', en: 'Murcia' },
+    category: { es: 'Espacio público', en: 'Public space' },
+    award: { es: 'Finalista', en: 'Finalist' },
+    collaborators: {
+      es: 'Vaillo Irigaray y Orbaiceta & Aldaba',
+      en: 'Vaillo Irigaray and Orbaiceta & Aldaba',
+    },
+    summary: {
+      es: 'Un elemento urbano que resuelve los recorridos del yacimiento y regala a Murcia un pulmón verde sobre su memoria.',
+      en: 'An urban element that resolves the site’s routes and gives Murcia a green lung above its buried memory.',
+    },
+    description: {
+      es: [
+        'La propuesta resuelve, por medio de un elemento urbano trascendental, tanto los recorridos del yacimiento como las conexiones entre los puntos fundamentales que desembocan de las calles.',
+        'La plaza que se genera es un pulmón verde de la ciudad que esconde los entresijos de la Murcia antigua y permite a los viandantes disfrutar de una zona verde y de espacios infantiles.',
+      ],
+      en: [
+        'By means of a decisive urban element, the proposal resolves both the routes through the archaeological site and the connections between the key points where the streets converge.',
+        'The resulting plaza is a green lung for the city, concealing the inner workings of ancient Murcia while offering passers-by a green space and children’s play areas.',
+      ],
+    },
+    images: [
+      '/proyectos/yacimiento-san-esteban/aerea-noreste.jpg',
+      '/proyectos/yacimiento-san-esteban/aerea-noroeste.jpg',
+      '/proyectos/yacimiento-san-esteban/aerea-sureste.jpg',
+      '/proyectos/yacimiento-san-esteban/interior-longitudinal.jpg',
+      '/proyectos/yacimiento-san-esteban/interior-transversal.jpg',
+    ],
+  },
+  {
+    slug: '85-vpo-bilbao',
+    title: { es: '85 VPO Bilbao', en: '85 Social Housing Units, Bilbao' },
+    year: '2020',
+    featured: true,
+    hue: 30,
+    location: { es: 'Iturrigorri, Bilbao', en: 'Iturrigorri, Bilbao' },
+    category: { es: 'Vivienda colectiva', en: 'Collective housing' },
+    award: { es: '1.er premio', en: '1st prize' },
+    collaborators: {
+      es: 'Orbaiceta & Aldaba y Apezteguia Architects',
+      en: 'Orbaiceta & Aldaba and Apezteguia Architects',
+    },
+    summary: {
+      es: 'Concurso de 85 viviendas de protección oficial que fragmenta su volumen para adaptarse a un terreno en pendiente y a la escala del entorno.',
+      en: 'A competition for 85 social-housing units whose volume is fragmented to adapt to a sloping site and the scale of its surroundings.',
+    },
+    description: {
+      es: [
+        'La propuesta busca dar respuesta a un entorno urbano complejo desde su volumetría y la composición de sus planos. Por un lado encontramos el fuerte desnivel que presenta el terreno; por otro, la cercanía de los edificios más próximos.',
+        'Para dar respuesta decidimos fragmentar el proyecto, rompiendo su lado largo y ajustándolo a la escala urbana que presentan las inmediaciones.',
+      ],
+      en: [
+        'The proposal responds to a complex urban setting through its massing and the composition of its planes. On one hand, the site has a steep slope; on the other, the neighbouring buildings sit very close.',
+        'To address this, we fragmented the project, breaking up its long side and adjusting it to the urban scale of its surroundings.',
+      ],
+    },
+    // Solo renders en la galería (los planos quedan fuera a propósito)
+    images: [
+      '/proyectos/85-vpo-bilbao/portada.jpg',
+      '/proyectos/85-vpo-bilbao/01.jpg',
+      '/proyectos/85-vpo-bilbao/02.jpg',
+      '/proyectos/85-vpo-bilbao/03.jpg',
+      '/proyectos/85-vpo-bilbao/04.jpg',
+    ],
+  },
+  {
+    slug: 'viviendas-fuencarral',
+    year: '2024',
+    title: { es: 'Viviendas Fuencarral', en: 'Fuencarral Housing' },
+    featured: true,
+    hue: 28,
+    location: { es: 'Madrid', en: 'Madrid' },
+    category: { es: 'Vivienda colectiva', en: 'Collective housing' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
+    summary: {
+      es: 'Viviendas con patio comunitario, ladrillo recuperado y celosías de madera: densidad amable en el norte de Madrid.',
+      en: 'Housing around a communal courtyard, with reclaimed brick and timber lattices: friendly density in northern Madrid.',
+    },
+    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
+    description: {
+      es: [
+        'El conjunto se organiza en torno a un patio comunitario ajardinado, corazón de la vida vecinal, al que se abren las viviendas a través de terrazas y celosías de madera.',
+        'La materialidad combina ladrillo y revocos claros, con cubiertas aterrazadas que suman espacio exterior a las viviendas superiores.',
+      ],
+      en: [
+        'The complex is arranged around a landscaped communal courtyard, the heart of neighbourly life, onto which the homes open through terraces and timber lattices.',
+        'The materials combine brick and light render, with terraced roofs adding outdoor space to the upper dwellings.',
+      ],
+    },
+    images: [
+      '/proyectos/viviendas-fuencarral/portada.jpg',
+      '/proyectos/viviendas-fuencarral/01.jpg',
+      '/proyectos/viviendas-fuencarral/02.jpg',
+      '/proyectos/viviendas-fuencarral/03.jpg',
+      '/proyectos/viviendas-fuencarral/04.jpg',
     ],
   },
   {
@@ -780,272 +921,131 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'civivox-erripagana',
-    year: '2025',
-    title: { es: 'Civivox Erripagaña', en: 'Civivox Erripagaña' },
-    featured: true,
-    hue: 40,
-    location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
-    category: { es: 'Equipamiento cultural', en: 'Cultural building' },
-    collaborators: {
-      es: 'PDP Arquitectos',
-      en: 'PDP Arquitectos',
-    },
-    summary: {
-      es: 'Un centro cívico de volúmenes pétreos y escala doméstica que regala a Erripagaña una nueva plaza de encuentro.',
-      en: 'A civic centre of stone volumes and domestic scale that gives Erripagaña a new gathering plaza.',
-    },
-    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
-    description: {
-      es: [
-        'El edificio se fragmenta en piezas de piedra clara que ajustan su escala al barrio y liberan ante sí una plaza arbolada, antesala de la vida del centro.',
-        'El acceso se excava en el volumen principal como un gran umbral en sombra, abierto y acogedor, que invita a entrar desde el espacio público.',
-      ],
-      en: [
-        'The building breaks into light stone pieces that tune their scale to the neighbourhood and free up a tree-lined plaza before them, the antechamber to the centre’s life.',
-        'The entrance is carved into the main volume as a large shaded threshold, open and welcoming, inviting people in from the public space.',
-      ],
-    },
-    images: [
-      '/proyectos/civivox-erripagana/portada.jpg',
-      '/proyectos/civivox-erripagana/01.jpg',
-      '/proyectos/civivox-erripagana/02.jpg',
-    ],
-  },
-  {
-    slug: 'edificio-kodak',
+    slug: '96-vpo-almeria',
     year: '2022',
-    title: { es: 'Edificio Kodak', en: 'Kodak Building' },
+    title: { es: '96 VPO Almería', en: '96 Social Housing Units, Almería' },
     featured: true,
     hue: 35,
-    location: { es: 'España', en: 'Spain' },
-    category: { es: 'Comercial', en: 'Retail' },
-    collaborators: {
-      es: 'PDP Arquitectos',
-      en: 'PDP Arquitectos',
-    },
-    summary: {
-      es: 'La reconversión de un edificio comercial en torno a una secuencia de arcos y un gran techo artesonado de madera.',
-      en: 'The conversion of a commercial building around a sequence of arches and a great coffered timber ceiling.',
-    },
-    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
-    description: {
-      es: [
-        'La propuesta reordena el edificio en torno a un atrio de doble altura, ritmado por arcos que enmarcan los usos —comercio, deporte, restauración— y los ponen en relación visual.',
-        'Un artesonado de madera unifica el conjunto y filtra la luz cenital, dando al espacio comercial una atmósfera cálida y reconocible.',
-      ],
-      en: [
-        'The proposal reorganises the building around a double-height atrium, given rhythm by arches that frame the uses — retail, sport, dining — and place them in visual dialogue.',
-        'A coffered timber ceiling unifies the whole and filters the zenithal light, lending the commercial space a warm, recognisable atmosphere.',
-      ],
-    },
-    images: [
-      '/proyectos/edificio-kodak/portada.jpg',
-      '/proyectos/edificio-kodak/01.jpg',
-      '/proyectos/edificio-kodak/02.jpg',
-      '/proyectos/edificio-kodak/03.jpg',
-      '/proyectos/edificio-kodak/04.jpg',
-    ],
-  },
-  {
-    slug: 'viviendas-fuencarral',
-    year: '2024',
-    title: { es: 'Viviendas Fuencarral', en: 'Fuencarral Housing' },
-    featured: true,
-    hue: 28,
-    location: { es: 'Madrid', en: 'Madrid' },
+    location: { es: 'Almería', en: 'Almería' },
     category: { es: 'Vivienda colectiva', en: 'Collective housing' },
     collaborators: {
       es: 'PDP Arquitectos',
       en: 'PDP Arquitectos',
     },
     summary: {
-      es: 'Viviendas con patio comunitario, ladrillo recuperado y celosías de madera: densidad amable en el norte de Madrid.',
-      en: 'Housing around a communal courtyard, with reclaimed brick and timber lattices: friendly density in northern Madrid.',
+      es: 'Torres de vivienda protegida coronadas por pérgolas, con terrazas corridas vegetadas y un zócalo comercial abierto a la calle.',
+      en: 'Social-housing towers crowned by pergolas, with planted continuous terraces and a commercial plinth open to the street.',
     },
     // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
     description: {
       es: [
-        'El conjunto se organiza en torno a un patio comunitario ajardinado, corazón de la vida vecinal, al que se abren las viviendas a través de terrazas y celosías de madera.',
-        'La materialidad combina ladrillo y revocos claros, con cubiertas aterrazadas que suman espacio exterior a las viviendas superiores.',
+        'El conjunto organiza 96 viviendas de protección oficial en volúmenes escalonados que rematan en pérgolas, con terrazas corridas que dan sombra y vegetación a cada vivienda.',
+        'La planta baja concentra locales y accesos ajardinados, tejiendo el edificio con la vida de la calle.',
       ],
       en: [
-        'The complex is arranged around a landscaped communal courtyard, the heart of neighbourly life, onto which the homes open through terraces and timber lattices.',
-        'The materials combine brick and light render, with terraced roofs adding outdoor space to the upper dwellings.',
+        'The complex arranges 96 social-housing units in stepped volumes crowned by pergolas, with continuous terraces bringing shade and greenery to every home.',
+        'The ground floor gathers retail spaces and landscaped entrances, weaving the building into street life.',
       ],
     },
     images: [
-      '/proyectos/viviendas-fuencarral/portada.jpg',
-      '/proyectos/viviendas-fuencarral/01.jpg',
-      '/proyectos/viviendas-fuencarral/02.jpg',
-      '/proyectos/viviendas-fuencarral/03.jpg',
-      '/proyectos/viviendas-fuencarral/04.jpg',
+      '/proyectos/96-vpo-almeria/portada.jpg',
+      '/proyectos/96-vpo-almeria/01.jpg',
     ],
   },
   {
-    slug: 'vivienda-villanua',
-    year: '2026',
-    title: { es: 'Vivienda en Villanúa', en: 'House in Villanúa' },
+    slug: '32-vpo-entremutilvas',
+    year: '2019',
+    title: { es: '32 VPO Entremutilvas', en: '32 Social Housing Units, Entremutilvas' },
     featured: true,
-    hue: 140,
-    location: { es: 'Villanúa, Huesca', en: 'Villanúa, Huesca' },
-    category: { es: 'Vivienda unifamiliar', en: 'Single-family house' },
+    hue: 90,
+    location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
+    category: { es: 'Vivienda colectiva', en: 'Collective housing' },
+    collaborators: {
+      es: 'Orbaiceta & Aldaba y Araiz Floristan',
+      en: 'Orbaiceta & Aldaba and Araiz Floristan',
+    },
+    summary: {
+      es: 'Viviendas en alquiler para mayores y jóvenes organizadas en torno a un único núcleo, en clave de “co-living” y comunidad.',
+      en: 'Rental housing for the elderly and the young, organised around a single core in a spirit of co-living and community.',
+    },
+    description: {
+      es: [
+        'El proyecto resuelve un programa de viviendas en alquiler para colectivos específicos —personas mayores de 65 y jóvenes menores de 35 años—, fomentando la colaboración vecinal, la igualdad y la corresponsabilidad en los cuidados. Nos acercamos al modelo del “co-living”, donde se valoran más las experiencias que las posesiones y se busca que las personas interactúen gracias a una mejor dotación de los espacios comunes.',
+        'Para lograrlo, resolvemos el programa con un solo núcleo de comunicación vertical. Una única escalera crea una sola comunidad de vecinos, reduce el mantenimiento, optimiza los espacios comunes y fomenta una mejor socialización, además de mejorar el rendimiento de los locales en planta baja y del aparcamiento en el sótano.',
+      ],
+      en: [
+        'The project resolves a programme of rental housing for specific groups — people over 65 and under 35 — fostering neighbourly collaboration, equality and shared responsibility in care. It moves towards a co-living model, where experiences matter more than possessions and people are encouraged to interact through better-equipped common spaces.',
+        'To achieve this, the programme is organised around a single vertical core. One staircase creates a single community of neighbours, reduces maintenance, optimises the common areas and encourages social interaction, while improving the performance of the ground-floor premises and the basement parking.',
+      ],
+    },
+    images: [
+      '/proyectos/32-vpo-entremutilvas/portada.jpg',
+      '/proyectos/32-vpo-entremutilvas/01.jpg',
+    ],
+  },
+  {
+    slug: 'viviendas-colaborativas-avila',
+    year: '2024',
+    title: { es: 'Viviendas Colaborativas Ávila', en: 'Co-housing in Ávila' },
+    featured: true,
+    hue: 45,
+    location: { es: 'Ávila', en: 'Ávila' },
+    category: { es: 'Vivienda colaborativa', en: 'Co-housing' },
     collaborators: {
       es: 'PDP Arquitectos',
       en: 'PDP Arquitectos',
     },
     summary: {
-      es: 'Una casa de piedra y cubierta de pizarra que mira al Pirineo: tradición constructiva local con lenguaje contemporáneo.',
-      en: 'A stone house with a slate roof facing the Pyrenees: local building tradition in a contemporary language.',
+      es: 'Una edificación compacta hacia fuera y abierta hacia dentro: la vida gira en torno a un patio ajardinado.',
+      en: 'Compact on its perimeter and open within: life revolves around a landscaped courtyard.',
     },
-    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
     description: {
       es: [
-        'La casa toma la piedra y la pizarra de la arquitectura pirenaica y las ordena en un volumen rotundo, de hastial limpio, que enmarca el paisaje de montaña.',
-        'El testero se vacía en un gran porche de madera en planta alta: un mirador protegido que orienta la vida de la casa hacia el valle.',
+        'Se propone una edificación compacta en su perímetro —atendiendo a criterios de funcionalidad y eficiencia energética— y abierta en su interior en torno a un patio. Ese espacio central es el corazón del proyecto: distribuidor único del programa y generador de espacios de relación asociados a las viviendas.',
+        'Una galería alrededor del patio ajardinado da acceso, en una única planta, a las viviendas. Entre ellas se intercalan los espacios comunes: estancias de relación en la propia galería, coworking, sala social y gimnasio. El diseño destaca así el carácter social de la edificación, núcleo desde el que se organiza el resto del programa.',
       ],
       en: [
-        'The house takes the stone and slate of Pyrenean architecture and orders them into a bold volume with a clean gable that frames the mountain landscape.',
-        'The end wall is hollowed into a large timber porch on the upper floor: a sheltered viewpoint that turns the life of the house towards the valley.',
+        'The building is compact on its perimeter — following criteria of functional layout and energy efficiency — and open at its core around a courtyard. That central space is the heart of the project: the sole distributor of the programme and the generator of shared spaces linked to the homes.',
+        'A gallery around the landscaped courtyard gives access to the dwellings on a single level. Interspersed among them are the common spaces: sitting areas along the gallery itself, coworking, a social room and a gym. The design thus emphasises the social character of the building, the nucleus around which the rest of the programme is organised.',
       ],
     },
     images: [
-      '/proyectos/vivienda-villanua/portada.jpg',
-      '/proyectos/vivienda-villanua/01.jpg',
-      '/proyectos/vivienda-villanua/02.jpg',
-      '/proyectos/vivienda-villanua/03.jpg',
-      '/proyectos/vivienda-villanua/04.jpg',
+      '/proyectos/viviendas-colaborativas-avila/portada.jpg',
+      '/proyectos/viviendas-colaborativas-avila/01.jpg',
+      '/proyectos/viviendas-colaborativas-avila/02.jpg',
     ],
   },
   {
-    slug: 'parque-empresarial-alvento',
-    year: '2023',
-    title: { es: 'Parque Empresarial Alvento', en: 'Alvento Business Park' },
-    featured: true,
-    hue: 205,
-    location: { es: 'Madrid', en: 'Madrid' },
-    category: { es: 'Oficinas', en: 'Offices' },
-    collaborators: {
-      es: 'PDP Arquitectos',
-      en: 'PDP Arquitectos',
-    },
-    summary: {
-      es: 'La renovación de los espacios exteriores de un parque empresarial: una plaza peatonal con pérgolas, vegetación y estancias.',
-      en: 'The renovation of a business park’s outdoor spaces: a pedestrian plaza with pergolas, planting and resting areas.',
-    },
-    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
-    description: {
-      es: [
-        'La intervención transforma la explanada del parque empresarial en una plaza habitable: un tapiz de pavimento y vegetación que ordena recorridos, sombra y lugares de estancia.',
-        'Las pérgolas ligeras, de geometría reconocible, dan identidad al conjunto y acompañan al edificio existente sin competir con él.',
-      ],
-      en: [
-        'The intervention turns the business park esplanade into a livable plaza: a carpet of paving and planting that organises routes, shade and places to stay.',
-        'Light pergolas with a recognisable geometry give the ensemble its identity, accompanying the existing building without competing with it.',
-      ],
-    },
-    images: [
-      '/proyectos/parque-empresarial-alvento/portada.jpg',
-      '/proyectos/parque-empresarial-alvento/01.jpg',
-      '/proyectos/parque-empresarial-alvento/02.jpg',
-      '/proyectos/parque-empresarial-alvento/03.jpg',
-    ],
-  },
-  {
-    slug: 'oficinas-zeppelin',
+    slug: 'viviendas-colaborativas-valladolid',
     year: '2025',
-    title: { es: 'Oficinas Zeppelin', en: 'Zeppelin Offices' },
+    title: { es: 'Viviendas Colaborativas Valladolid', en: 'Co-housing in Valladolid' },
     featured: true,
-    hue: 30,
-    location: { es: 'España', en: 'Spain' },
-    category: { es: 'Interiorismo', en: 'Interior design' },
+    hue: 75,
+    location: { es: 'Valladolid', en: 'Valladolid' },
+    category: { es: 'Vivienda colaborativa', en: 'Co-housing' },
+    award: { es: '3.er premio', en: '3rd prize' },
     collaborators: {
       es: 'PDP Arquitectos',
       en: 'PDP Arquitectos',
     },
     summary: {
-      es: 'El interiorismo de unas oficinas en clave doméstica: madera, grada social, color y espacios que invitan a quedarse.',
-      en: 'Office interiors in a domestic key: timber, a social tiered seat, colour and spaces that invite you to stay.',
+      es: '107 viviendas en 14 portales, con doble orientación y una planta baja concebida como nexo y punto de encuentro.',
+      en: '107 dwellings across 14 entrances, all dual-aspect, with a ground floor conceived as a link and meeting point.',
     },
-    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
     description: {
       es: [
-        'El proyecto reorganiza las oficinas en torno a espacios de encuentro: una grada de madera con vegetación preside la zona común y convierte la reunión informal en el centro de la vida de la empresa.',
-        'La paleta combina madera clara, celosías cerámicas y toques de color, alejando el espacio de trabajo de la imagen corporativa convencional.',
+        'Para optimizar la solución y satisfacer el número de unidades propuesto, se plantean tres viviendas por núcleo y planta, todas con doble orientación —zonas vivideras a sur— y ventilación cruzada. En diálogo con las edificaciones de la zona, el proyecto se divide horizontalmente en dos bloques separados por un portal común y fragmenta verticalmente sus fachadas con cuerpos rítmicamente volados; los petos de cubierta, inclinados alternativamente, hacen del conjunto una suma de unidades que se relacionan en planta baja.',
+        'Las 107 viviendas se organizan en 14 portales, a razón de 8 por portal, con un único acceso al conjunto. Una urbanización interior conecta todos los bloques y reparte los usos comunes en una planta baja concebida como nexo y punto de encuentro: aparcamiento de bicicletas, salas sociales, gimnasio y espacios flexibles con posible acceso directo desde la calle. La génesis modular permite además dividir la construcción en hasta 14 fases independientes.',
       ],
       en: [
-        'The project reorganises the offices around meeting places: a timber tiered seat with planting presides over the common area, making informal gathering the centre of company life.',
-        'The palette combines light timber, ceramic lattices and touches of colour, moving the workspace away from the conventional corporate image.',
+        'To optimise the solution and meet the required number of units, three dwellings are arranged per core and floor, all dual-aspect — living areas facing south — with cross ventilation. In dialogue with the neighbouring buildings, the project splits horizontally into two blocks separated by a shared entrance, while its façades fragment vertically into rhythmically cantilevered bodies; the alternately tilted roof parapets turn the whole into a sum of dwelling units that relate to one another at ground level.',
+        'The 107 homes are organised into 14 entrances of 8 dwellings each, with a single access to the complex. An interior landscaped ground connects all the blocks and distributes the shared uses across a ground floor conceived as a link and meeting point: bicycle parking, social rooms, a gym and flexible spaces with possible direct street access. The modular genesis also allows construction in up to 14 independent phases.',
       ],
     },
     images: [
-      '/proyectos/oficinas-zeppelin/portada.jpg',
-      '/proyectos/oficinas-zeppelin/01.jpg',
-      '/proyectos/oficinas-zeppelin/02.jpg',
-      '/proyectos/oficinas-zeppelin/03.jpg',
-      '/proyectos/oficinas-zeppelin/04.jpg',
-      '/proyectos/oficinas-zeppelin/05.jpg',
-      '/proyectos/oficinas-zeppelin/06.jpg',
-      '/proyectos/oficinas-zeppelin/07.jpg',
-      '/proyectos/oficinas-zeppelin/08.jpg',
-      '/proyectos/oficinas-zeppelin/09.jpg',
-    ],
-  },
-  {
-    slug: 'villa-abu-dabi',
-    title: { es: 'Villa Abu Dabi', en: 'Villa Abu Dhabi' },
-    featured: true,
-    hue: 190,
-    location: { es: 'Abu Dabi, EAU', en: 'Abu Dhabi, UAE' },
-    category: { es: 'Vivienda unifamiliar', en: 'Single-family house' },
-    summary: {
-      es: 'Una villa de planos blancos y madera que flota sobre el jardín y la lámina de agua, abierta a la vida exterior.',
-      en: 'A villa of white planes and timber floating above the garden and the water, open to outdoor living.',
-    },
-    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
-    description: {
-      es: [
-        'La villa se compone de grandes bandejas blancas que se deslizan entre sí, protegiendo del sol los espacios de vida y generando terrazas cubiertas en todas las orientaciones.',
-        'La planta baja se disuelve hacia el jardín y la piscina a través de carpinterías ocultas y porches de madera, borrando el límite entre interior y exterior.',
-      ],
-      en: [
-        'The villa is composed of large white trays sliding past one another, shading the living spaces and creating covered terraces in every orientation.',
-        'The ground floor dissolves towards the garden and pool through concealed frames and timber porches, erasing the boundary between inside and out.',
-      ],
-    },
-    images: [
-      '/proyectos/villa-abu-dabi/portada.jpg',
-      '/proyectos/villa-abu-dabi/acceso.jpg',
-      '/proyectos/villa-abu-dabi/terraza.jpg',
-      '/proyectos/villa-abu-dabi/interior.jpg',
-    ],
-  },
-  {
-    slug: 'villa-dubai',
-    title: { es: 'Villa Dubái', en: 'Villa Dubai' },
-    featured: true,
-    hue: 35,
-    location: { es: 'Dubái, EAU', en: 'Dubai, UAE' },
-    category: { es: 'Vivienda unifamiliar', en: 'Single-family house' },
-    summary: {
-      es: 'Una villa introvertida de zócalo blanco y corona de madera, organizada en torno a sus patios y a la luz tamizada.',
-      en: 'An introverted villa with a white plinth and timber crown, organised around its courtyards and filtered light.',
-    },
-    // TEXTO PROVISIONAL: sustituir por la memoria real del proyecto
-    description: {
-      es: [
-        'Hacia la calle, la villa se presenta serena: un zócalo blanco y silencioso coronado por una banda de lamas de madera que filtra la luz y protege la intimidad.',
-        'La vida se vuelca hacia dentro, a patios y umbrales en sombra que refrescan la casa y encadenan los espacios con la vegetación.',
-      ],
-      en: [
-        'Towards the street the villa is serene: a quiet white plinth crowned by a band of timber slats that filters light and guards privacy.',
-        'Life turns inward, to courtyards and shaded thresholds that cool the house and thread its spaces together with greenery.',
-      ],
-    },
-    images: [
-      '/proyectos/villa-dubai/portada.jpg',
-      '/proyectos/villa-dubai/patio.jpg',
-      '/proyectos/villa-dubai/interior-acceso.jpg',
+      '/proyectos/viviendas-colaborativas-valladolid/portada.jpg',
+      '/proyectos/viviendas-colaborativas-valladolid/01.jpg',
+      '/proyectos/viviendas-colaborativas-valladolid/02.jpg',
     ],
   },
 ];
