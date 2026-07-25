@@ -68,12 +68,17 @@ export const projects: Project[] = [
   },
   {
     slug: 'cubricion-pistas-valdelasfuentes',
+    year: '2025',
     title: 'Cubrición Pistas Valdelasfuentes',
     featured: true,
     hue: 200,
     location: { es: 'Alcobendas, Madrid', en: 'Alcobendas, Madrid' },
     category: { es: 'Equipamiento deportivo', en: 'Sports facility' },
     award: { es: '1.er premio', en: '1st prize' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'Una cubierta ligera de madera que protege las pistas deportivas existentes con mínimo impacto, creando una estructura sugerente y funcional.',
       en: 'A light timber roof that shelters the existing sports courts with minimal impact, creating an evocative and functional structure.',
@@ -98,11 +103,16 @@ export const projects: Project[] = [
   },
   {
     slug: '32-vpo-entremutilvas',
+    year: '2019',
     title: '32 VPO Entremutilvas',
     featured: true,
     hue: 90,
     location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
     category: { es: 'Vivienda colectiva', en: 'Collective housing' },
+    collaborators: {
+      es: 'Orbaiceta & Aldaba y Araiz Floristan',
+      en: 'Orbaiceta & Aldaba and Araiz Floristan',
+    },
     summary: {
       es: 'Viviendas en alquiler para mayores y jóvenes organizadas en torno a un único núcleo, en clave de “co-living” y comunidad.',
       en: 'Rental housing for the elderly and the young, organised around a single core in a spirit of co-living and community.',
@@ -124,11 +134,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'facultad-medicina-upna',
+    year: '2020',
     title: 'Facultad de Medicina UPNA',
     featured: true,
     hue: 210,
     location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
     category: { es: 'Equipamiento docente', en: 'Educational building' },
+    collaborators: {
+      es: 'Tabuenca & Leache y Orbaiceta & Aldaba',
+      en: 'Tabuenca & Leache and Orbaiceta & Aldaba',
+    },
     summary: {
       es: 'Un volumen ligero de lamas blancas para la nueva Facultad de Medicina, en diálogo con la edificación histórica del campus.',
       en: 'A light volume of white slats for the new Faculty of Medicine, in dialogue with the historic campus buildings.',
@@ -155,11 +170,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'housing-new-york',
+    year: '2019',
     title: 'Housing New York',
     featured: true,
     hue: 250,
     location: { es: 'Nueva York, EEUU', en: 'New York, USA' },
     category: { es: 'Vivienda colectiva', en: 'Collective housing' },
+    collaborators: {
+      es: 'Apezteguia Architects y Orbaiceta & Aldaba',
+      en: 'Apezteguia Architects and Orbaiceta & Aldaba',
+    },
     summary: {
       es: 'Vivienda asequible de relleno urbano en pequeñas parcelas en desuso, construida a partir de cuatro elementos esenciales.',
       en: 'Affordable infill housing on small disused plots, built from four essential elements.',
@@ -181,11 +201,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'polideportivo-lasarte',
+    year: '2019',
     title: 'Polideportivo Lasarte',
     featured: true,
     hue: 150,
     location: { es: 'Lasarte, Gipuzkoa', en: 'Lasarte, Gipuzkoa' },
     category: { es: 'Equipamiento deportivo', en: 'Sports facility' },
+    collaborators: {
+      es: 'Tabuenca & Leache y Orbaiceta & Aldaba',
+      en: 'Tabuenca & Leache and Orbaiceta & Aldaba',
+    },
     summary: {
       es: 'Un polideportivo organizado por una calle interior, con el graderío integrado como gran puerta que mira al campo de fútbol.',
       en: 'A sports centre organised along an interior street, with the stands integrated as a great gate facing the football pitch.',
@@ -209,11 +234,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'mercado-biblioteca-ponteareas',
+    year: '2023',
     title: 'Mercado-Biblioteca Ponteareas',
     featured: true,
     hue: 60,
     location: { es: 'Ponteareas, Pontevedra', en: 'Ponteareas, Pontevedra' },
     category: { es: 'Rehabilitación', en: 'Renovation' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'La transformación del mercado existente en un catalizador social y cultural, nexo entre los espacios públicos que lo rodean.',
       en: 'The transformation of the existing market into a social and cultural catalyst, a link between the public spaces around it.',
@@ -236,12 +266,17 @@ export const projects: Project[] = [
   },
   {
     slug: 'mercado-de-abastos-de-vera',
+    year: '2021',
     title: 'Mercado de Abastos de Vera',
     featured: true,
     hue: 40,
     location: { es: 'Vera, Almería', en: 'Vera, Almería' },
     category: { es: 'Equipamiento público', en: 'Public building' },
     award: { es: '4.º premio', en: '4th prize' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'Un mercado que se teje con la ciudad: accesos en los lugares naturales de tránsito y una plaza sin cotas altas, abierta al entorno.',
       en: 'A market woven into the town: entrances at the natural pedestrian crossings and a plaza without high levels, open to its surroundings.',
@@ -265,12 +300,17 @@ export const projects: Project[] = [
   },
   {
     slug: 'reforma-estadio-el-sadar',
+    year: '2018',
     title: 'Reforma Estadio El Sadar',
     featured: true,
     hue: 350,
     location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
     category: { es: 'Equipamiento deportivo', en: 'Sports facility' },
     award: { es: '3.er premio', en: '3rd prize' },
+    collaborators: {
+      es: 'TYM Asociados y Orbaiceta & Aldaba',
+      en: 'TYM Asociados and Orbaiceta & Aldaba',
+    },
     summary: {
       es: 'Una nueva envolvente para El Sadar: un diamante tallándose, con las señas de identidad de Osasuna y su afición.',
       en: 'A new envelope for El Sadar: a diamond being cut, carrying the identity of Osasuna and its supporters.',
@@ -297,12 +337,17 @@ export const projects: Project[] = [
   },
   {
     slug: 'sede-nordex',
+    year: '2019',
     title: 'Sede Nordex',
     featured: true,
     hue: 110,
     location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
     category: { es: 'Oficinas', en: 'Offices' },
     award: { es: '2.º premio', en: '2nd prize' },
+    collaborators: {
+      es: 'Tabuenca & Leache y Orbaiceta & Aldaba',
+      en: 'Tabuenca & Leache and Orbaiceta & Aldaba',
+    },
     summary: {
       es: 'Una oficina soterrada en torno a tres grandes patios verdes, sin renunciar a la luz natural ni a la calidad ambiental.',
       en: 'An office sunk into the ground around three large green courtyards, without giving up natural light or environmental quality.',
@@ -326,11 +371,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'the-factory',
+    year: '2019',
     title: 'The Factory',
     featured: true,
     hue: 25,
     location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
     category: { es: 'Rehabilitación', en: 'Renovation' },
+    collaborators: {
+      es: 'Tabuenca & Leache y Orbaiceta & Aldaba',
+      en: 'Tabuenca & Leache and Orbaiceta & Aldaba',
+    },
     summary: {
       es: 'Un antiguo molino de harina devuelto a la vida como espacio de trabajo y reunión, conservando el alma del edificio.',
       en: 'An old flour mill brought back to life as a space for work and gathering, preserving the soul of the building.',
@@ -355,12 +405,17 @@ export const projects: Project[] = [
   },
   {
     slug: 'torre-observatorio-zagreb',
+    year: '2023',
     title: 'Torre Observatorio Zagreb',
     featured: true,
     hue: 230,
     location: { es: 'Zagreb, Croacia', en: 'Zagreb, Croatia' },
     category: { es: 'Torre mirador', en: 'Observation tower' },
     award: { es: 'Finalista', en: 'Finalist' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'Una torre observatorio que plantea un recorrido vertical: descubrir la ciudad participando de ella desde dentro.',
       en: 'An observation tower conceived as a vertical journey: discovering the city while taking part in it from within.',
@@ -387,12 +442,17 @@ export const projects: Project[] = [
   },
   {
     slug: 'monumento-a-los-caidos',
+    year: '2018',
     title: 'Transformación del Monumento a los Caídos',
     featured: true,
     hue: 15,
     location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
     category: { es: 'Espacio público', en: 'Public space' },
     award: { es: 'Finalista', en: 'Finalist' },
+    collaborators: {
+      es: 'Tabuenca & Leache y Orbaiceta & Aldaba',
+      en: 'Tabuenca & Leache and Orbaiceta & Aldaba',
+    },
     summary: {
       es: 'El monumento deja de ser una barrera para convertirse en la nueva Puerta del Sur de Pamplona.',
       en: 'The monument ceases to be a barrier and becomes the new South Gate of Pamplona.',
@@ -417,11 +477,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'viviendas-colaborativas-avila',
+    year: '2024',
     title: 'Viviendas Colaborativas Ávila',
     featured: true,
     hue: 45,
     location: { es: 'Ávila', en: 'Ávila' },
     category: { es: 'Vivienda colaborativa', en: 'Co-housing' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'Una edificación compacta hacia fuera y abierta hacia dentro: la vida gira en torno a un patio ajardinado.',
       en: 'Compact on its perimeter and open within: life revolves around a landscaped courtyard.',
@@ -444,12 +509,17 @@ export const projects: Project[] = [
   },
   {
     slug: 'viviendas-colaborativas-valladolid',
+    year: '2025',
     title: 'Viviendas Colaborativas Valladolid',
     featured: true,
     hue: 75,
     location: { es: 'Valladolid', en: 'Valladolid' },
     category: { es: 'Vivienda colaborativa', en: 'Co-housing' },
     award: { es: '3.er premio', en: '3rd prize' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: '107 viviendas en 14 portales, con doble orientación y una planta baja concebida como nexo y punto de encuentro.',
       en: '107 dwellings across 14 entrances, all dual-aspect, with a ground floor conceived as a link and meeting point.',
@@ -472,6 +542,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'viviendas-unifamiliares-gorraiz',
+    year: '2019',
     title: 'Viviendas Unifamiliares en Gorraiz',
     featured: true,
     hue: 95,
@@ -505,12 +576,17 @@ export const projects: Project[] = [
   },
   {
     slug: 'yacimiento-san-esteban',
+    year: '2021',
     title: 'Yacimiento Arqueológico San Esteban',
     featured: true,
     hue: 55,
     location: { es: 'Murcia', en: 'Murcia' },
     category: { es: 'Espacio público', en: 'Public space' },
     award: { es: 'Finalista', en: 'Finalist' },
+    collaborators: {
+      es: 'Vaillo Irigaray y Orbaiceta & Aldaba',
+      en: 'Vaillo Irigaray and Orbaiceta & Aldaba',
+    },
     summary: {
       es: 'Un elemento urbano que resuelve los recorridos del yacimiento y regala a Murcia un pulmón verde sobre su memoria.',
       en: 'An urban element that resolves the site’s routes and gives Murcia a green lung above its buried memory.',
@@ -535,11 +611,16 @@ export const projects: Project[] = [
   },
   {
     slug: '96-vpo-almeria',
+    year: '2022',
     title: '96 VPO Almería',
     featured: true,
     hue: 35,
     location: { es: 'Almería', en: 'Almería' },
     category: { es: 'Vivienda colectiva', en: 'Collective housing' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'Torres de vivienda protegida coronadas por pérgolas, con terrazas corridas vegetadas y un zócalo comercial abierto a la calle.',
       en: 'Social-housing towers crowned by pergolas, with planted continuous terraces and a commercial plinth open to the street.',
@@ -562,11 +643,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'centro-comercial-el-encinar',
+    year: '2024',
     title: 'Centro Comercial El Encinar',
     featured: true,
     hue: 25,
     location: { es: 'España', en: 'Spain' },
     category: { es: 'Comercial', en: 'Retail' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'La renovación interior de un centro comercial: madera, lamas y luz para una atmósfera cálida y contemporánea.',
       en: 'The interior renovation of a shopping centre: timber, slats and light for a warm, contemporary atmosphere.',
@@ -590,11 +676,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'centro-comercial-saler',
+    year: '2022',
     title: 'Centro Comercial Saler',
     featured: true,
     hue: 45,
     location: { es: 'Valencia', en: 'Valencia' },
     category: { es: 'Comercial', en: 'Retail' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'La transformación del centro comercial Saler: una gran cornisa ondulante de lamas doradas que renueva su fachada y su plaza.',
       en: 'The transformation of the Saler shopping centre: a great undulating cornice of golden slats renewing its façade and plaza.',
@@ -623,11 +714,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'centro-de-salud-salamanca',
+    year: '2023',
     title: 'Centro de Salud Salamanca',
     featured: true,
     hue: 30,
     location: { es: 'Salamanca', en: 'Salamanca' },
     category: { es: 'Equipamiento sanitario', en: 'Healthcare' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'Un centro de salud de volúmenes escalonados y fachada cerámica estriada que filtra la luz, con un acceso cálido de madera.',
       en: 'A health centre of stepped volumes and a fluted ceramic façade that filters the light, with a warm timber entrance.',
@@ -652,11 +748,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'centro-servicios-sociales-madrid',
+    year: '2026',
     title: 'Centro de Servicios Sociales Madrid',
     featured: true,
     hue: 20,
     location: { es: 'Madrid', en: 'Madrid' },
     category: { es: 'Equipamiento público', en: 'Civic building' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'Un edificio público de retícula de madera que se asoma a un anfiteatro hundido: la plaza cívica como corazón del proyecto.',
       en: 'A civic building with a timber grid façade overlooking a sunken amphitheatre: the public plaza as the heart of the project.',
@@ -680,11 +781,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'civivox-erripagana',
+    year: '2025',
     title: 'Civivox Erripagaña',
     featured: true,
     hue: 40,
     location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
     category: { es: 'Equipamiento cultural', en: 'Cultural building' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'Un centro cívico de volúmenes pétreos y escala doméstica que regala a Erripagaña una nueva plaza de encuentro.',
       en: 'A civic centre of stone volumes and domestic scale that gives Erripagaña a new gathering plaza.',
@@ -708,11 +814,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'edificio-kodak',
+    year: '2022',
     title: 'Edificio Kodak',
     featured: true,
     hue: 35,
     location: { es: 'España', en: 'Spain' },
     category: { es: 'Comercial', en: 'Retail' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'La reconversión de un edificio comercial en torno a una secuencia de arcos y un gran techo artesonado de madera.',
       en: 'The conversion of a commercial building around a sequence of arches and a great coffered timber ceiling.',
@@ -738,11 +849,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'viviendas-fuencarral',
+    year: '2024',
     title: 'Viviendas Fuencarral',
     featured: true,
     hue: 28,
     location: { es: 'Madrid', en: 'Madrid' },
     category: { es: 'Vivienda colectiva', en: 'Collective housing' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'Viviendas con patio comunitario, ladrillo recuperado y celosías de madera: densidad amable en el norte de Madrid.',
       en: 'Housing around a communal courtyard, with reclaimed brick and timber lattices: friendly density in northern Madrid.',
@@ -768,11 +884,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'vivienda-villanua',
+    year: '2026',
     title: 'Vivienda en Villanúa',
     featured: true,
     hue: 140,
     location: { es: 'Villanúa, Huesca', en: 'Villanúa, Huesca' },
     category: { es: 'Vivienda unifamiliar', en: 'Single-family house' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'Una casa de piedra y cubierta de pizarra que mira al Pirineo: tradición constructiva local con lenguaje contemporáneo.',
       en: 'A stone house with a slate roof facing the Pyrenees: local building tradition in a contemporary language.',
@@ -798,11 +919,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'parque-empresarial-alvento',
+    year: '2023',
     title: 'Parque Empresarial Alvento',
     featured: true,
     hue: 205,
     location: { es: 'Madrid', en: 'Madrid' },
     category: { es: 'Oficinas', en: 'Offices' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'La renovación de los espacios exteriores de un parque empresarial: una plaza peatonal con pérgolas, vegetación y estancias.',
       en: 'The renovation of a business park’s outdoor spaces: a pedestrian plaza with pergolas, planting and resting areas.',
@@ -827,11 +953,16 @@ export const projects: Project[] = [
   },
   {
     slug: 'oficinas-zeppelin',
+    year: '2025',
     title: 'Oficinas Zeppelin',
     featured: true,
     hue: 30,
     location: { es: 'España', en: 'Spain' },
     category: { es: 'Interiorismo', en: 'Interior design' },
+    collaborators: {
+      es: 'PDP Arquitectos',
+      en: 'PDP Arquitectos',
+    },
     summary: {
       es: 'El interiorismo de unas oficinas en clave doméstica: madera, grada social, color y espacios que invitan a quedarse.',
       en: 'Office interiors in a domestic key: timber, a social tiered seat, colour and spaces that invite you to stay.',
