@@ -14,7 +14,7 @@ type Bilingual = { es: string; en: string };
 
 export interface Project {
   slug: string;
-  title: string;
+  title: Bilingual;
   year?: string;
   featured?: boolean;
   hue: number;
@@ -32,7 +32,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: '85-vpo-bilbao',
-    title: '85 VPO Bilbao',
+    title: { es: '85 VPO Bilbao', en: '85 Social Housing Units, Bilbao' },
     year: '2020',
     featured: true,
     hue: 30,
@@ -69,7 +69,7 @@ export const projects: Project[] = [
   {
     slug: 'cubricion-pistas-valdelasfuentes',
     year: '2025',
-    title: 'Cubrición Pistas Valdelasfuentes',
+    title: { es: 'Cubrición Pistas Valdelasfuentes', en: 'Valdelasfuentes Sports Courts Canopy' },
     featured: true,
     hue: 200,
     location: { es: 'Alcobendas, Madrid', en: 'Alcobendas, Madrid' },
@@ -104,7 +104,7 @@ export const projects: Project[] = [
   {
     slug: '32-vpo-entremutilvas',
     year: '2019',
-    title: '32 VPO Entremutilvas',
+    title: { es: '32 VPO Entremutilvas', en: '32 Social Housing Units, Entremutilvas' },
     featured: true,
     hue: 90,
     location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
@@ -135,7 +135,7 @@ export const projects: Project[] = [
   {
     slug: 'facultad-medicina-upna',
     year: '2020',
-    title: 'Facultad de Medicina UPNA',
+    title: { es: 'Facultad de Medicina UPNA', en: 'UPNA Faculty of Medicine' },
     featured: true,
     hue: 210,
     location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
@@ -171,7 +171,7 @@ export const projects: Project[] = [
   {
     slug: 'housing-new-york',
     year: '2019',
-    title: 'Housing New York',
+    title: { es: 'Housing New York', en: 'Housing New York' },
     featured: true,
     hue: 250,
     location: { es: 'Nueva York, EEUU', en: 'New York, USA' },
@@ -202,7 +202,7 @@ export const projects: Project[] = [
   {
     slug: 'polideportivo-lasarte',
     year: '2019',
-    title: 'Polideportivo Lasarte',
+    title: { es: 'Polideportivo Lasarte', en: 'Lasarte Sports Centre' },
     featured: true,
     hue: 150,
     location: { es: 'Lasarte, Gipuzkoa', en: 'Lasarte, Gipuzkoa' },
@@ -235,7 +235,7 @@ export const projects: Project[] = [
   {
     slug: 'mercado-biblioteca-ponteareas',
     year: '2023',
-    title: 'Mercado-Biblioteca Ponteareas',
+    title: { es: 'Mercado-Biblioteca Ponteareas', en: 'Ponteareas Market & Library' },
     featured: true,
     hue: 60,
     location: { es: 'Ponteareas, Pontevedra', en: 'Ponteareas, Pontevedra' },
@@ -267,7 +267,7 @@ export const projects: Project[] = [
   {
     slug: 'mercado-de-abastos-de-vera',
     year: '2021',
-    title: 'Mercado de Abastos de Vera',
+    title: { es: 'Mercado de Abastos de Vera', en: 'Vera Food Market' },
     featured: true,
     hue: 40,
     location: { es: 'Vera, Almería', en: 'Vera, Almería' },
@@ -301,7 +301,7 @@ export const projects: Project[] = [
   {
     slug: 'reforma-estadio-el-sadar',
     year: '2018',
-    title: 'Reforma Estadio El Sadar',
+    title: { es: 'Reforma Estadio El Sadar', en: 'El Sadar Stadium Renovation' },
     featured: true,
     hue: 350,
     location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
@@ -338,7 +338,7 @@ export const projects: Project[] = [
   {
     slug: 'sede-nordex',
     year: '2019',
-    title: 'Sede Nordex',
+    title: { es: 'Sede Nordex', en: 'Nordex Headquarters' },
     featured: true,
     hue: 110,
     location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
@@ -372,7 +372,7 @@ export const projects: Project[] = [
   {
     slug: 'the-factory',
     year: '2019',
-    title: 'The Factory',
+    title: { es: 'The Factory', en: 'The Factory' },
     featured: true,
     hue: 25,
     location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
@@ -406,7 +406,7 @@ export const projects: Project[] = [
   {
     slug: 'torre-observatorio-zagreb',
     year: '2023',
-    title: 'Torre Observatorio Zagreb',
+    title: { es: 'Torre Observatorio Zagreb', en: 'Zagreb Observation Tower' },
     featured: true,
     hue: 230,
     location: { es: 'Zagreb, Croacia', en: 'Zagreb, Croatia' },
@@ -443,7 +443,7 @@ export const projects: Project[] = [
   {
     slug: 'monumento-a-los-caidos',
     year: '2018',
-    title: 'Transformación del Monumento a los Caídos',
+    title: { es: 'Transformación del Monumento a los Caídos', en: 'Transformation of the Monument to the Fallen' },
     featured: true,
     hue: 15,
     location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
@@ -478,7 +478,7 @@ export const projects: Project[] = [
   {
     slug: 'viviendas-colaborativas-avila',
     year: '2024',
-    title: 'Viviendas Colaborativas Ávila',
+    title: { es: 'Viviendas Colaborativas Ávila', en: 'Co-housing in Ávila' },
     featured: true,
     hue: 45,
     location: { es: 'Ávila', en: 'Ávila' },
@@ -510,7 +510,7 @@ export const projects: Project[] = [
   {
     slug: 'viviendas-colaborativas-valladolid',
     year: '2025',
-    title: 'Viviendas Colaborativas Valladolid',
+    title: { es: 'Viviendas Colaborativas Valladolid', en: 'Co-housing in Valladolid' },
     featured: true,
     hue: 75,
     location: { es: 'Valladolid', en: 'Valladolid' },
@@ -543,7 +543,7 @@ export const projects: Project[] = [
   {
     slug: 'viviendas-unifamiliares-gorraiz',
     year: '2019',
-    title: 'Viviendas Unifamiliares en Gorraiz',
+    title: { es: 'Viviendas Unifamiliares en Gorraiz', en: 'Single-family Houses in Gorraiz' },
     featured: true,
     hue: 95,
     location: { es: 'Gorraiz, Navarra', en: 'Gorraiz, Navarra' },
@@ -577,7 +577,7 @@ export const projects: Project[] = [
   {
     slug: 'yacimiento-san-esteban',
     year: '2021',
-    title: 'Yacimiento Arqueológico San Esteban',
+    title: { es: 'Yacimiento Arqueológico San Esteban', en: 'San Esteban Archaeological Site' },
     featured: true,
     hue: 55,
     location: { es: 'Murcia', en: 'Murcia' },
@@ -612,7 +612,7 @@ export const projects: Project[] = [
   {
     slug: '96-vpo-almeria',
     year: '2022',
-    title: '96 VPO Almería',
+    title: { es: '96 VPO Almería', en: '96 Social Housing Units, Almería' },
     featured: true,
     hue: 35,
     location: { es: 'Almería', en: 'Almería' },
@@ -644,7 +644,7 @@ export const projects: Project[] = [
   {
     slug: 'centro-comercial-el-encinar',
     year: '2024',
-    title: 'Centro Comercial El Encinar',
+    title: { es: 'Centro Comercial El Encinar', en: 'El Encinar Shopping Centre' },
     featured: true,
     hue: 25,
     location: { es: 'España', en: 'Spain' },
@@ -677,7 +677,7 @@ export const projects: Project[] = [
   {
     slug: 'centro-comercial-saler',
     year: '2022',
-    title: 'Centro Comercial Saler',
+    title: { es: 'Centro Comercial Saler', en: 'Saler Shopping Centre' },
     featured: true,
     hue: 45,
     location: { es: 'Valencia', en: 'Valencia' },
@@ -715,7 +715,7 @@ export const projects: Project[] = [
   {
     slug: 'centro-de-salud-salamanca',
     year: '2023',
-    title: 'Centro de Salud Salamanca',
+    title: { es: 'Centro de Salud Salamanca', en: 'Salamanca Health Centre' },
     featured: true,
     hue: 30,
     location: { es: 'Salamanca', en: 'Salamanca' },
@@ -749,7 +749,7 @@ export const projects: Project[] = [
   {
     slug: 'centro-servicios-sociales-madrid',
     year: '2026',
-    title: 'Centro de Servicios Sociales Madrid',
+    title: { es: 'Centro de Servicios Sociales Madrid', en: 'Madrid Social Services Centre' },
     featured: true,
     hue: 20,
     location: { es: 'Madrid', en: 'Madrid' },
@@ -782,7 +782,7 @@ export const projects: Project[] = [
   {
     slug: 'civivox-erripagana',
     year: '2025',
-    title: 'Civivox Erripagaña',
+    title: { es: 'Civivox Erripagaña', en: 'Civivox Erripagaña' },
     featured: true,
     hue: 40,
     location: { es: 'Pamplona, Navarra', en: 'Pamplona, Navarra' },
@@ -815,7 +815,7 @@ export const projects: Project[] = [
   {
     slug: 'edificio-kodak',
     year: '2022',
-    title: 'Edificio Kodak',
+    title: { es: 'Edificio Kodak', en: 'Kodak Building' },
     featured: true,
     hue: 35,
     location: { es: 'España', en: 'Spain' },
@@ -850,7 +850,7 @@ export const projects: Project[] = [
   {
     slug: 'viviendas-fuencarral',
     year: '2024',
-    title: 'Viviendas Fuencarral',
+    title: { es: 'Viviendas Fuencarral', en: 'Fuencarral Housing' },
     featured: true,
     hue: 28,
     location: { es: 'Madrid', en: 'Madrid' },
@@ -885,7 +885,7 @@ export const projects: Project[] = [
   {
     slug: 'vivienda-villanua',
     year: '2026',
-    title: 'Vivienda en Villanúa',
+    title: { es: 'Vivienda en Villanúa', en: 'House in Villanúa' },
     featured: true,
     hue: 140,
     location: { es: 'Villanúa, Huesca', en: 'Villanúa, Huesca' },
@@ -920,7 +920,7 @@ export const projects: Project[] = [
   {
     slug: 'parque-empresarial-alvento',
     year: '2023',
-    title: 'Parque Empresarial Alvento',
+    title: { es: 'Parque Empresarial Alvento', en: 'Alvento Business Park' },
     featured: true,
     hue: 205,
     location: { es: 'Madrid', en: 'Madrid' },
@@ -954,7 +954,7 @@ export const projects: Project[] = [
   {
     slug: 'oficinas-zeppelin',
     year: '2025',
-    title: 'Oficinas Zeppelin',
+    title: { es: 'Oficinas Zeppelin', en: 'Zeppelin Offices' },
     featured: true,
     hue: 30,
     location: { es: 'España', en: 'Spain' },
@@ -993,7 +993,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'villa-abu-dabi',
-    title: 'Villa Abu Dabi',
+    title: { es: 'Villa Abu Dabi', en: 'Villa Abu Dhabi' },
     featured: true,
     hue: 190,
     location: { es: 'Abu Dabi, EAU', en: 'Abu Dhabi, UAE' },
@@ -1022,7 +1022,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'villa-dubai',
-    title: 'Villa Dubái',
+    title: { es: 'Villa Dubái', en: 'Villa Dubai' },
     featured: true,
     hue: 35,
     location: { es: 'Dubái, EAU', en: 'Dubai, UAE' },

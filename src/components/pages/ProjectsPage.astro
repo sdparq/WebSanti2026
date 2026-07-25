@@ -22,12 +22,12 @@ const { lang, altUrl } = Astro.props;
     {projects.map((p, i) => (
         <a class="prow" href={url(lang, 'projects', p.slug)} data-reveal>
           <div class="prow__media" data-parallax>
-            <Figure src={p.images[0]} alt={p.title} hue={p.hue} ratio="fill" zoom={true} />
+            <Figure src={p.images[0]} alt={p.title[lang]} hue={p.hue} ratio="fill" zoom={true} />
           </div>
           <div class="prow__scrim"></div>
           <div class="prow__content container">
             <span class="prow__index">{String(i + 1).padStart(2, '0')}</span>
-            <h2 class="prow__title">{p.title}</h2>
+            <h2 class="prow__title">{p.title[lang]}</h2>
             <p class="prow__meta">
               <span>{p.location[lang]}</span>
               <span class="prow__dot">·</span>

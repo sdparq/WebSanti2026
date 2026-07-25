@@ -28,8 +28,7 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       </span>
     </nav>
 
-    <!-- FRISO de partículas: el nombre se descompone en cuadrados negros
-         que se recomponen como geometrías, y vuelta a empezar -------------- -->
+    <!-- FRISO: una pluma rotula el nombre del estudio y el mantra ---------- -->
     <div class="band" aria-hidden="true">
       <canvas class="band__cv" data-band></canvas>
     </div>
@@ -45,14 +44,14 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       </span>
       <div class="strip" data-strip tabindex="0" aria-label={t(lang, 'projects.title')}>
         {projects.map((p) => (
-          <a class="card" href={url(lang, 'projects', p.slug)} aria-label={p.title} data-strip-link>
-            <Figure src={p.images[0]} alt={p.title} hue={p.hue} ratio="fill" loading="eager" class="card__fig" />
+          <a class="card" href={url(lang, 'projects', p.slug)} aria-label={p.title[lang]} data-strip-link>
+            <Figure src={p.images[0]} alt={p.title[lang]} hue={p.hue} ratio="fill" loading="eager" class="card__fig" />
             <span class="card__plus" aria-hidden="true">
               <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
                 <path d="M13 2v22M2 13h22" stroke="#fff" stroke-width="1.3" />
               </svg>
             </span>
-            <span class="card__name">{p.title}</span>
+            <span class="card__name">{p.title[lang]}</span>
           </a>
         ))}
       </div>
@@ -272,9 +271,8 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
 
 <script>
   // ── El plóter ──────────────────────────────────────────────────────────
-  // Una pluma recorre la franja dibujando alzados de edificios a línea
-  // fina y rotulando el nombre del estudio, como un plóter de estudio.
-  // Ciclo: alzado → nombre → otro alzado → mantra, con fundido entre láminas.
+  // Una pluma recorre la franja rotulando el nombre del estudio y el
+  // mantra, como un plóter de estudio. Ciclo: nombre → mantra, con fundido.
   const cv = document.querySelector<HTMLCanvasElement>('[data-band]');
   if (cv) {
     const ctx = cv.getContext('2d')!;
@@ -285,46 +283,6 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
     let items: any[] = [];
 
     const font = (fs: number) => `800 ${fs}px 'Inter Variable', Inter, sans-serif`;
-
-    // Alzado esquemático continuo: silueta de edificios como polilínea única
-    const makeSky = (seed: number) => {
-      let s = seed;
-      const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
-      const base = H - 6;
-      const maxB = H * 0.62;
-      const pts: [number, number][] = [[0, base]];
-      let x = 10 + rnd() * 30;
-      pts.push([x, base]);
-      while (x < W - 60) {
-        const tall = rnd() < 0.35;
-        const bw = tall ? 20 + rnd() * 26 : 34 + rnd() * 60;
-        const bh = tall ? maxB * (0.75 + rnd() * 0.25) : maxB * (0.25 + rnd() * 0.45);
-        const top = base - bh;
-        pts.push([x, top]);
-        const roof = rnd();
-        if (roof < 0.3) {
-          pts.push([x + bw / 2, Math.max(4, top - Math.min(14, bh * 0.5))]); // dos aguas
-        } else if (roof < 0.45) {
-          const r = Math.min(bw * 0.5, 14); // cúpula aproximada
-          for (let a = 1; a < 6; a++) {
-            const th = Math.PI - (Math.PI * a) / 6;
-            pts.push([x + bw / 2 + Math.cos(th) * r, top - Math.sin(th) * r]);
-          }
-        }
-        pts.push([x + bw, top]);
-        pts.push([x + bw, base]);
-        x += bw + 8 + rnd() * 30;
-        pts.push([Math.min(x, W), base]);
-      }
-      pts.push([W, base]);
-      const lens = [0];
-      let total = 0;
-      for (let i = 1; i < pts.length; i++) {
-        total += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
-        lens.push(total);
-      }
-      return { type: 'sky', pts, lens, total, drawT: 3.4 };
-    };
 
     const makeText = (str: string) => {
       let fs = H * 0.5;
@@ -347,9 +305,7 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const mobile = W < 720;
       items = [
-        makeSky(87),
         makeText(mobile ? 'SANTIAGO DE PABLO' : NAME),
-        makeSky(311),
         makeText(mobile ? 'WE DESIGN · WE CREATE' : 'WE DESIGN · WE CREATE · WE BUILD'),
       ];
     };
@@ -364,33 +320,6 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       ctx.fillStyle = '#2148ff';
       ctx.beginPath(); ctx.arc(x, y, 3.4, 0, Math.PI * 2); ctx.fill();
       ctx.globalAlpha = 1;
-    };
-
-    const drawSkyItem = (it: any, prog: number, alpha: number) => {
-      const L = it.total * Math.min(1, prog);
-      ctx.globalAlpha = alpha;
-      ctx.strokeStyle = '#fff';
-      ctx.lineWidth = 1.5;
-      ctx.lineJoin = 'round';
-      ctx.beginPath();
-      ctx.moveTo(it.pts[0][0], it.pts[0][1]);
-      let px = it.pts[0][0], py = it.pts[0][1];
-      for (let i = 1; i < it.pts.length; i++) {
-        if (it.lens[i] <= L) {
-          ctx.lineTo(it.pts[i][0], it.pts[i][1]);
-          px = it.pts[i][0]; py = it.pts[i][1];
-        } else {
-          const seg = it.lens[i] - it.lens[i - 1];
-          const f = seg > 0 ? (L - it.lens[i - 1]) / seg : 0;
-          px = it.pts[i - 1][0] + (it.pts[i][0] - it.pts[i - 1][0]) * f;
-          py = it.pts[i - 1][1] + (it.pts[i][1] - it.pts[i - 1][1]) * f;
-          ctx.lineTo(px, py);
-          break;
-        }
-      }
-      ctx.stroke();
-      ctx.globalAlpha = 1;
-      return [px, py];
     };
 
     // El texto se "rotula": aparece nítido tras el paso del carro
@@ -424,7 +353,7 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       else { alpha = Math.max(0, 1 - (t - it.drawT - HOLD) / FADE); }
 
       ctx.clearRect(0, 0, W, H);
-      const p = it.type === 'sky' ? drawSkyItem(it, prog, alpha) : drawTextItem(it, prog, alpha);
+      const p = drawTextItem(it, prog, alpha);
       pen(p[0], p[1], penA);
       requestAnimationFrame(frame);
     };
@@ -434,7 +363,7 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
       if (reduce) {
         // Sin animación: el nombre rotulado, quieto
         ctx.clearRect(0, 0, W, H);
-        const it = items[1];
+        const it = items[0];
         if (it) drawTextItem(it, 1, 1);
         return;
       }

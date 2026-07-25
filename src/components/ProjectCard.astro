@@ -17,15 +17,15 @@ const cover = p.images[0];
 <a class="card" href={href} data-reveal data-reveal-delay={(index % 3) + 0}>
   <Figure
     src={cover}
-    alt={p.title}
-    label={cover ? undefined : p.title}
+    alt={p.title[lang]}
+    label={cover ? undefined : p.title[lang]}
     hue={p.hue}
     ratio={ratio}
     zoom={true}
     class="card__fig"
   />
   <div class="card__meta">
-    <h3 class="card__title">{p.title}</h3>
+    <h3 class="card__title">{p.title[lang]}</h3>
     <p class="card__sub muted">
       {p.location[lang]} · {p.year}
     </p>

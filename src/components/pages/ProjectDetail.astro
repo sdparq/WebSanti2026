@@ -22,7 +22,7 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
 const projectSchema = {
   '@context': 'https://schema.org',
   '@type': 'CreativeWork',
-  name: p.title,
+  name: p.title[lang],
   description: p.summary[lang],
   ...(p.year ? { dateCreated: p.year } : {}),
   locationCreated: { '@type': 'Place', name: p.location[lang] },
@@ -45,7 +45,7 @@ const meta: { text: string; award?: boolean }[] = [
   lang={lang}
   altUrl={altUrl}
   chrome={false}
-  title={`${p.title} · ${p.location[lang]}`}
+  title={`${p.title[lang]} · ${p.location[lang]}`}
   description={p.summary[lang]}
   image={p.images[0]}
 >
@@ -63,7 +63,7 @@ const meta: { text: string; award?: boolean }[] = [
 
     <!-- BANDA de título ------------------------------------------------------ -->
     <div class="titleband">
-      <h1 class="titleband__title">{p.title}</h1>
+      <h1 class="titleband__title">{p.title[lang]}</h1>
     </div>
 
     <!-- TIRA horizontal: texto + imágenes ------------------------------------ -->
@@ -98,18 +98,18 @@ const meta: { text: string; award?: boolean }[] = [
         {p.images.length > 0
           ? p.images.map((src, i) => (
               <figure class="panel panel--img">
-                <img src={src} alt={`${p.title}, ${p.category[lang]}, ${p.location[lang]} — ${i + 1}`} loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
+                <img src={src} alt={`${p.title[lang]}, ${p.category[lang]}, ${p.location[lang]} — ${i + 1}`} loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
               </figure>
             ))
           : [0, 1].map((i) => (
               <figure class="panel panel--img panel--ph">
-                <Figure src={undefined} alt={p.title} hue={(p.hue + i * 14) % 360} ratio="fill" />
+                <Figure src={undefined} alt={p.title[lang]} hue={(p.hue + i * 14) % 360} ratio="fill" />
               </figure>
             ))}
 
         <a class="panel panel--next" href={url(lang, 'projects', next.slug)}>
           <span class="panel__nextlabel">{t(lang, 'project.next')}</span>
-          <strong class="panel__nexttitle">{next.title}</strong>
+          <strong class="panel__nexttitle">{next.title[lang]}</strong>
           <svg width="54" height="12" viewBox="0 0 54 12" fill="none" aria-hidden="true">
             <path d="M0 6h50M44 1l7 5-7 5" stroke="currentColor" stroke-width="1.4" />
           </svg>
