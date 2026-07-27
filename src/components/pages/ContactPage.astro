@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { type Lang, t } from '../../i18n/ui';
-import { site } from '../../data/site';
+import { seo, site } from '../../data/site';
 
 interface Props {
   lang: Lang;
@@ -10,7 +10,7 @@ interface Props {
 const { lang, altUrl } = Astro.props;
 ---
 
-<Base lang={lang} altUrl={altUrl} title={t(lang, 'contact.title')} description={t(lang, 'contact.lead')}>
+<Base lang={lang} altUrl={altUrl} title={seo.contactTitle[lang]} description={seo.contactDescription[lang]}>
   <section class="page-head container">
     <p class="eyebrow" data-reveal>{t(lang, 'contact.title')}</p>
     <h1 class="display" data-reveal>{t(lang, 'contact.lead')}</h1>

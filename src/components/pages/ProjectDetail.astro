@@ -32,6 +32,17 @@ const projectSchema = {
   creator: { '@type': 'Organization', name: site.nameFull, url: Astro.site?.href },
 };
 
+// Migas de pan para buscadores: Inicio → Proyectos → Proyecto
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: site.nameFull, item: new URL(url(lang), Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: t(lang, 'nav.projects'), item: new URL(url(lang, 'projects'), Astro.site).href },
+    { '@type': 'ListItem', position: 3, name: p.title[lang] },
+  ],
+};
+
 const meta: { text: string; award?: boolean }[] = [
   { text: p.location[lang] },
   { text: p.category[lang] },
@@ -50,6 +61,7 @@ const meta: { text: string; award?: boolean }[] = [
   image={p.images[0]}
 >
   <script type="application/ld+json" set:html={JSON.stringify(projectSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <div class="cover">
     <!-- NAV superior -------------------------------------------------------- -->
     <nav class="cover__nav" aria-label="Principal">

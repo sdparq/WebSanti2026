@@ -43,9 +43,9 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
         </svg>
       </span>
       <div class="strip" data-strip tabindex="0" aria-label={t(lang, 'projects.title')}>
-        {projects.map((p) => (
+        {projects.map((p, i) => (
           <a class="card" href={url(lang, 'projects', p.slug)} aria-label={p.title[lang]} data-strip-link>
-            <Figure src={p.images[0]} alt={p.title[lang]} hue={p.hue} ratio="fill" loading="eager" class="card__fig" />
+            <Figure src={p.images[0]} alt={p.title[lang]} hue={p.hue} ratio="fill" loading={i < 5 ? 'eager' : 'lazy'} class="card__fig" />
             <span class="card__plus" aria-hidden="true">
               <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
                 <path d="M13 2v22M2 13h22" stroke="#fff" stroke-width="1.3" />

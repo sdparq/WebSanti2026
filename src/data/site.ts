@@ -39,6 +39,22 @@ export const seo = {
     es: 'Santiago de Pablo Arquitectura: estudio de arquitectura con sedes en Dubái (Business Bay) y Madrid. Villas, vivienda, rehabilitación e interiorismo.',
     en: 'Santiago de Pablo Arquitectura: architecture practice with offices in Dubai (Business Bay) and Madrid. Villas, housing, renovation and interior design.',
   },
+  studioTitle: {
+    es: 'Estudio · Arquitectos en Dubái y Madrid',
+    en: 'Studio · Architects in Dubai & Madrid',
+  },
+  studioDescription: {
+    es: 'Conoce Santiago de Pablo Arquitectura: estudio con sedes en Dubái y Madrid, especializado en villas, vivienda, rehabilitación e interiorismo.',
+    en: 'Meet Santiago de Pablo Arquitectura: an architecture studio based in Dubai and Madrid, specialising in villas, housing, renovation and interior design.',
+  },
+  contactTitle: {
+    es: 'Contacto · Estudio de arquitectura en Dubái y Madrid',
+    en: 'Contact · Architecture Studio in Dubai & Madrid',
+  },
+  contactDescription: {
+    es: 'Contacta con el estudio: Peninsula Three, Business Bay (Dubái) y La Masó 2 (Madrid). Cuéntanos tu proyecto.',
+    en: 'Get in touch: Peninsula Three, Business Bay (Dubai) and La Masó 2 (Madrid). Tell us about your project.',
+  },
 } as const;
 
 export const intro = {

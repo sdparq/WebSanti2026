@@ -89,7 +89,9 @@ export function t(lang: Lang, key: keyof (typeof ui)['es']): string {
   return ui[lang][key] ?? ui[defaultLang][key];
 }
 
-// Construye una URL localizada: url('es', 'projects') -> /es/proyectos
+// Construye una URL localizada: url('es', 'projects') -> /es/proyectos/
+// Siempre con barra final: es la forma canónica que sirve Netlify y evita
+// una redirección 301 en cada enlace interno.
 export function url(lang: Lang, segment?: string, slug?: string): string {
   let path = `/${lang}`;
   if (segment) {
@@ -97,7 +99,7 @@ export function url(lang: Lang, segment?: string, slug?: string): string {
     path += `/${seg}`;
   }
   if (slug) path += `/${slug}`;
-  return path;
+  return `${path}/`;
 }
 
 // Dado un idioma, devuelve el otro
