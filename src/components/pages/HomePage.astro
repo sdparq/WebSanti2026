@@ -20,7 +20,10 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
   <div class="cover">
     <!-- NAV superior: tres columnas ---------------------------------------- -->
     <nav class="cover__nav" aria-label="Principal">
-      <a class="cover__navlink" href={url(lang)}>{t(lang, 'nav.projects')} 01–{total}</a>
+      <span class="cover__navleft">
+        <a class="cover__navlink" href={url(lang)}>{t(lang, 'nav.projects')} 01–{total}</a>
+        <a class="cover__navlink cover__navlink--villas" href={url(lang, 'villas')}>{t(lang, 'nav.villas')}</a>
+      </span>
       <a class="cover__navlink cover__navlink--center" href={url(lang, 'studio')}>{t(lang, 'nav.studio')}</a>
       <span class="cover__navright">
         <a class="cover__navlink" href={url(lang, 'contact')}>{t(lang, 'nav.contact')}</a>
@@ -91,6 +94,7 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
     padding: clamp(1.1rem, 2.4vh, 1.8rem) var(--gutter);
   }
   .cover__navright { justify-self: end; display: inline-flex; align-items: center; gap: 1.2rem; }
+  .cover__navleft { display: inline-flex; align-items: center; gap: 1.5rem; }
   .cover__copy { justify-self: end; font-weight: 700; text-transform: uppercase; font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.15rem); letter-spacing: 0.01em; }
   .cover__navlink {
     font-weight: 700;
@@ -204,6 +208,7 @@ const linkedin = site.social.find((s) => s.label === 'LinkedIn');
   @media (max-width: 720px) {
     .cover__nav, .cover__foot { grid-template-columns: auto auto; justify-content: space-between; }
     .cover__navlink--center { display: none; }
+    .cover__navlink--villas { display: none; }
     .stage__scroll { display: none; }
     .strip { padding-inline: var(--gutter); gap: 2rem; }
     .card { height: 68%; width: 74vw; }

@@ -10,11 +10,13 @@ export const routes: Record<Lang, Record<string, string>> = {
     projects: 'proyectos',
     studio: 'estudio',
     contact: 'contacto',
+    villas: 'villas-dubai',
   },
   en: {
     projects: 'projects',
     studio: 'studio',
     contact: 'contact',
+    villas: 'villa-design-dubai',
   },
 };
 
@@ -23,6 +25,7 @@ export const ui = {
     'nav.projects': 'Proyectos',
     'nav.studio': 'Estudio',
     'nav.contact': 'Contacto',
+    'nav.villas': 'Villas Dubái',
     'nav.menu': 'Menú',
     'nav.close': 'Cerrar',
     'home.featured': 'Proyectos seleccionados',
@@ -55,6 +58,7 @@ export const ui = {
     'nav.projects': 'Projects',
     'nav.studio': 'Studio',
     'nav.contact': 'Contact',
+    'nav.villas': 'Dubai Villas',
     'nav.menu': 'Menu',
     'nav.close': 'Close',
     'home.featured': 'Selected projects',

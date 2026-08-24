@@ -1,0 +1,207 @@
+---
+import Base from '../../layouts/Base.astro';
+import Figure from '../Figure.astro';
+import { type Lang, t, url } from '../../i18n/ui';
+import { site } from '../../data/site';
+import { projects } from '../../data/projects';
+import { villaService as v } from '../../data/villaService';
+
+interface Props {
+  lang: Lang;
+  altUrl: string;
+}
+const { lang, altUrl } = Astro.props;
+
+const works = v.workSlugs
+  .map((slug) => projects.find((p) => p.slug === slug))
+  .filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+// Preguntas frecuentes estructuradas: Google puede mostrarlas desplegadas
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: v.faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q[lang],
+    acceptedAnswer: { '@type': 'Answer', text: f.a[lang] },
+  })),
+};
+
+// El servicio en sí, con su área de trabajo
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: v.title[lang],
+  serviceType: lang === 'es' ? 'Diseño de villas' : 'Villa design',
+  description: v.seoDescription[lang],
+  areaServed: [
+    { '@type': 'City', name: 'Dubai' },
+    { '@type': 'Country', name: 'United Arab Emirates' },
+  ],
+  provider: {
+    '@type': 'ProfessionalService',
+    name: site.nameFull,
+    url: Astro.site?.href,
+    email: site.email,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Peninsula Three, Business Bay',
+      addressLocality: 'Dubai',
+      addressCountry: 'AE',
+    },
+  },
+};
+---
+
+<Base
+  lang={lang}
+  altUrl={altUrl}
+  title={v.seoTitle[lang]}
+  description={v.seoDescription[lang]}
+  image="/proyectos/villa-abu-dabi/portada.jpg"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="page-head container">
+    <p class="eyebrow" data-reveal>{v.eyebrow[lang]}</p>
+    <h1 class="display" data-reveal>{v.title[lang]}</h1>
+    <p class="lead vs-lead" data-reveal>{v.lead[lang]}</p>
+  </section>
+
+  <!-- Villas del estudio ---------------------------------------------------- -->
+  <section class="section container">
+    <h2 class="eyebrow" data-reveal>{v.worksTitle[lang]}</h2>
+    <div class="vs-works">
+      {works.map((p, i) => (
+        <a class="vs-work" href={url(lang, 'projects', p.slug)} data-reveal data-reveal-delay={i % 3}>
+          <Figure src={p.images[0]} alt={`${p.title[lang]}, ${p.location[lang]}`} hue={p.hue} ratio="4 / 3" zoom={true} />
+          <h3 class="h-md vs-work__title">{p.title[lang]}</h3>
+          <p class="muted">{p.location[lang]}{p.year ? ` · ${p.year}` : ''}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Proceso --------------------------------------------------------------- -->
+  <section class="section container">
+    <h2 class="eyebrow" data-reveal>{v.processTitle[lang]}</h2>
+    <ol class="vs-process">
+      {v.process.map((s, i) => (
+        <li class="vs-step" data-reveal data-reveal-delay={i % 3}>
+          <span class="vs-step__num">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="h-md">{s.title[lang]}</h3>
+          <p class="muted">{s.text[lang]}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- Alcance --------------------------------------------------------------- -->
+  <section class="section container">
+    <h2 class="eyebrow" data-reveal>{v.scopeTitle[lang]}</h2>
+    <ul class="vs-scope">
+      {v.scope[lang].map((item, i) => (
+        <li class="vs-scope__item" data-reveal data-reveal-delay={i % 3}>{item}</li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Preguntas frecuentes -------------------------------------------------- -->
+  <section class="section container">
+    <h2 class="eyebrow" data-reveal>{v.faqTitle[lang]}</h2>
+    <div class="vs-faq">
+      {v.faq.map((f, i) => (
+        <details class="vs-faq__item" data-reveal data-reveal-delay={i % 3}>
+          <summary class="vs-faq__q">{f.q[lang]}</summary>
+          <p class="muted vs-faq__a">{f.a[lang]}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- Llamada a la acción --------------------------------------------------- -->
+  <section class="section container">
+    <div class="vs-cta" data-reveal>
+      <h2 class="h-md">{v.ctaTitle[lang]}</h2>
+      <p class="muted">{v.ctaText[lang]}</p>
+      <a class="btn btn--solid" href={url(lang, 'contact')}>{t(lang, 'cta.contact')} <span class="arrow">→</span></a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head { padding-top: clamp(7rem, 16vh, 12rem); padding-bottom: clamp(1.5rem, 4vw, 3rem); }
+  .vs-lead { max-width: 56ch; margin-top: clamp(1rem, 2vw, 1.6rem); }
+
+  /* Villas destacadas */
+  .vs-works {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-top: clamp(1.5rem, 4vw, 3rem);
+  }
+  .vs-work__title { margin: 0.9rem 0 0.2rem; }
+  @media (max-width: 720px) { .vs-works { grid-template-columns: 1fr; } }
+
+  /* Proceso en cuatro pasos */
+  .vs-process {
+    list-style: none;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    margin-top: clamp(1.5rem, 4vw, 3rem);
+  }
+  .vs-step { border-top: 1px solid var(--line); padding-top: 1.2rem; }
+  .vs-step__num { font-size: 0.8rem; color: var(--clay-deep); letter-spacing: 0.1em; }
+  .vs-step h3 { margin: 0.6rem 0; }
+  @media (max-width: 900px) { .vs-process { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .vs-process { grid-template-columns: 1fr; } }
+
+  /* Alcance del encargo */
+  .vs-scope {
+    list-style: none;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem clamp(2rem, 5vw, 4rem);
+    margin-top: clamp(1.5rem, 4vw, 3rem);
+    max-width: 90ch;
+  }
+  .vs-scope__item {
+    border-top: 1px solid var(--line);
+    padding-top: 0.9rem;
+    padding-left: 1.6rem;
+    position: relative;
+  }
+  .vs-scope__item::before {
+    content: '→';
+    position: absolute; left: 0; top: 0.9rem;
+    color: var(--clay-deep);
+  }
+  @media (max-width: 720px) { .vs-scope { grid-template-columns: 1fr; } }
+
+  /* Preguntas frecuentes */
+  .vs-faq { margin-top: clamp(1.5rem, 4vw, 3rem); max-width: 76ch; }
+  .vs-faq__item { border-top: 1px solid var(--line); padding: 1.1rem 0; }
+  .vs-faq__q {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
+    list-style: none;
+    display: flex; align-items: baseline; gap: 0.8rem;
+  }
+  .vs-faq__q::-webkit-details-marker { display: none; }
+  .vs-faq__q::before {
+    content: '+';
+    color: var(--clay-deep);
+    font-weight: 700;
+    flex: 0 0 auto;
+  }
+  .vs-faq__item[open] .vs-faq__q::before { content: '–'; }
+  .vs-faq__a { margin-top: 0.7rem; padding-left: 1.6rem; max-width: 62ch; }
+
+  /* Cierre */
+  .vs-cta {
+    border-top: 2px solid var(--ink);
+    padding-top: clamp(1.5rem, 3vw, 2.4rem);
+    display: grid; gap: 0.9rem; justify-items: start;
+    max-width: 60ch;
+  }
+</style>
