@@ -1,8 +1,11 @@
 ---
-// Lámina animada de la página de Estudio: un boceto arquitectónico
-// abstracto, a mano alzada, dibujado EN DIRECTO por una pluma visible.
-// La tinta aparece exactamente bajo la punta: pluma y trazo comparten
-// el mismo reloj y la misma geometría (sincronizado por JS).
+// Lámina animada de la página de Estudio: una villa dibujada EN DIRECTO
+// por una pluma visible.
+//
+// Toda la geometría se CALCULA a partir de una línea de horizonte y dos
+// puntos de fuga, de modo que las aristas concurren de verdad y el
+// edificio se apoya en el suelo. Sobre esa base exacta se añade una
+// comba mínima a cada trazo para que conserve el pulso de la mano.
 import { type Lang } from '../i18n/ui';
 
 interface Props {
@@ -13,59 +16,174 @@ const { lang } = Astro.props;
 const caption =
   lang === 'es' ? 'El trazo — pensar dibujando' : 'The line — thinking by drawing';
 
-// Trazos del boceto, en orden de dibujo (uno por path para poder
-// revelarlos exactamente al paso de la pluma).
-const SEGS = [
-  // horizonte
-  'M30 330 Q120 324 200 329 Q300 334 372 328',
-  // guías de fuga sueltas
-  'M42 329 Q200 288 358 252',
-  'M42 329 Q190 362 352 392',
-  // volumen principal en perspectiva
-  'M210 180 Q212 240 209 302',
-  'M210 182 Q150 194 96 208',
-  'M210 182 Q280 172 330 166',
-  'M96 208 Q98 250 95 292',
-  'M330 166 Q332 230 331 300',
-  'M95 292 Q150 298 209 302',
-  'M331 300 Q272 304 209 302',
-  // volumen bajo a la izquierda
-  'M60 260 Q86 240 112 250',
-  'M112 250 Q113 272 111 294',
-  'M60 260 Q61 278 59 296',
-  'M59 296 Q86 297 111 294',
-  // hueco en la cara frontal
-  'M150 236 Q151 260 149 282',
-  'M180 232 Q181 258 179 280',
-  'M150 236 Q165 232 180 232',
-  // sombreado a rayitas, trazo a trazo
-  'M300 200 L318 194',
-  'M296 216 L322 208',
-  'M294 232 L326 222',
-  'M293 248 L328 237',
-  'M293 264 L329 252',
-  'M294 280 L330 266',
-  // árbol y figura de escala
-  'M348 300 Q349 286 347 274',
-  'M347 274 Q336 260 348 254 Q360 260 347 274',
-  'M132 316 Q132 306 133 300',
-  'M133 297 Q136 294 133 291 Q130 294 133 297',
-  // sol garabateado
-  'M320 96 Q332 86 340 98 Q346 110 334 114 Q324 117 319 108 Q316 100 323 97',
-  // subrayado final, casi firma
-  'M60 430 Q140 423 220 428 Q300 433 344 427',
+type P = [number, number];
+
+// ── Construcción en perspectiva de dos puntos ───────────────────────────
+const HZ = 250;                 // línea de horizonte (altura del ojo)
+const VPL: P = [-330, HZ];      // punto de fuga izquierdo
+const VPR: P = [740, HZ];       // punto de fuga derecho
+
+const round = (n: number) => Math.round(n * 10) / 10;
+
+// Punto de la recta `desde → punto de fuga` en la abscisa x
+const toward = (from: P, vp: P, x: number): P => {
+  const t = (x - from[0]) / (vp[0] - from[0]);
+  return [x, from[1] + (vp[1] - from[1]) * t];
+};
+
+// Volumen principal: arista cercana, suelo y coronación
+const X0 = 198, Y_TOP = 158, Y_BASE = 330;
+const XL = 88, XR = 328;
+
+const A_TOP: P = [X0, Y_TOP];
+const A_BOT: P = [X0, Y_BASE];
+const L_TOP = toward(A_TOP, VPL, XL);
+const L_BOT = toward(A_BOT, VPL, XL);
+const R_TOP = toward(A_TOP, VPR, XR);
+const R_BOT = toward(A_BOT, VPR, XR);
+
+// Banda de coronación (la "corona" de lamas de sus villas)
+const C_TOP: P = [X0, 145];
+const CL = toward(C_TOP, VPL, XL);
+const CR = toward(C_TOP, VPR, XR);
+
+// Cuerpo bajo a la izquierda, escalonado sobre el mismo plano
+const XW = 26;
+const W_TOP: P = [XL, 240];
+const W_FAR_TOP = toward(W_TOP, VPL, XW);
+const W_FAR_BOT = toward(L_BOT, VPL, XW);
+
+// Punto de una fachada: abscisa x y altura relativa h (0 suelo, 1 alero)
+const onFace = (vp: P, x: number, h: number): P => {
+  const top = toward(A_TOP, vp, x)[1];
+  const bot = toward(A_BOT, vp, x)[1];
+  return [x, bot + (top - bot) * h];
+};
+
+// Plano del suelo delantero (terraza) y recta sobre la que se apoyan
+// la figura y la palmera
+const TERR: P = [X0, 356];
+const STAND: P = [X0, 344];
+
+// Trazo a mano alzada: recta exacta con una comba mínima y un leve
+// exceso al final, como una mano que no frena en seco
+const stroke = (a: P, b: P, bow = 0.8, over = 1.6): string => {
+  const dx = b[0] - a[0], dy = b[1] - a[1];
+  const len = Math.hypot(dx, dy) || 1;
+  const ux = dx / len, uy = dy / len;
+  const bx = b[0] + ux * over, by = b[1] + uy * over;
+  const mx = (a[0] + bx) / 2 - uy * bow;
+  const my = (a[1] + by) / 2 + ux * bow;
+  return `M${round(a[0])} ${round(a[1])} Q${round(mx)} ${round(my)} ${round(bx)} ${round(by)}`;
+};
+
+// Rayado de sombra bajo la coronación, en la cara derecha
+const hatch = [238, 260, 282, 304, 324].map((x) =>
+  stroke(onFace(VPR, x, 0.9), onFace(VPR, x - 16, 0.7), 0.3, 0.8)
+);
+
+// Figura de escala: delante de la fachada izquierda, libre del hueco.
+// Por construcción, en un dibujo a la altura del ojo la cabeza de una
+// persona de pie queda sobre la línea de horizonte.
+const FIG_X = 165;
+const FIG_FOOT = toward(STAND, VPL, FIG_X);
+const HEAD_R = 4.2;
+const HEAD_C: P = [FIG_X, HZ + HEAD_R];
+const SHOULDER: P = [FIG_X, HZ + HEAD_R * 2 + 1];
+const HIP: P = [FIG_X, HZ + 46];
+
+// Palmera, despejada a la derecha del volumen
+const PALM_FOOT = toward(STAND, VPR, 360);
+const PALM_TOP: P = [364, 208];
+// Palmas: cada hoja sube desde la corona y cae hacia fuera. Se definen
+// con su propio punto de control para que ninguna cruce el tronco.
+const frond = (c: P, e: P): string =>
+  `M${PALM_TOP[0]} ${PALM_TOP[1]} Q${round(PALM_TOP[0] + c[0])} ${round(PALM_TOP[1] + c[1])} ${round(PALM_TOP[0] + e[0])} ${round(PALM_TOP[1] + e[1])}`;
+
+const fronds = [
+  frond([-18, -15], [-32, 7]),
+  frond([-17, -19], [-27, -16]),
+  frond([-2, -22], [-3, -32]),
+  frond([17, -19], [27, -16]),
+  frond([18, -15], [32, 7]),
+];
+
+// Trazos en orden de dibujo. `guide` = línea de construcción, más tenue.
+const SEGS: { d: string; guide?: boolean }[] = [
+  // 1. El arquitecto fija primero el horizonte y las fugas
+  { d: stroke([14, HZ], [386, HZ], 1.1), guide: true },
+  { d: stroke(toward(A_TOP, VPL, 16), toward(A_TOP, VPL, 150), 0.5), guide: true },
+  { d: stroke(toward(A_TOP, VPR, 384), toward(A_TOP, VPR, 250), 0.5), guide: true },
+  { d: stroke([X0, 138], [X0, 348], 0.4), guide: true },
+
+  // 2. La línea de tierra, a un lado y otro de la esquina cercana
+  { d: stroke(A_BOT, toward(A_BOT, VPL, 14), 0.9) },
+  { d: stroke(A_BOT, toward(A_BOT, VPR, 386), -0.9) },
+
+  // 3. Volumen principal
+  { d: stroke(A_BOT, A_TOP, 0.7) },
+  { d: stroke(A_TOP, L_TOP, -0.7) },
+  { d: stroke(L_TOP, L_BOT, 0.6) },
+  { d: stroke(L_BOT, A_BOT, 0.7) },
+  { d: stroke(A_TOP, R_TOP, 0.8) },
+  { d: stroke(R_TOP, R_BOT, -0.6) },
+  { d: stroke(R_BOT, A_BOT, -0.7) },
+
+  // 4. Banda de coronación
+  { d: stroke(A_TOP, C_TOP, 0.3) },
+  { d: stroke(C_TOP, CL, -0.5) },
+  { d: stroke(C_TOP, CR, 0.5) },
+  { d: stroke(CL, L_TOP, 0.3) },
+  { d: stroke(CR, R_TOP, 0.3) },
+
+  // 5. Cuerpo bajo
+  { d: stroke(W_TOP, W_FAR_TOP, -0.6) },
+  { d: stroke(W_FAR_TOP, W_FAR_BOT, 0.5) },
+  { d: stroke(W_FAR_BOT, L_BOT, 0.6) },
+
+  // 6. Hueco corrido en la cara derecha
+  { d: stroke(onFace(VPR, 220, 0.66), onFace(VPR, 314, 0.66), 0.4) },
+  { d: stroke(onFace(VPR, 220, 0.4), onFace(VPR, 314, 0.4), -0.4) },
+  { d: stroke(onFace(VPR, 220, 0.4), onFace(VPR, 220, 0.66), 0.2) },
+  { d: stroke(onFace(VPR, 314, 0.4), onFace(VPR, 314, 0.66), 0.2) },
+  { d: stroke(onFace(VPR, 251, 0.4), onFace(VPR, 251, 0.66), 0.2) },
+  { d: stroke(onFace(VPR, 282, 0.4), onFace(VPR, 282, 0.66), 0.2) },
+
+  // 7. Acceso en la cara izquierda
+  { d: stroke(onFace(VPL, 120, 0), onFace(VPL, 120, 0.52), 0.3) },
+  { d: stroke(onFace(VPL, 150, 0), onFace(VPL, 150, 0.52), 0.3) },
+  { d: stroke(onFace(VPL, 120, 0.52), onFace(VPL, 150, 0.52), -0.3) },
+
+  // 8. Sombra bajo el alero
+  ...hatch.map((d) => ({ d })),
+
+  // 9. Terraza delantera
+  { d: stroke(TERR, toward(TERR, VPL, 30), 0.8) },
+  { d: stroke(TERR, toward(TERR, VPR, 372), -0.8) },
+
+  // 10. Figura de escala, de pie sobre la terraza
+  {
+    d: `M${round(HEAD_C[0] - HEAD_R)} ${round(HEAD_C[1])} a${HEAD_R} ${HEAD_R} 0 1 1 ${HEAD_R * 2} 0 a${HEAD_R} ${HEAD_R} 0 1 1 ${-HEAD_R * 2} 0`,
+  },
+  { d: stroke(SHOULDER, HIP, 0.4) },
+  { d: stroke(HIP, [FIG_X - 5, FIG_FOOT[1]], -0.4) },
+  { d: stroke(HIP, [FIG_X + 5, FIG_FOOT[1]], 0.4) },
+
+  // 11. Palmera
+  { d: stroke(PALM_FOOT, PALM_TOP, 2.2) },
+  ...fronds.map((d) => ({ d })),
 ];
 ---
 
 <figure class="vp" aria-label={caption}>
   <div class="vp__sheet">
-    <svg viewBox="24 78 356 362" preserveAspectRatio="xMidYMin meet" role="img" data-sketch>
+    <svg viewBox="2 126 398 254" preserveAspectRatio="xMidYMid meet" role="img" data-sketch>
       <g class="vp-ink" data-ink>
-        {SEGS.map((d) => <path class="vp-seg" d={d} />)}
+        {SEGS.map((s) => <path class:list={['vp-seg', { 'vp-seg--guide': s.guide }]} d={s.d} />)}
       </g>
       <g class="vp-pen" data-pen aria-hidden="true">
-        <path class="vp-pen__shaft" d="M2 -3 L13 -14" />
-        <circle class="vp-pen__nib" r="3.2" />
+        <path class="vp-pen__shaft" d="M2.5 -2.5 L16 -16" />
+        <circle class="vp-pen__nib" r="2.6" />
       </g>
     </svg>
   </div>
@@ -95,10 +213,16 @@ const SEGS = [
     stroke-linecap: round;
     stroke-linejoin: round;
   }
+  /* Líneas de construcción: presentes pero discretas */
+  .vp-seg--guide {
+    stroke-width: 0.7;
+    opacity: 0.38;
+  }
+
   .vp-pen__nib { fill: var(--accent); }
   .vp-pen__shaft {
     stroke: var(--ink);
-    stroke-width: 1.6;
+    stroke-width: 1.5;
     stroke-linecap: round;
     fill: none;
   }
@@ -134,11 +258,14 @@ const SEGS = [
       segs.forEach((s) => (s.style.strokeDashoffset = '0'));
       pen.style.display = 'none';
     } else {
-      const T = 16;            // ciclo completo (s)
-      const DRAW = 0.78 * T;   // la pluma dibuja
-      const HOLD = 0.9 * T;    // lámina terminada
-      const FADE = 0.96 * T;   // se desvanece
+      // Tiempos del ciclo, en segundos
+      const DRAW = 5.6;   // la pluma dibuja
+      const HOLD = 9.2;   // lámina terminada, a la vista
+      const FADE = 10.6;  // se desvanece
+      const T = 11.2;     // y vuelve a empezar
+
       let t0 = 0;
+      let lastX = 0, lastY = 0, lift = 1;
 
       const frame = (now: number) => {
         if (!t0) t0 = now;
@@ -161,13 +288,19 @@ const SEGS = [
             }
           }
           if (px || py) {
+            // Entre trazo y trazo la mano levanta la pluma y vuelve a
+            // posarla: así no aparece saltando de un punto a otro
+            if (Math.hypot(px - lastX, py - lastY) > 14) lift = 1;
+            lift *= 0.87;
+            lastX = px; lastY = py;
             pen.style.display = '';
-            pen.style.opacity = '1';
+            pen.style.opacity = `${1 - lift}`;
             pen.setAttribute('transform', `translate(${px} ${py})`);
           }
         } else {
           // terminada: pluma fuera, todo dibujado; luego fundido y reinicio
           pen.style.opacity = '0';
+          lift = 1;
           segs.forEach((sg) => (sg.style.strokeDashoffset = '0'));
           if (t < HOLD) ink.style.opacity = '1';
           else if (t < FADE) ink.style.opacity = `${1 - (t - HOLD) / (FADE - HOLD)}`;
