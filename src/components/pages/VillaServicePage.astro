@@ -2,15 +2,21 @@
 import Base from '../../layouts/Base.astro';
 import Figure from '../Figure.astro';
 import { type Lang, t, url } from '../../i18n/ui';
-import { site } from '../../data/site';
+import { site, whatsappUrl } from '../../data/site';
 import { projects } from '../../data/projects';
 import { villaService as v } from '../../data/villaService';
+import { contactForm as cf } from '../../data/contactForm';
 
 interface Props {
   lang: Lang;
   altUrl: string;
 }
 const { lang, altUrl } = Astro.props;
+
+// WhatsApp con el mensaje ya escrito: el canal de primer contacto en Dubái
+const waLink = whatsappUrl
+  ? `${whatsappUrl}?text=${encodeURIComponent(cf.waMessage[lang])}`
+  : '';
 
 const works = v.workSlugs
   .map((slug) => projects.find((p) => p.slug === slug))
@@ -116,7 +122,17 @@ const serviceSchema = {
       <ul class="vs-entry__points">
         {v.entry.points[lang].map((p) => <li>{p}</li>)}
       </ul>
-      <a class="btn btn--solid" href={url(lang, 'contact')}>{t(lang, 'cta.contact')} <span class="arrow">→</span></a>
+      <div class="vs-cta__actions">
+        <a class="btn btn--solid" href={url(lang, 'contact')}>{t(lang, 'cta.contact')} <span class="arrow">→</span></a>
+        {waLink && (
+          <a class="vs-wa" href={waLink} target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.33 4.95L2 22l5.3-1.39a9.86 9.86 0 004.74 1.21h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm5.8 14.04c-.25.7-1.44 1.33-1.99 1.38-.53.05-1.02.24-3.44-.72-2.9-1.14-4.74-4.1-4.88-4.29-.14-.19-1.16-1.55-1.16-2.95 0-1.4.73-2.09.99-2.37.26-.29.57-.36.76-.36l.54.01c.17 0 .41-.07.64.49.24.57.8 1.97.87 2.11.07.15.12.32.02.51-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.52 1.9 1.04.93 1.92 1.21 2.2 1.35.28.14.44.12.6-.07.17-.19.69-.8.87-1.08.19-.28.37-.23.63-.14.26.1 1.65.78 1.93.92.28.14.47.21.54.33.07.12.07.68-.18 1.38z"/>
+            </svg>
+            {cf.waLabel[lang]}
+          </a>
+        )}
+      </div>
     </div>
   </section>
 
@@ -138,7 +154,17 @@ const serviceSchema = {
     <div class="vs-cta" data-reveal>
       <h2 class="h-md">{v.ctaTitle[lang]}</h2>
       <p class="muted">{v.ctaText[lang]}</p>
-      <a class="btn btn--solid" href={url(lang, 'contact')}>{t(lang, 'cta.contact')} <span class="arrow">→</span></a>
+      <div class="vs-cta__actions">
+        <a class="btn btn--solid" href={url(lang, 'contact')}>{t(lang, 'cta.contact')} <span class="arrow">→</span></a>
+        {waLink && (
+          <a class="vs-wa" href={waLink} target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.33 4.95L2 22l5.3-1.39a9.86 9.86 0 004.74 1.21h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm5.8 14.04c-.25.7-1.44 1.33-1.99 1.38-.53.05-1.02.24-3.44-.72-2.9-1.14-4.74-4.1-4.88-4.29-.14-.19-1.16-1.55-1.16-2.95 0-1.4.73-2.09.99-2.37.26-.29.57-.36.76-.36l.54.01c.17 0 .41-.07.64.49.24.57.8 1.97.87 2.11.07.15.12.32.02.51-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.52 1.9 1.04.93 1.92 1.21 2.2 1.35.28.14.44.12.6-.07.17-.19.69-.8.87-1.08.19-.28.37-.23.63-.14.26.1 1.65.78 1.93.92.28.14.47.21.54.33.07.12.07.68-.18 1.38z"/>
+            </svg>
+            {cf.waLabel[lang]}
+          </a>
+        )}
+      </div>
     </div>
   </section>
 </Base>
@@ -237,6 +263,22 @@ const serviceSchema = {
   }
 
   /* Cierre */
+  .vs-cta__actions {
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: 0.8rem 1rem;
+    margin-top: 0.3rem;
+  }
+  .vs-wa {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.55em 1em;
+    border: 1.5px solid var(--line);
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: background 0.3s var(--ease), color 0.3s var(--ease);
+  }
+  .vs-wa:hover { background: var(--ink); color: #fff; }
+
   .vs-cta {
     border-top: 2px solid var(--ink);
     padding-top: clamp(1.5rem, 3vw, 2.4rem);

@@ -54,6 +54,13 @@ export const contactForm = {
   submit: { es: 'Enviar', en: 'Send' },
   select: { es: 'Selecciona una opción', en: 'Select an option' },
 
+  // Texto con el que se abre WhatsApp: al cliente solo le queda enviar
+  waMessage: {
+    es: 'Hola Santiago, he visto vuestra web y me gustaría hablar de un proyecto.',
+    en: 'Hello Santiago, I saw your website and would like to talk about a project.',
+  },
+  waLabel: { es: 'Escríbenos por WhatsApp', en: 'Message us on WhatsApp' },
+
   // Página de agradecimiento
   thanks: {
     title: { es: 'Mensaje recibido', en: 'Message received' },

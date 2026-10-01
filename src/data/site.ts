@@ -6,11 +6,10 @@ export const site = {
   nameFull: 'Santiago de Pablo Arquitectura',
   shortName: 'SDP Arquitectura',
   email: 'santiagodepablo.arquitectura@gmail.com',
-  // Teléfono visible, en formato internacional. Ej.: '+971 50 123 45 67'
-  phone: '',
-  // Mismo número solo con dígitos, para el enlace de WhatsApp.
-  // Ej.: '971501234567'. En cuanto lo rellenes aparece el botón.
-  whatsapp: '',
+  // Teléfono visible, en formato internacional
+  phone: '+971 52 579 3388',
+  // Mismo número solo con dígitos, para el enlace de WhatsApp
+  whatsapp: '971525793388',
   // Pon aquí la dirección COMPLETA de tu perfil, no la del sitio:
   // 'https://www.linkedin.com/in/tu-perfil'. Mientras apunte solo al
   // dominio se considera sin rellenar y no se muestra.
