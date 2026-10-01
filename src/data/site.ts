@@ -6,8 +6,14 @@ export const site = {
   nameFull: 'Santiago de Pablo Arquitectura',
   shortName: 'SDP Arquitectura',
   email: 'santiagodepablo.arquitectura@gmail.com',
+  // Teléfono visible, en formato internacional. Ej.: '+971 50 123 45 67'
   phone: '',
-  // Rellena con tu perfil real de LinkedIn
+  // Mismo número solo con dígitos, para el enlace de WhatsApp.
+  // Ej.: '971501234567'. En cuanto lo rellenes aparece el botón.
+  whatsapp: '',
+  // Pon aquí la dirección COMPLETA de tu perfil, no la del sitio:
+  // 'https://www.linkedin.com/in/tu-perfil'. Mientras apunte solo al
+  // dominio se considera sin rellenar y no se muestra.
   social: [
     { label: 'LinkedIn', href: 'https://linkedin.com/' },
   ],
@@ -27,6 +33,22 @@ export const site = {
     en: 'Dubai · Madrid',
   },
 } as const;
+
+// Un perfil solo se publica si apunta a una página concreta. Si la
+// dirección es únicamente el dominio (linkedin.com), está sin rellenar:
+// mejor no mostrar nada que un enlace que no lleva a tu perfil.
+export const socialLinks = site.social.filter((s) => {
+  try {
+    return new URL(s.href).pathname.replace(/\/+$/, '').length > 0;
+  } catch {
+    return false;
+  }
+});
+
+// Enlace de WhatsApp (vacío mientras no haya número)
+export const whatsappUrl = site.whatsapp
+  ? `https://wa.me/${site.whatsapp.replace(/\D/g, '')}`
+  : '';
 
 // Textos SEO (título y descripción de la portada en buscadores;
 // no cambian el texto visible de la web)

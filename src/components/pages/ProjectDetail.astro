@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Figure from '../Figure.astro';
 import { type Lang, t, url } from '../../i18n/ui';
-import { site } from '../../data/site';
+import { site, socialLinks } from '../../data/site';
 import { projects, type Project } from '../../data/projects';
 
 interface Props {
@@ -16,7 +16,7 @@ const idx = projects.findIndex((x) => x.slug === p.slug);
 const next = projects[(idx + 1) % projects.length];
 const total = String(projects.length).padStart(2, '0');
 const year = new Date().getFullYear();
-const linkedin = site.social.find((s) => s.label === 'LinkedIn');
+const linkedin = socialLinks.find((s) => s.label === 'LinkedIn');
 
 // Ficha estructurada del proyecto para buscadores
 const projectSchema = {

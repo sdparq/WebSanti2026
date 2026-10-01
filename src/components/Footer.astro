@@ -1,6 +1,6 @@
 ---
 import { type Lang, t, url } from '../i18n/ui';
-import { site } from '../data/site';
+import { site, socialLinks } from '../data/site';
 
 interface Props {
   lang: Lang;
@@ -31,7 +31,10 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="site-footer__col">
-        {site.social.map((s) => (
+        {site.phone && (
+          <a class="link-underline" href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a>
+        )}
+        {socialLinks.map((s) => (
           <a class="link-underline" href={s.href} target="_blank" rel="noopener">{s.label}</a>
         ))}
       </div>

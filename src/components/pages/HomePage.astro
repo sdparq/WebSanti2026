@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Figure from '../Figure.astro';
 import { type Lang, t, url } from '../../i18n/ui';
-import { intro, seo, site } from '../../data/site';
+import { intro, seo, site, socialLinks } from '../../data/site';
 import { projects } from '../../data/projects';
 
 interface Props {
@@ -13,7 +13,7 @@ const { lang, altUrl } = Astro.props;
 const total = String(projects.length).padStart(2, '0');
 
 const year = new Date().getFullYear();
-const linkedin = site.social.find((s) => s.label === 'LinkedIn');
+const linkedin = socialLinks.find((s) => s.label === 'LinkedIn');
 ---
 
 <Base lang={lang} altUrl={altUrl} chrome={false} title={seo.homeTitle[lang]} description={seo.homeDescription[lang]}>

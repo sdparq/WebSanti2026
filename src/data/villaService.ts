@@ -78,6 +78,29 @@ export const villaService = {
     ],
   },
 
+  // Encargo de entrada: pequeño, cerrado y de bajo riesgo para el
+  // cliente. Es la vía natural para una primera colaboración.
+  entry: {
+    eyebrow: { es: 'Para empezar', en: 'To get started' },
+    title: { es: 'Estudio de parcela', en: 'Plot study' },
+    text: {
+      es: 'Si todavía no sabes qué se puede construir en tu parcela, no hace falta encargar el proyecto entero para averiguarlo. Empezamos por un estudio breve y cerrado: edificabilidad real, normativa que te afecta, retranqueos y alturas, y un primer esquema de implantación con orientación y sombras.',
+      en: 'If you do not yet know what can be built on your plot, you do not need to commission the whole project to find out. We start with a short, fixed-scope study: real buildable area, the regulations that apply, setbacks and heights, and a first layout showing orientation and shade.',
+    },
+    points: {
+      es: [
+        'Plazo corto y precio cerrado desde el principio',
+        'Te queda un documento útil, sigas o no con nosotros',
+        'Si continúas con el proyecto, su importe se descuenta de los honorarios',
+      ],
+      en: [
+        'Short timeframe and a fixed fee agreed up front',
+        'You keep a useful document, whether or not you continue with us',
+        'If you go ahead with the project, its fee is deducted from our charges',
+      ],
+    },
+  },
+
   // Preguntas frecuentes: responden a lo que la gente busca en Google
   faqTitle: { es: 'Preguntas frecuentes', en: 'Frequently asked questions' },
   faq: [

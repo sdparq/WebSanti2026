@@ -107,6 +107,19 @@ const serviceSchema = {
     </ul>
   </section>
 
+  <!-- Encargo de entrada ----------------------------------------------------- -->
+  <section class="section container">
+    <div class="vs-entry" data-reveal>
+      <p class="eyebrow">{v.entry.eyebrow[lang]}</p>
+      <h2 class="h-md vs-entry__title">{v.entry.title[lang]}</h2>
+      <p class="vs-entry__text">{v.entry.text[lang]}</p>
+      <ul class="vs-entry__points">
+        {v.entry.points[lang].map((p) => <li>{p}</li>)}
+      </ul>
+      <a class="btn btn--solid" href={url(lang, 'contact')}>{t(lang, 'cta.contact')} <span class="arrow">→</span></a>
+    </div>
+  </section>
+
   <!-- Preguntas frecuentes -------------------------------------------------- -->
   <section class="section container">
     <h2 class="eyebrow" data-reveal>{v.faqTitle[lang]}</h2>
@@ -196,6 +209,32 @@ const serviceSchema = {
   }
   .vs-faq__item[open] .vs-faq__q::before { content: '–'; }
   .vs-faq__a { margin-top: 0.7rem; padding-left: 1.6rem; max-width: 62ch; }
+
+  /* Encargo de entrada: destacado sobre fondo alterno */
+  .vs-entry {
+    background: var(--bone-soft);
+    padding: clamp(1.8rem, 4vw, 3rem);
+    display: grid; gap: 0.9rem; justify-items: start;
+    max-width: 78ch;
+  }
+  .vs-entry__title { margin-top: 0.2rem; }
+  .vs-entry__text { max-width: 62ch; }
+  .vs-entry__points {
+    list-style: none;
+    display: grid; gap: 0.7rem;
+    margin: 0.4rem 0 0.6rem;
+    max-width: 62ch;
+  }
+  .vs-entry__points li {
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--ink-soft);
+  }
+  .vs-entry__points li::before {
+    content: '→';
+    position: absolute; left: 0; top: 0;
+    color: var(--clay-deep);
+  }
 
   /* Cierre */
   .vs-cta {

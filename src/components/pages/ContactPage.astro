@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { type Lang, t, url } from '../../i18n/ui';
-import { seo, site } from '../../data/site';
+import { seo, site, socialLinks, whatsappUrl } from '../../data/site';
 import { contactForm as f } from '../../data/contactForm';
 
 interface Props {
@@ -24,6 +24,17 @@ const thanksUrl = url(lang, 'thanks');
     <div class="contact-block" data-reveal>
       <h2 class="eyebrow">{t(lang, 'contact.email')}</h2>
       <a class="contact-big link-underline" href={`mailto:${site.email}`}>{site.email}</a>
+      {site.phone && (
+        <a class="contact-phone link-underline" href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a>
+      )}
+      {whatsappUrl && (
+        <a class="contact-wa" href={whatsappUrl} target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12.04 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.75.46 3.45 1.33 4.95L2 22l5.3-1.39a9.86 9.86 0 004.74 1.21h.01c5.46 0 9.9-4.44 9.9-9.9 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm5.8 14.04c-.25.7-1.44 1.33-1.99 1.38-.53.05-1.02.24-3.44-.72-2.9-1.14-4.74-4.1-4.88-4.29-.14-.19-1.16-1.55-1.16-2.95 0-1.4.73-2.09.99-2.37.26-.29.57-.36.76-.36l.54.01c.17 0 .41-.07.64.49.24.57.8 1.97.87 2.11.07.15.12.32.02.51-.09.19-.14.31-.28.47l-.42.49c-.14.14-.28.29-.12.57.16.28.71 1.17 1.52 1.9 1.04.93 1.92 1.21 2.2 1.35.28.14.44.12.6-.07.17-.19.69-.8.87-1.08.19-.28.37-.23.63-.14.26.1 1.65.78 1.93.92.28.14.47.21.54.33.07.12.07.68-.18 1.38z"/>
+          </svg>
+          WhatsApp
+        </a>
+      )}
     </div>
 
     <div class="contact-block" data-reveal data-reveal-delay="1">
@@ -38,14 +49,16 @@ const thanksUrl = url(lang, 'thanks');
       </ul>
     </div>
 
-    <div class="contact-block" data-reveal data-reveal-delay="2">
-      <h2 class="eyebrow">{t(lang, 'contact.follow')}</h2>
-      <ul class="contact-social">
-        {site.social.map((s) => (
-          <li><a class="link-underline" href={s.href} target="_blank" rel="noopener">{s.label} ↗</a></li>
-        ))}
-      </ul>
-    </div>
+    {socialLinks.length > 0 && (
+      <div class="contact-block" data-reveal data-reveal-delay="2">
+        <h2 class="eyebrow">{t(lang, 'contact.follow')}</h2>
+        <ul class="contact-social">
+          {socialLinks.map((s) => (
+            <li><a class="link-underline" href={s.href} target="_blank" rel="noopener">{s.label} ↗</a></li>
+          ))}
+        </ul>
+      </div>
+    )}
   </section>
 
   <!-- Formulario: convierte la visita en encargo sin salir de la web ------- -->
@@ -151,6 +164,24 @@ const thanksUrl = url(lang, 'thanks');
     display: inline-block; margin-top: 0.6rem; word-break: break-word;
   }
   .contact-social { list-style: none; display: grid; gap: 0.8rem; margin-top: 0.8rem; font-size: 1.2rem; }
+  .contact-phone {
+    display: block;
+    margin-top: 0.7rem;
+    font-weight: 700;
+    font-size: clamp(1rem, 0.9rem + 0.4vw, 1.25rem);
+  }
+  /* Botón de WhatsApp: en Dubái es el canal habitual de primer contacto */
+  .contact-wa {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.55em 1em;
+    border: 1.5px solid var(--line);
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: background 0.3s var(--ease), color 0.3s var(--ease);
+  }
+  .contact-wa:hover { background: var(--ink); color: #fff; }
   @media (max-width: 720px) { .contact-grid { grid-template-columns: 1fr; } }
 
   /* ------------------------------------------------------------- formulario */
