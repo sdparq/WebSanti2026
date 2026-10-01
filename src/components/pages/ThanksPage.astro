@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import { type Lang, url } from '../../i18n/ui';
+import { contactForm as f } from '../../data/contactForm';
+
+interface Props {
+  lang: Lang;
+  altUrl: string;
+}
+const { lang, altUrl } = Astro.props;
+---
+
+<Base lang={lang} altUrl={altUrl} title={f.thanks.title[lang]} description={f.thanks.lead[lang]} noindex={true}>
+  <section class="page-head container">
+    <p class="eyebrow" data-reveal>{f.thanks.title[lang]}</p>
+    <h1 class="display thanks-title" data-reveal>{f.thanks.lead[lang]}</h1>
+    <p class="thanks-back" data-reveal>
+      <a class="btn btn--solid" href={url(lang)}>{f.thanks.back[lang]} <span class="arrow">→</span></a>
+    </p>
+  </section>
+</Base>
+
+<style>
+  .page-head {
+    padding-top: clamp(7rem, 18vh, 13rem);
+    padding-bottom: clamp(4rem, 12vw, 9rem);
+  }
+  .thanks-title { max-width: 20ch; }
+  .thanks-back { margin-top: clamp(2rem, 5vw, 3.5rem); }
+</style>

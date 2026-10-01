@@ -4,7 +4,12 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build
 export default defineConfig({
   site: 'https://sdparquitectura.com',
-  integrations: [sitemap()],
+  // Las páginas de agradecimiento quedan fuera del sitemap: son de paso
+  integrations: [
+    sitemap({
+      filter: (page) => !/\/(thank-you|gracias)\/?$/.test(page),
+    }),
+  ],
   trailingSlash: 'ignore',
   build: {
     format: 'directory',

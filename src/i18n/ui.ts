@@ -11,12 +11,14 @@ export const routes: Record<Lang, Record<string, string>> = {
     studio: 'estudio',
     contact: 'contacto',
     villas: 'villas-dubai',
+    thanks: 'gracias',
   },
   en: {
     projects: 'projects',
     studio: 'studio',
     contact: 'contact',
     villas: 'villa-design-dubai',
+    thanks: 'thank-you',
   },
 };
 

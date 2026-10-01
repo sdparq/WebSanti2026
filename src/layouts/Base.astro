@@ -13,6 +13,7 @@ interface Props {
   image?: string;       // imagen de vista previa al compartir (og:image)
   dark?: boolean;       // cabecera sobre fondo oscuro (hero)
   chrome?: boolean;     // false = sin cabecera/pie globales (la página trae los suyos)
+  noindex?: boolean;    // true = fuera de los buscadores (páginas de paso)
 }
 const {
   lang,
@@ -22,6 +23,7 @@ const {
   image = '/proyectos/villa-dubai/portada.jpg',
   dark = false,
   chrome = true,
+  noindex = false,
 } = Astro.props;
 
 const fullTitle = title ? `${title} — Santiago de Pablo Arquitectura` : 'Santiago de Pablo Arquitectura';
@@ -69,6 +71,7 @@ const schema = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={canonical} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />

@@ -1,13 +1,17 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { type Lang, t } from '../../i18n/ui';
+import { type Lang, t, url } from '../../i18n/ui';
 import { seo, site } from '../../data/site';
+import { contactForm as f } from '../../data/contactForm';
 
 interface Props {
   lang: Lang;
   altUrl: string;
 }
 const { lang, altUrl } = Astro.props;
+
+// Netlify recoge el envío y redirige a la página de gracias del idioma
+const thanksUrl = url(lang, 'thanks');
 ---
 
 <Base lang={lang} altUrl={altUrl} title={seo.contactTitle[lang]} description={seo.contactDescription[lang]}>
@@ -43,6 +47,84 @@ const { lang, altUrl } = Astro.props;
       </ul>
     </div>
   </section>
+
+  <!-- Formulario: convierte la visita en encargo sin salir de la web ------- -->
+  <section class="container form-section">
+    <div class="form-head" data-reveal>
+      <h2 class="h-md">{f.title[lang]}</h2>
+      <p class="muted">{f.intro[lang]}</p>
+    </div>
+
+    <form
+      class="form"
+      name={f.name}
+      method="POST"
+      action={thanksUrl}
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      data-reveal
+    >
+      <input type="hidden" name="form-name" value={f.name} />
+      <input type="hidden" name="lang" value={lang} />
+      <p class="form__bot">
+        <label>Do not fill this in: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+      </p>
+
+      <div class="form__row">
+        <label class="field">
+          <span class="field__label">{f.fields.name[lang]}</span>
+          <input class="field__input" type="text" name="name" required autocomplete="name" />
+        </label>
+
+        <label class="field">
+          <span class="field__label">{f.fields.email[lang]}</span>
+          <input class="field__input" type="email" name="email" required autocomplete="email" />
+        </label>
+      </div>
+
+      <div class="form__row">
+        <label class="field">
+          <span class="field__label">
+            {f.fields.phone[lang]}
+            <span class="field__opt">({f.fields.optional[lang]})</span>
+          </span>
+          <input class="field__input" type="tel" name="phone" autocomplete="tel" />
+        </label>
+
+        <label class="field">
+          <span class="field__label">{f.fields.location[lang]}</span>
+          <input class="field__input" type="text" name="location" placeholder={f.fields.locationHint[lang]} />
+        </label>
+      </div>
+
+      <div class="form__row">
+        <label class="field">
+          <span class="field__label">{f.fields.type[lang]}</span>
+          <select class="field__input" name="type" required>
+            <option value="" disabled selected>{f.select[lang]}</option>
+            {f.types.map((o) => <option value={o.value}>{o[lang]}</option>)}
+          </select>
+        </label>
+
+        <label class="field">
+          <span class="field__label">{f.fields.timing[lang]}</span>
+          <select class="field__input" name="timing">
+            <option value="" disabled selected>{f.select[lang]}</option>
+            {f.timings.map((o) => <option value={o.value}>{o[lang]}</option>)}
+          </select>
+        </label>
+      </div>
+
+      <label class="field">
+        <span class="field__label">{f.fields.message[lang]}</span>
+        <textarea class="field__input field__textarea" name="message" rows="5" placeholder={f.fields.messageHint[lang]}></textarea>
+      </label>
+
+      <button class="btn btn--solid form__submit" type="submit">
+        {f.submit[lang]} <span class="arrow">→</span>
+      </button>
+    </form>
+  </section>
 </Base>
 
 <style>
@@ -70,4 +152,65 @@ const { lang, altUrl } = Astro.props;
   }
   .contact-social { list-style: none; display: grid; gap: 0.8rem; margin-top: 0.8rem; font-size: 1.2rem; }
   @media (max-width: 720px) { .contact-grid { grid-template-columns: 1fr; } }
+
+  /* ------------------------------------------------------------- formulario */
+  .form-section {
+    border-top: 2px solid var(--line);
+    padding-top: clamp(2rem, 5vw, 3.5rem);
+    padding-bottom: clamp(3rem, 8vw, 7rem);
+  }
+  .form-head { max-width: 52ch; margin-bottom: clamp(1.6rem, 4vw, 2.6rem); }
+  .form-head .muted { margin-top: 0.5rem; }
+
+  .form { max-width: 70ch; display: grid; gap: clamp(1.1rem, 2.5vw, 1.6rem); }
+  .form__bot { position: absolute; left: -9999px; }
+
+  .form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.1rem, 2.5vw, 1.6rem);
+  }
+
+  .field { display: grid; gap: 0.45rem; }
+  .field__label {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+  }
+  .field__opt { color: var(--ink-soft); font-weight: 500; text-transform: none; letter-spacing: 0; }
+
+  .field__input {
+    font: inherit;
+    color: var(--ink);
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid var(--line);
+    border-radius: 0;
+    padding: 0.6rem 0;
+    width: 100%;
+    transition: border-color 0.3s var(--ease);
+  }
+  .field__input::placeholder { color: var(--ink-soft); }
+  .field__input:focus {
+    outline: none;
+    border-bottom-color: var(--accent);
+  }
+  .field__textarea { resize: vertical; min-height: 6.5rem; }
+
+  /* El desplegable usa la flecha del sistema, alineada a la derecha */
+  select.field__input {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1l5 5 5-5' stroke='%23111111' stroke-width='1.4'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 0.2rem center;
+    padding-right: 1.6rem;
+    cursor: pointer;
+  }
+
+  .form__submit { justify-self: start; margin-top: 0.6rem; }
+
+  @media (max-width: 720px) {
+    .form__row { grid-template-columns: 1fr; }
+  }
 </style>
