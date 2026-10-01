@@ -65,7 +65,14 @@ const meta: { text: string; award?: boolean }[] = [
   <div class="cover">
     <!-- NAV superior -------------------------------------------------------- -->
     <nav class="cover__nav" aria-label="Principal">
-      <a class="cover__navlink" href={url(lang)}>{t(lang, 'nav.projects')} {String(idx + 1).padStart(2, '0')}–{total}</a>
+      <span class="cover__navleft">
+        <a class="cover__navlink" href={url(lang)}>
+          {t(lang, 'nav.projects')}<span class="cover__navwide"> {String(idx + 1).padStart(2, '0')}–{total}</span>
+        </a>
+        <a class="cover__navlink cover__navlink--villas" href={url(lang, 'villas')}>
+          <span class="cover__navwide">{t(lang, 'nav.villas')}</span><span class="cover__navnarrow">{t(lang, 'nav.villasShort')}</span>
+        </a>
+      </span>
       <a class="cover__navlink cover__navlink--center" href={url(lang, 'studio')}>{t(lang, 'nav.studio')}</a>
       <span class="cover__navright">
         <a class="cover__navlink" href={url(lang, 'contact')}>{t(lang, 'nav.contact')}</a>
@@ -162,6 +169,8 @@ const meta: { text: string; award?: boolean }[] = [
     padding: clamp(1.1rem, 2.4vh, 1.8rem) var(--gutter);
   }
   .cover__navright { justify-self: end; display: inline-flex; align-items: center; gap: 1.2rem; }
+  .cover__navleft { display: inline-flex; align-items: center; gap: 1.5rem; }
+  .cover__navnarrow { display: none; }
   .cover__copy { justify-self: end; font-weight: 700; text-transform: uppercase; font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.15rem); }
   .cover__navlink {
     font-weight: 700;
@@ -226,8 +235,9 @@ const meta: { text: string; award?: boolean }[] = [
     font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.1rem);
     line-height: 1.62;
     margin-bottom: 1em;
-    text-align: justify;
-    hyphens: auto;
+    /* Alineado a la izquierda: en columna estrecha el justificado abre
+       huecos irregulares entre palabras */
+    text-wrap: pretty;
   }
   .panel__meta {
     margin-top: 1.4rem;
@@ -302,8 +312,20 @@ const meta: { text: string; award?: boolean }[] = [
   .panel--next:hover svg { transform: translateX(8px); }
 
   @media (max-width: 720px) {
-    .cover__nav, .cover__foot { grid-template-columns: auto auto; justify-content: space-between; }
-    .cover__navlink--center { display: none; }
+    /* Una sola fila con todos los destinos: en móvil no hay menú alternativo */
+    .cover__nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 0.55rem;
+    }
+    .cover__foot { grid-template-columns: auto auto; justify-content: space-between; }
+    .cover__navleft { gap: 0.8rem; }
+    .cover__navright { gap: 0.6rem; }
+    .cover__navlink { font-size: 0.73rem; letter-spacing: 0.02em; }
+    .cover__navwide { display: none; }
+    .cover__navnarrow { display: inline; }
+    .cover__lang { font-size: 0.68rem; padding: 0.26em 0.6em; }
+    /* En el pie sí se oculta el enlace central: no cabe junto al aviso legal */
+    .cover__foot .cover__navlink--center { display: none; }
     .titleband__title { white-space: normal; font-size: clamp(2rem, 1rem + 6vw, 3.4rem); }
     .panel--text { width: 82vw; padding-left: 0; }
     .panel--img { height: 62%; }

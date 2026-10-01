@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import VillaProcess from '../VillaProcess.astro';
 import { type Lang, t, url } from '../../i18n/ui';
-import { about, seo, services } from '../../data/site';
+import { about, seo, services, site } from '../../data/site';
 
 interface Props {
   lang: Lang;
@@ -13,7 +13,7 @@ const { lang, altUrl } = Astro.props;
 
 <Base lang={lang} altUrl={altUrl} title={seo.studioTitle[lang]} description={seo.studioDescription[lang]}>
   <section class="page-head container">
-    <p class="eyebrow" data-reveal>{about.title[lang]}</p>
+    <p class="eyebrow" data-reveal>{site.address[lang]}</p>
     <h1 class="display" data-reveal>{about.title[lang]}</h1>
   </section>
 
