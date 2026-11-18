@@ -1,0 +1,197 @@
+---
+import Base from '../../layouts/Base.astro';
+import { type Lang, t, url } from '../../i18n/ui';
+import { site, whatsappUrl } from '../../data/site';
+import { villaGuide as g } from '../../data/villaGuide';
+import { contactForm as cf } from '../../data/contactForm';
+
+interface Props {
+  lang: Lang;
+  altUrl: string;
+}
+const { lang, altUrl } = Astro.props;
+
+const waLink = whatsappUrl
+  ? `${whatsappUrl}?text=${encodeURIComponent(cf.waMessage[lang])}`
+  : '';
+const pageUrl = new URL(url(lang, 'guide'), Astro.site).href;
+const updatedLabel = lang === 'es' ? 'Actualizada en' : 'Updated';
+const updatedText = new Date(g.updated).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-GB', {
+  month: 'long',
+  year: 'numeric',
+});
+
+// Artículo, preguntas frecuentes y migas de pan para buscadores
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: g.seoTitle[lang],
+  description: g.seoDescription[lang],
+  image: new URL(g.image, Astro.site).href,
+  datePublished: g.published,
+  dateModified: g.updated,
+  inLanguage: lang,
+  mainEntityOfPage: pageUrl,
+  author: { '@type': 'Person', name: site.name, jobTitle: lang === 'es' ? 'Arquitecto' : 'Architect' },
+  publisher: { '@type': 'Organization', name: site.nameFull, url: Astro.site?.href },
+};
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: g.faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q[lang],
+    acceptedAnswer: { '@type': 'Answer', text: f.a[lang] },
+  })),
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: site.nameFull, item: new URL(url(lang), Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: t(lang, 'nav.villas'), item: new URL(url(lang, 'villas'), Astro.site).href },
+    { '@type': 'ListItem', position: 3, name: g.title[lang] },
+  ],
+};
+---
+
+<Base lang={lang} altUrl={altUrl} title={g.seoTitle[lang]} description={g.seoDescription[lang]} image={g.image}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <section class="page-head container">
+    <p class="eyebrow" data-reveal>{g.eyebrow[lang]}</p>
+    <h1 class="display" data-reveal>{g.title[lang]}</h1>
+    <p class="lead gd-lead" data-reveal>{g.lead[lang]}</p>
+    <p class="gd-meta muted" data-reveal>
+      {site.name} · {updatedLabel} <time datetime={g.updated}>{updatedText}</time>
+    </p>
+  </section>
+
+  <div class="container gd">
+    <!-- Índice -------------------------------------------------------------- -->
+    <nav class="gd-toc" aria-label={g.tocTitle[lang]}>
+      <p class="eyebrow">{g.tocTitle[lang]}</p>
+      <ol>
+        {g.sections.map((s) => <li><a class="link-underline" href={`#${s.id}`}>{s.title[lang]}</a></li>)}
+        <li><a class="link-underline" href="#faq">{g.faqTitle[lang]}</a></li>
+      </ol>
+    </nav>
+
+    <!-- Contenido ----------------------------------------------------------- -->
+    <article class="gd-body">
+      {g.sections.map((s) => (
+        <section class="gd-section" id={s.id}>
+          <h2 class="h-md">{s.title[lang]}</h2>
+          {s.body[lang].map((p) => <p>{p}</p>)}
+
+          {s.id === 'cost' && (
+            <>
+              <div class="gd-tablewrap">
+                <table class="gd-table">
+                  <thead>
+                    <tr>{g.costs.head[lang].map((h) => <th scope="col">{h}</th>)}</tr>
+                  </thead>
+                  <tbody>
+                    {g.costs.rows.map((r) => (
+                      <tr>
+                        <th scope="row">{r.level[lang]}</th>
+                        <td class="gd-table__num">{r.range}</td>
+                        <td>{r.note[lang]}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              {g.costs.notes[lang].map((n) => <p class="muted gd-note">{n}</p>)}
+            </>
+          )}
+
+          {s.list && (
+            <ul class="gd-list">
+              {s.list[lang].map((item) => <li>{item}</li>)}
+            </ul>
+          )}
+        </section>
+      ))}
+
+      <section class="gd-section" id="faq">
+        <h2 class="h-md">{g.faqTitle[lang]}</h2>
+        <div class="gd-faq">
+          {g.faq.map((f) => (
+            <details class="gd-faq__item">
+              <summary class="gd-faq__q">{f.q[lang]}</summary>
+              <p class="muted gd-faq__a">{f.a[lang]}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="gd-cta">
+        <h2 class="h-md">{g.ctaTitle[lang]}</h2>
+        <p class="muted">{g.ctaText[lang]}</p>
+        <div class="gd-cta__actions">
+          <a class="btn btn--solid" href={url(lang, 'contact')}>{t(lang, 'cta.contact')} <span class="arrow">→</span></a>
+          {waLink && (
+            <a class="gd-wa" href={waLink} target="_blank" rel="noopener">{cf.waLabel[lang]}</a>
+          )}
+          <a class="link-underline gd-more" href={url(lang, 'villas')}>{g.ctaService[lang]} <span class="arrow">→</span></a>
+        </div>
+      </section>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .page-head { padding-top: clamp(7rem, 16vh, 12rem); padding-bottom: clamp(1.5rem, 4vw, 3rem); }
+  .gd-lead { max-width: 56ch; margin-top: clamp(1rem, 2vw, 1.6rem); }
+  .gd-meta { margin-top: 1.2rem; font-size: 0.85rem; letter-spacing: 0.04em; }
+
+  .gd {
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    padding-top: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .gd-toc { position: sticky; top: 6.5rem; }
+  .gd-toc ol { list-style: none; margin-top: 1rem; display: grid; gap: 0.55rem; font-size: 0.92rem; }
+  .gd-body { max-width: 68ch; }
+
+  .gd-section { border-top: 1px solid var(--line); padding: clamp(1.4rem, 3vw, 2.2rem) 0 clamp(1.6rem, 4vw, 3rem); scroll-margin-top: 6rem; }
+  .gd-section h2 { margin-bottom: 1.1rem; }
+  .gd-section p + p { margin-top: 0.9rem; }
+
+  .gd-list { list-style: none; margin-top: 1.2rem; display: grid; gap: 0.6rem; }
+  .gd-list li { padding-left: 1.5rem; position: relative; }
+  .gd-list li::before { content: '→'; position: absolute; left: 0; top: 0; }
+
+  .gd-tablewrap { overflow-x: auto; margin: 1.4rem 0 1rem; }
+  .gd-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  .gd-table th, .gd-table td { text-align: left; padding: 0.8rem 1rem 0.8rem 0; border-bottom: 1px solid var(--sand); vertical-align: top; }
+  .gd-table thead th { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; border-bottom: 1px solid var(--line); }
+  .gd-table tbody th { font-weight: 700; }
+  .gd-table__num { font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .gd-note { font-size: 0.88rem; }
+  .gd-note + .gd-note { margin-top: 0.4rem; }
+
+  .gd-faq__item { border-top: 1px solid var(--sand); padding: 1rem 0; }
+  .gd-faq__item:first-child { border-top: 0; padding-top: 0; }
+  .gd-faq__q { cursor: pointer; font-weight: 700; list-style: none; display: flex; gap: 0.8rem; align-items: baseline; }
+  .gd-faq__q::-webkit-details-marker { display: none; }
+  .gd-faq__q::before { content: '+'; flex: 0 0 auto; font-weight: 700; }
+  .gd-faq__item[open] .gd-faq__q::before { content: '–'; }
+  .gd-faq__a { margin-top: 0.6rem; padding-left: 1.6rem; }
+
+  .gd-cta { border-top: 2px solid var(--ink); padding-top: clamp(1.5rem, 3vw, 2.4rem); display: grid; gap: 0.9rem; justify-items: start; }
+  .gd-cta__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.2rem; margin-top: 0.3rem; }
+  .gd-wa { display: inline-flex; padding: 0.55em 1em; border: 1.5px solid var(--line); border-radius: 100px; font-weight: 700; font-size: 0.9rem; transition: background 0.3s var(--ease), color 0.3s var(--ease); }
+  .gd-wa:hover { background: var(--ink); color: #fff; }
+  .gd-more { font-weight: 700; font-size: 0.9rem; }
+
+  @media (max-width: 860px) {
+    .gd { grid-template-columns: 1fr; }
+    .gd-toc { position: static; }
+  }
+</style>

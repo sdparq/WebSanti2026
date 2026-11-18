@@ -53,12 +53,12 @@ export const whatsappUrl = site.whatsapp
 // no cambian el texto visible de la web)
 export const seo = {
   homeTitle: {
-    es: 'Estudio de arquitectura en Dubái y Madrid',
-    en: 'Architecture Studio in Dubai & Madrid',
+    es: 'Arquitectos en Dubái y Madrid · Villas y residencial',
+    en: 'Architects in Dubai · Villa Design & Residential Architecture',
   },
   homeDescription: {
-    es: 'Santiago de Pablo Arquitectura: estudio de arquitectura con sedes en Dubái (Business Bay) y Madrid. Villas, vivienda, rehabilitación e interiorismo.',
-    en: 'Santiago de Pablo Arquitectura: architecture practice with offices in Dubai (Business Bay) and Madrid. Villas, housing, renovation and interior design.',
+    es: 'Santiago de Pablo Arquitectura: estudio de arquitectura en Dubái (Business Bay) y Madrid. Villas a medida, proyectos residenciales para promotoras, rehabilitación e interiorismo.',
+    en: 'Santiago de Pablo Arquitectura: architecture practice in Dubai (Business Bay) and Madrid. Custom villas, residential projects for developers, renovation and interior design.',
   },
   studioTitle: {
     es: 'Estudio · Arquitectos en Dubái y Madrid',

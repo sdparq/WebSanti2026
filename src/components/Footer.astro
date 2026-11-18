@@ -26,6 +26,13 @@ const year = new Date().getFullYear();
         <p class="muted" style="margin-top:.4rem;">{t(lang, 'footer.madeWith')} · {site.address[lang]}</p>
       </div>
 
+      <nav class="site-footer__col" aria-label={lang === 'es' ? 'Servicios' : 'Services'}>
+        <a class="link-underline" href={url(lang, 'villas')}>{t(lang, 'nav.villas')}</a>
+        <a class="link-underline" href={url(lang, 'developers')}>{t(lang, 'nav.developers')}</a>
+        <a class="link-underline" href={url(lang, 'guide')}>{t(lang, 'nav.guide')}</a>
+        <a class="link-underline" href="/portfolio.pdf" target="_blank" rel="noopener">{t(lang, 'nav.portfolio')}</a>
+      </nav>
+
       <div class="site-footer__col">
         <a class="link-underline" href={`mailto:${site.email}`}>{site.email}</a>
       </div>
@@ -66,12 +73,15 @@ const year = new Date().getFullYear();
   .site-footer__big .arrow { font-size: 0.6em; }
   .site-footer__grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr;
+    grid-template-columns: 1.4fr 1.2fr 1.3fr 0.8fr;
     gap: 2rem;
     padding-block: 2.5rem;
   }
   .site-footer__col { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
   .site-footer__legal { font-size: 0.85rem; }
+  @media (max-width: 1000px) {
+    .site-footer__grid { grid-template-columns: 1fr 1fr; }
+  }
   @media (max-width: 720px) {
     .site-footer__grid { grid-template-columns: 1fr; gap: 1.5rem; }
   }

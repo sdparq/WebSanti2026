@@ -2,16 +2,20 @@
 // Pensada para quien busca "villa architect Dubai" y para enviar a
 // clientes potenciales. Bilingüe (es / en).
 
-export const villaService = {
+import type { ServiceData } from './serviceTypes';
+
+export const villaService: ServiceData = {
   slug: { es: 'villas-dubai', en: 'villa-design-dubai' },
+  serviceType: { es: 'Diseño de villas', en: 'Villa design' },
+  image: '/proyectos/villa-abu-dabi/portada.jpg',
 
   seoTitle: {
     es: 'Diseño de villas en Dubái · Arquitecto de villas a medida',
     en: 'Villa Design in Dubai · Custom Villa Architect',
   },
   seoDescription: {
-    es: 'Diseño de villas a medida en Dubái y Emiratos: del concepto y el permiso de obra a la dirección de obra. Estudio con sede en Business Bay.',
-    en: 'Custom villa design in Dubai and the UAE: from concept and authority approvals to site supervision. Studio based in Business Bay.',
+    es: 'Arquitecto de villas en Dubái: diseño de villas a medida en Dubái y Emiratos, del estudio de parcela y el concepto al seguimiento de obra. Estudio en Business Bay.',
+    en: 'Villa architect in Dubai: custom villa design across Dubai and the UAE, from plot study and concept to construction follow-up. Studio based in Business Bay.',
   },
 
   eyebrow: { es: 'Villas · Dubái y Emiratos', en: 'Villas · Dubai & the UAE' },
@@ -44,15 +48,15 @@ export const villaService = {
     {
       title: { es: 'Permisos y licencias', en: 'Authority approvals' },
       text: {
-        es: 'Preparamos y tramitamos la documentación ante el organismo competente —Dubai Municipality, DDA, Trakhees o la comunidad correspondiente— hasta obtener el permiso de obra.',
-        en: 'We prepare and submit the documentation to the relevant authority — Dubai Municipality, DDA, Trakhees or the community developer — through to building permit.',
+        es: 'Preparamos la documentación de proyecto y coordinamos su tramitación con un consultor local con licencia, que la presenta ante el organismo competente —Dubai Municipality, DDA, Trakhees o la comunidad correspondiente— hasta obtener el permiso de obra.',
+        en: 'We prepare the design documentation and coordinate its submission with a locally licensed consultant, who files it with the relevant authority — Dubai Municipality, DDA, Trakhees or the community developer — through to building permit.',
       },
     },
     {
       title: { es: 'Obra y entrega', en: 'Construction & handover' },
       text: {
-        es: 'Proyecto de ejecución, apoyo en la licitación con contratistas y dirección de obra hasta la entrega, cuidando que lo construido sea lo proyectado.',
-        en: 'Detailed design, support during contractor tendering and site supervision through to handover, making sure what is built is what was designed.',
+        es: 'Proyecto de ejecución, apoyo en la licitación con contratistas y seguimiento de la obra hasta la entrega, cuidando que lo construido sea lo proyectado.',
+        en: 'Detailed design, support during contractor tendering and design follow-up on site through to handover, making sure what is built is what was designed.',
       },
     },
   ],
@@ -64,17 +68,17 @@ export const villaService = {
       'Estudio previo de la parcela y de la normativa aplicable',
       'Anteproyecto: plantas, alzados, secciones y vistas realistas',
       'Proyecto básico y de ejecución completo',
-      'Tramitación del permiso de obra ante el organismo competente',
+      'Coordinación del permiso de obra con el consultor local con licencia',
       'Diseño de interiores y selección de materiales y acabados',
-      'Dirección de obra y control de calidad hasta la entrega',
+      'Seguimiento de obra y control de calidad del diseño hasta la entrega',
     ],
     en: [
       'Plot survey and review of the applicable regulations',
       'Concept design: plans, elevations, sections and realistic views',
       'Full schematic and detailed design packages',
-      'Building-permit submission to the relevant authority',
+      'Building-permit coordination with the locally licensed consultant',
       'Interior design and selection of materials and finishes',
-      'Site supervision and quality control through to handover',
+      'Site follow-up and design quality control through to handover',
     ],
   },
 
@@ -101,6 +105,46 @@ export const villaService = {
     },
   },
 
+  // Zonas: dónde diseñamos villas (lo que la gente escribe en el buscador)
+  areas: {
+    title: { es: 'Dónde trabajamos', en: 'Where we work' },
+    text: {
+      es: 'Aceptamos encargos de villas en las principales comunidades de Dubái y en el resto de los Emiratos. Cada comunidad tiene sus propias guías de diseño: las estudiamos antes de dibujar.',
+      en: 'We take on villa commissions across Dubai’s main villa communities and the rest of the Emirates. Each community has its own design guidelines: we study them before drawing.',
+    },
+    items: [
+      'Al Barari',
+      'Dubai Hills Estate',
+      'Emirates Hills',
+      'Jumeirah Golf Estates',
+      'Palm Jumeirah',
+      'Jumeirah Bay Island',
+      'Mohammed Bin Rashid City · District One',
+      'Nad Al Sheba',
+      'Tilal Al Ghaf',
+      'Al Furjan · Jumeirah Park',
+      'Abu Dhabi · Saadiyat Island',
+      'Ras Al Khaimah · Sharjah',
+    ],
+  },
+
+  related: [
+    {
+      label: {
+        es: 'Guía: cómo construir una villa en Dubái, paso a paso',
+        en: 'Guide: how to build a villa in Dubai, step by step',
+      },
+      route: 'guide',
+    },
+    {
+      label: {
+        es: 'Para promotoras: arquitecto de diseño en Dubái',
+        en: 'For developers: design architect in Dubai',
+      },
+      route: 'developers',
+    },
+  ],
+
   // Preguntas frecuentes: responden a lo que la gente busca en Google
   faqTitle: { es: 'Preguntas frecuentes', en: 'Frequently asked questions' },
   faq: [
@@ -112,6 +156,16 @@ export const villaService = {
       a: {
         es: 'El diseño y la obtención del permiso suelen llevar entre 4 y 8 meses según la parcela y el organismo competente. La construcción de una villa se mueve habitualmente entre 14 y 20 meses. Damos un calendario realista tras estudiar tu parcela.',
         en: 'Design and permit approval usually take between 4 and 8 months depending on the plot and the authority involved. Construction of a villa typically runs between 14 and 20 months. We give you a realistic schedule once we have studied your plot.',
+      },
+    },
+    {
+      q: {
+        es: '¿Cuánto cuesta construir una villa en Dubái?',
+        en: 'How much does it cost to build a villa in Dubai?',
+      },
+      a: {
+        es: 'Depende sobre todo del nivel de acabados. Como orden de magnitud, las referencias de mercado de 2025-2026 sitúan una villa estándar en torno a 390-500 AED por pie cuadrado construido, una villa a medida de gama media entre 600 y 850, y la gama alta de 900 a 1.400 o más, sin contar el suelo. La única cifra fiable es la oferta de un contratista sobre un proyecto definido; en el estudio de parcela damos una primera horquilla.',
+        en: 'It depends mostly on the level of finish. As an order of magnitude, 2025–2026 market benchmarks put a standard villa at around AED 390–500 per built square foot, a custom mid-range villa at AED 600–850, and the high end at AED 900–1,400 or more, excluding land. The only reliable figure is a contractor’s tender on a defined design; our plot study gives you a first range.',
       },
     },
     {
@@ -130,14 +184,14 @@ export const villaService = {
         en: 'Do you handle the approvals as well?',
       },
       a: {
-        es: 'Sí. Preparamos toda la documentación y la tramitamos ante Dubai Municipality, DDA, Trakhees o la comunidad que corresponda, y hacemos el seguimiento hasta obtener el permiso.',
-        en: 'Yes. We prepare the full documentation and submit it to Dubai Municipality, DDA, Trakhees or the relevant community, and follow it through until the permit is granted.',
+        es: 'Sí, a través de un consultor local. En Dubái el permiso de obra lo presenta una consultora de ingeniería con licencia local. Nosotros preparamos el proyecto, trabajamos con ese consultor y hacemos el seguimiento ante Dubai Municipality, DDA, Trakhees o la comunidad que corresponda hasta obtener el permiso. Tú tienes un único interlocutor.',
+        en: 'Yes, through a local consultant. In Dubai the building permit is filed by a locally licensed engineering consultancy. We prepare the design, work with that consultant and follow the submission with Dubai Municipality, DDA, Trakhees or the relevant community until the permit is granted. You deal with a single point of contact.',
       },
     },
     {
       q: {
-        es: '¿Podéis dirigir la obra si vivo fuera de los Emiratos?',
-        en: 'Can you supervise construction if I live outside the UAE?',
+        es: '¿Podéis seguir la obra si vivo fuera de los Emiratos?',
+        en: 'Can you follow construction if I live outside the UAE?',
       },
       a: {
         es: 'Sí, es habitual. Damos parte del avance con visitas periódicas, informes con fotografías y reuniones en línea, en español o en inglés.',
@@ -168,4 +222,4 @@ export const villaService = {
     es: 'Cuéntanos dónde está y qué tienes en mente. Te diremos qué se puede construir y cómo abordarlo.',
     en: 'Tell us where it is and what you have in mind. We will tell you what can be built and how to approach it.',
   },
-} as const;
+};

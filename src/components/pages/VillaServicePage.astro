@@ -4,14 +4,21 @@ import Figure from '../Figure.astro';
 import { type Lang, t, url } from '../../i18n/ui';
 import { site, whatsappUrl } from '../../data/site';
 import { projects } from '../../data/projects';
-import { villaService as v } from '../../data/villaService';
+import { villaService } from '../../data/villaService';
+import type { ServiceData } from '../../data/serviceTypes';
 import { contactForm as cf } from '../../data/contactForm';
 
+// Plantilla común de las páginas de servicio. Sin `service` muestra la
+// de villas; la de promotoras le pasa sus propios datos.
 interface Props {
   lang: Lang;
   altUrl: string;
+  service?: ServiceData;
 }
-const { lang, altUrl } = Astro.props;
+const { lang, altUrl, service: v = villaService } = Astro.props;
+
+const portfolioLabel = lang === 'es' ? 'Descargar dossier (PDF)' : 'Download portfolio (PDF)';
+const relatedTitle = lang === 'es' ? 'También te puede interesar' : 'Related';
 
 // WhatsApp con el mensaje ya escrito: el canal de primer contacto en Dubái
 const waLink = whatsappUrl
@@ -38,7 +45,7 @@ const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: v.title[lang],
-  serviceType: lang === 'es' ? 'Diseño de villas' : 'Villa design',
+  serviceType: v.serviceType[lang],
   description: v.seoDescription[lang],
   areaServed: [
     { '@type': 'City', name: 'Dubai' },
@@ -64,7 +71,7 @@ const serviceSchema = {
   altUrl={altUrl}
   title={v.seoTitle[lang]}
   description={v.seoDescription[lang]}
-  image="/proyectos/villa-abu-dabi/portada.jpg"
+  image={v.image}
 >
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -113,6 +120,17 @@ const serviceSchema = {
     </ul>
   </section>
 
+  <!-- Zonas ----------------------------------------------------------------- -->
+  {v.areas && (
+    <section class="section container">
+      <h2 class="eyebrow" data-reveal>{v.areas.title[lang]}</h2>
+      <p class="vs-areas__text" data-reveal>{v.areas.text[lang]}</p>
+      <ul class="vs-areas">
+        {v.areas.items.map((a) => <li class="vs-areas__item">{a}</li>)}
+      </ul>
+    </section>
+  )}
+
   <!-- Encargo de entrada ----------------------------------------------------- -->
   <section class="section container">
     <div class="vs-entry" data-reveal>
@@ -149,6 +167,18 @@ const serviceSchema = {
     </div>
   </section>
 
+  <!-- Enlaces relacionados -------------------------------------------------- -->
+  {v.related && (
+    <section class="section container">
+      <h2 class="eyebrow" data-reveal>{relatedTitle}</h2>
+      <ul class="vs-related">
+        {v.related.map((r) => (
+          <li><a class="vs-related__link" href={url(lang, r.route)}>{r.label[lang]} <span class="arrow">→</span></a></li>
+        ))}
+      </ul>
+    </section>
+  )}
+
   <!-- Llamada a la acción --------------------------------------------------- -->
   <section class="section container">
     <div class="vs-cta" data-reveal>
@@ -164,6 +194,7 @@ const serviceSchema = {
             {cf.waLabel[lang]}
           </a>
         )}
+        <a class="vs-pdf link-underline" href="/portfolio.pdf" target="_blank" rel="noopener">{portfolioLabel}</a>
       </div>
     </div>
   </section>
@@ -235,6 +266,30 @@ const serviceSchema = {
   }
   .vs-faq__item[open] .vs-faq__q::before { content: '–'; }
   .vs-faq__a { margin-top: 0.7rem; padding-left: 1.6rem; max-width: 62ch; }
+
+  /* Zonas de trabajo */
+  .vs-areas__text { max-width: 62ch; margin-top: clamp(1rem, 2vw, 1.6rem); color: var(--ink-soft); }
+  .vs-areas {
+    list-style: none;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0 clamp(2rem, 5vw, 4rem);
+    margin-top: clamp(1.2rem, 3vw, 2rem);
+    max-width: 90ch;
+  }
+  .vs-areas__item { border-top: 1px solid var(--line); padding: 0.75rem 0; font-weight: 600; }
+  @media (max-width: 900px) { .vs-areas { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .vs-areas { grid-template-columns: 1fr; } }
+
+  /* Enlaces relacionados */
+  .vs-related { list-style: none; margin-top: clamp(1.2rem, 3vw, 2rem); max-width: 76ch; }
+  .vs-related li { border-top: 1px solid var(--line); }
+  .vs-related__link {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+    padding: 1rem 0;
+    font-weight: 700;
+    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
+  }
+  .vs-pdf { font-weight: 700; font-size: 0.9rem; }
 
   /* Encargo de entrada: destacado sobre fondo alterno */
   .vs-entry {
